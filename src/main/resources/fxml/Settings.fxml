@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.controller.SettingsController"
+      spacing="20"
+      alignment="TOP_CENTER"
+      prefWidth="400"
+      prefHeight="400"
+      style="-fx-background-color: linear-gradient(to bottom, #2c3e50, #34495e); -fx-padding: 30;">
+
+    <Label text="⚙️ SETTINGS"
+           style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+    <Separator style="-fx-background-color: white;"/>
+
+    <!-- Volume -->
+    <VBox spacing="10">
+        <Label text="🔊 Volume"
+               style="-fx-font-size: 18px; -fx-text-fill: white;"/>
+        <Slider fx:id="volumeSlider"
+                min="0" max="100" value="50"
+                showTickLabels="true" showTickMarks="true"
+                majorTickUnit="25"/>
+    </VBox>
+
+    <!-- Difficulty -->
+    <VBox spacing="10">
+        <Label text="🎯 Difficulty"
+               style="-fx-font-size: 18px; -fx-text-fill: white;"/>
+        <ComboBox fx:id="difficultyCombo"
+                  promptText="Select Difficulty"
+                  prefWidth="200"/>
+    </VBox>
+
+    <!-- Credits -->
+    <VBox spacing="5" alignment="CENTER">
+        <Label text="Made with ❤️"
+               style="-fx-font-size: 14px; -fx-text-fill: lightgray;"/>
+        <Label text="Arkanoid Clone v1.0"
+               style="-fx-font-size: 12px; -fx-text-fill: gray;"/>
+    </VBox>
+
+    <Button text="⬅️ Back to Menu"
+            onAction="#backToMenu"
+            prefWidth="200"
+            prefHeight="40"
+            style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+</VBox>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.GameController"
+            fx:id="anchorPane"
+            prefWidth="800" prefHeight="600"
+            style="-fx-background-color: #1a1a2e;"
+            focusTraversable="true">
+
+    <Label fx:id="scoreLabel"
+           text="Score: 0"
+           layoutX="10"
+           layoutY="10"
+           textFill="white"
+           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+    <Label fx:id="livesLabel"
+           text="Lives: 3"
+           layoutX="150"
+           layoutY="10"
+           textFill="white"
+           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+    <Label fx:id="levelLabel"
+           text="Level: 1"
+           layoutX="280"
+           layoutY="10"
+           textFill="white"
+           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+    <Label fx:id="coinsLabel"
+           text="Coins: 0"
+           layoutX="410"
+           layoutY="10"
+           textFill="white"
+           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+    <Label fx:id="hintLabel"
+           text="Use ← → to move paddle"
+           layoutX="580"
+           layoutY="10"
+           textFill="#888888"
+           style="-fx-font-size: 14px; -fx-opacity: 0.7;"/>
+
+
+    <!-- Paddle (thanh chắn) -->
+    <Rectangle fx:id="paddle"
+               x="340"
+               y="550"
+               width="120"
+               height="14"
+               fill="#3498db"
+               stroke="#2980b9"
+               strokeWidth="2"
+               arcWidth="6"
+               arcHeight="6"/>
+
+    <!-- Ball (bóng) -->
+    <Circle fx:id="ball"
+            centerX="400"
+            centerY="300"
+            radius="10"
+            fill="#e74c3c"
+            stroke="#c0392b"
+            strokeWidth="2"/>
+
+</AnchorPane>
