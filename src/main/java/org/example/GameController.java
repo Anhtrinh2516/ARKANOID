@@ -4,7 +4,9 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -13,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.example.logic.*;
 import org.example.controller.GameState;
+import org.example.controller.SkinManager;
 
 import java.util.*;
 
@@ -36,9 +39,11 @@ public class GameController {
     private GameEngine engine;
 
     private int lives = 3;
+    private int currentLevel = 1;
 
     // Khởi tạo level
     public void startLevel(int levelIndex) {
+        currentLevel = levelIndex;
         engine.loadLevel(levelIndex);
 
         // Áp dụng bonus từ Shop
@@ -133,19 +138,33 @@ public class GameController {
         }
     }
 
-
-    // Update coins UI
     private void updateCoinsUI() {
         coinsLabel.setText("Coins: " + GameState.INSTANCE.getCoins());
     }
 
+    private void applySkins() {
+        SkinManager.PaddleSkin pSkin = SkinManager.INSTANCE.getPaddleSkin();
+        paddle.setFill(javafx.scene.paint.Color.web(pSkin.fill));
+        paddle.setStroke(javafx.scene.paint.Color.web(pSkin.stroke));
+        
+        SkinManager.BallSkin bSkin = SkinManager.INSTANCE.getBallSkin();
+        ball.setFill(javafx.scene.paint.Color.web(bSkin.color));
+    }
+
     public void initialize() {
+        // Áp dụng skin
+        applySkins();
+        
         // Khởi tạo Engine
         engine = new GameEngine(anchorPane, paddle, ball,
                 score -> scoreLabel.setText("Score: " + score),
                 l -> livesLabel.setText("Lives: " + l),
                 level -> levelLabel.setText("Level: " + level)
         );
+        
+        // Set callback Game Over
+        engine.setGameOverCallback(this::showGameOverDialog);
+        
         engine.loadLevel(1); // mặc định Level 1
 
         updateCoinsUI();
@@ -170,7 +189,6 @@ public class GameController {
             }
         });
 
-        // Vòng lặp game
         AnimationTimer timer = new AnimationTimer() {
             private long lastCoinUpdate = 0;
 
@@ -189,5 +207,39 @@ public class GameController {
             }
         };
         timer.start();
+    }
+
+    private void showGameOverDialog() {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("GAME OVER");
+        alert.setHeaderText("Game Over!");
+        alert.setContentText("You ran out of lives. What would you like to do?");
+
+        ButtonType tryAgain = new ButtonType("Try Again");
+        ButtonType selectLevel = new ButtonType("Select Level");
+        ButtonType mainMenu = new ButtonType("Main Menu");
+
+        alert.getButtonTypes().setAll(tryAgain, selectLevel, mainMenu);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        
+        if (result.isPresent()) {
+            if (result.get() == tryAgain) {
+                engine.resetGame();
+                engine.loadLevel(currentLevel);
+            } else if (result.get() == selectLevel) {
+                try {
+                    MainApp.showLevelSelect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (result.get() == mainMenu) {
+                try {
+                    MainApp.showMainMenu();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
