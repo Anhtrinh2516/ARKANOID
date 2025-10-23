@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import org.example.GameController;
 import org.example.MainApp;
 
-public class MainMenuController {
+public class SelectLevelController {
 
     @FXML private Circle level1, level2, level3, level4, level5, level6, level7, level8;
     @FXML private Circle level9, level10, level11, level12, level13, level14, level15, level16;
@@ -46,7 +46,7 @@ public class MainMenuController {
         // Menu buttons
         shopButton.setOnAction(e -> openShop());
         settingsButton.setOnAction(e -> openSettings());
-        exitButton.setOnAction(e -> System.exit(0));
+        exitButton.setOnAction(e -> backToMainMenu());
     }
 
     @FXML
@@ -103,6 +103,14 @@ public class MainMenuController {
     private void openSettings() {
         try {
             MainApp.showSettings();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void backToMainMenu() {
+        try {
+            MainApp.showMainMenu();
         } catch (Exception e) {
             e.printStackTrace();
         }
