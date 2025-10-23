@@ -23,11 +23,13 @@ public class GameEngine {
     private final List<PowerUp> powerUps = new ArrayList<>();
 
     private final IntConsumer scoreCb, livesCb, levelCb;
+    private Runnable gameOverCb;
 
     // state
     private int score = 0;
     private int lives = 3;
     private int level = 1;
+    private boolean isGameOver = false;
 
     public GameEngine(AnchorPane pane, Rectangle paddleNode, Circle ballNode,
                       IntConsumer scoreCb, IntConsumer livesCb, IntConsumer levelCb) {
@@ -39,6 +41,10 @@ public class GameEngine {
         this.levelCb = levelCb;
 
         updateHUD();
+    }
+
+    public void setGameOverCallback(Runnable callback) {
+        this.gameOverCb = callback;
     }
 
     public void loadLevel(int idx) {
@@ -63,6 +69,9 @@ public class GameEngine {
     public void movePaddleRight() { paddle.moveRight(pane.getWidth()); }
 
     public void update() {
+        // Nếu game over, không update nữa
+        if (isGameOver) return;
+        
         // Di chuyển bóng
         ball.move();
 
@@ -131,6 +140,7 @@ public class GameEngine {
 
     private void resetBallAndPaddle() {
         Platform.runLater(() -> {
+            paddle.resetSize(); // Reset kích thước paddle về ban đầu
             paddle.getNode().setX((pane.getWidth() - paddle.getNode().getWidth()) / 2);
             paddle.getNode().setY(pane.getHeight() - 40);
 
@@ -154,13 +164,12 @@ public class GameEngine {
     private void loseLife() {
         lives--;
         livesCb.accept(lives);
-        if (lives <= 0) {
-            // game over → reset
-            lives = 3;
-            score = 0;
-            updateHUD();
-            loadLevel(1);
-        } else {
+        if (lives <= 0 && !isGameOver) {
+            isGameOver = true;
+            if (gameOverCb != null) {
+                Platform.runLater(gameOverCb);
+            }
+        } else if (lives > 0) {
             resetBallAndPaddle();
         }
     }
@@ -169,6 +178,17 @@ public class GameEngine {
         scoreCb.accept(score);
         livesCb.accept(lives);
         levelCb.accept(level);
+    }
+
+    public void resetGame() {
+        lives = 3;
+        score = 0;
+        isGameOver = false;
+        updateHUD();
+    }
+
+    public int getCurrentLevel() {
+        return level;
     }
 
     private void maybeSpawnPowerUp(Brick br) {
