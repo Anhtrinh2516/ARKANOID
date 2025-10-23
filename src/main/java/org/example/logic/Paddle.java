@@ -5,9 +5,11 @@ import javafx.scene.shape.Rectangle;
 public class Paddle {
     private final Rectangle node;
     private double speed = 6.0;
+    private final double originalWidth;
 
     public Paddle(Rectangle node) {
         this.node = node;
+        this.originalWidth = node.getWidth(); 
     }
 
     public Rectangle getNode() { return node; }
@@ -24,4 +26,8 @@ public class Paddle {
     public void expand() { node.setWidth(Math.min(node.getWidth() + 40, 220)); }
     public void shrink() { node.setWidth(Math.max(node.getWidth() - 40, 70)); }
     public void setSpeed(double v) { this.speed = v; }
+    
+    public void resetSize() { 
+        node.setWidth(originalWidth); 
+    }
 }
