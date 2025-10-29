@@ -4,7 +4,9 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -13,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.example.logic.*;
 import org.example.controller.GameState;
+import org.example.controller.SkinManager;
 
 import java.util.*;
 
@@ -432,5 +435,39 @@ public class GameController {
             );
             paddle.setFill(gradient);
         });
+    }
+
+    private void showGameOverDialog() {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("GAME OVER");
+        alert.setHeaderText("Game Over!");
+        alert.setContentText("You ran out of lives. What would you like to do?");
+
+        ButtonType tryAgain = new ButtonType("Try Again");
+        ButtonType selectLevel = new ButtonType("Select Level");
+        ButtonType mainMenu = new ButtonType("Main Menu");
+
+        alert.getButtonTypes().setAll(tryAgain, selectLevel, mainMenu);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        
+        if (result.isPresent()) {
+            if (result.get() == tryAgain) {
+                engine.resetGame();
+                engine.loadLevel(currentLevel);
+            } else if (result.get() == selectLevel) {
+                try {
+                    MainApp.showLevelSelect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (result.get() == mainMenu) {
+                try {
+                    MainApp.showMainMenu();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

@@ -264,6 +264,17 @@ public class GameEngine {
         if (levelCb != null) levelCb.accept(level);
     }
 
+    public void resetGame() {
+        lives = 3;
+        score = 0;
+        isGameOver = false;
+        updateHUD();
+    }
+
+    public int getCurrentLevel() {
+        return level;
+    }
+
     private void maybeSpawnPowerUp(Brick br) {
         int chance = rng.nextInt(100);
         if (chance < 35) {

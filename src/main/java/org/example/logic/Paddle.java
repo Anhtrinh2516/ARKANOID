@@ -10,6 +10,7 @@ public class Paddle {
 
     public Paddle(Rectangle node) {
         this.node = node;
+        this.originalWidth = node.getWidth(); 
     }
 
     public Rectangle getNode() {

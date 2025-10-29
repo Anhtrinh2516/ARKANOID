@@ -23,7 +23,15 @@ public class MainApp extends Application {
     public static void showMainMenu() throws Exception {
         FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/MainMenu.fxml"));
         Scene scene = new Scene(loader.load());
-        mainStage.setTitle("Arkanoid Menu");
+        mainStage.setTitle("ARKANOID - Main Menu");
+        mainStage.setScene(scene);
+        mainStage.show();
+    }
+
+    public static void showLevelSelect() throws Exception {
+        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/SelectLevel.fxml"));
+        Scene scene = new Scene(loader.load());
+        mainStage.setTitle("Select Level");
         mainStage.setScene(scene);
         mainStage.show();
     }
@@ -47,6 +55,13 @@ public class MainApp extends Application {
     public static void showSettings() throws Exception {
         FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/Settings.fxml"));
         Scene scene = new Scene(loader.load());
+        mainStage.setScene(scene);
+    }
+
+    public static void showSkins() throws Exception {
+        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/Skin.fxml"));
+        Scene scene = new Scene(loader.load());
+        mainStage.setTitle("Skins");
         mainStage.setScene(scene);
     }
 
