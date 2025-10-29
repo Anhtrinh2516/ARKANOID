@@ -27,7 +27,13 @@ public class GameController {
     @FXML private Label levelLabel;
     @FXML private Label hintLabel;
     @FXML private Label coinsLabel;
+    @FXML private Label powerUpsLabel;
     @FXML private Button backButton;
+
+    @FXML private Button item1Button;
+    @FXML private Button item2Button;
+    @FXML private Button item3Button;
+    @FXML private Button pauseButton;
 
     private final Random rng = new Random();
     private final Set<KeyCode> activeKeys = new HashSet<>();
@@ -35,25 +41,85 @@ public class GameController {
 
     private GameEngine engine;
 
-    private int lives = 3;
+    private boolean isPaused = false;
 
-    // Khởi tạo level
-    public void startLevel(int levelIndex) {
-        engine.loadLevel(levelIndex);
+    // Active item timelines
+    private Timeline item1Timeline;
+    private Timeline item2Timeline;
+    private Timeline item3Timeline;
 
-        // Áp dụng bonus từ Shop
-        int bonus = GameState.INSTANCE.getPaddleWidthBonus();
-        paddle.setWidth(paddle.getWidth() + bonus);
+    // ========== HELPER METHODS ==========
 
-        double scale = GameState.INSTANCE.getBallSpeedScale();
+    private void resetPaddlePosition() {
+        paddle.setX((920 - paddle.getWidth()) / 2);
+        paddle.setY(570);
+        paddle.setLayoutX(0);
+        paddle.setLayoutY(0);
+        paddle.setTranslateX(0);
+        paddle.setTranslateY(0);
+        paddle.setScaleX(1.0);
+        paddle.setScaleY(1.0);
+        paddle.setRotate(0);
+        paddle.setVisible(true);
+        paddle.setOpacity(1.0);
 
-
-        updateCoinsUI();
-        livesLabel.setText("Lives: " + lives);
-        levelLabel.setText("Level: " + levelIndex);
+        System.out.println("Paddle reset to X: " + paddle.getX() + ", Y: " + paddle.getY());
     }
 
-    // Khi gạch bị phá
+    private void updateCoinsUI() {
+        if (coinsLabel != null) {
+            coinsLabel.setText(String.valueOf(GameState.INSTANCE.getCoins()));
+        }
+    }
+
+    private void updateItemButtons() {
+        if (item1Button != null) {
+            int count = GameState.INSTANCE.getWideItemCount();
+            item1Button.setText("1 (" + count + ")");
+            item1Button.setDisable(count == 0);
+        }
+        if (item2Button != null) {
+            int count = GameState.INSTANCE.getLifeItemCount();
+            item2Button.setText("2 (" + count + ")");
+            item2Button.setDisable(count == 0);
+        }
+        if (item3Button != null) {
+            int count = GameState.INSTANCE.getSlowItemCount();
+            item3Button.setText("3 (" + count + ")");
+            item3Button.setDisable(count == 0);
+        }
+    }
+
+    // ========== LEVEL MANAGEMENT ==========
+
+    public void startLevel(int levelIndex) {
+        resetPaddlePosition();
+
+        engine.loadLevel(levelIndex);
+
+        int bonus = GameState.INSTANCE.getPaddleWidthBonus();
+        if (bonus > 0) {
+            paddle.setWidth(100 + bonus);
+        } else {
+            paddle.setWidth(100);
+        }
+
+        updateCoinsUI();
+        updateItemButtons();
+        if (levelLabel != null) {
+            levelLabel.setText(String.valueOf(levelIndex));
+        }
+
+        javafx.application.Platform.runLater(() -> {
+            resetPaddlePosition();
+            if (bonus > 0) {
+                paddle.setWidth(100 + bonus);
+            }
+        });
+    }
+
+    // ========== POWER-UP SYSTEM ==========
+
     private void onBrickDestroyed(Brick b) {
         maybeSpawnPowerUpAt(
                 b.getNode().getBoundsInParent().getMinX() + b.getNode().getBoundsInParent().getWidth() / 2,
@@ -61,17 +127,15 @@ public class GameController {
         );
     }
 
-
-    // Sinh item rơi
     private void maybeSpawnPowerUpAt(double x, double y) {
         int p = rng.nextInt(100);
         PowerUpType type = null;
 
-        if (p < 40) { // 40% có item
-            if (p < 15) type = PowerUpType.COIN;          // 15%
-            else if (p < 25) type = PowerUpType.EXTRA_LIFE; // 10%
-            else if (p < 35) type = PowerUpType.EXPAND_PADDLE; // 10%
-            else type = PowerUpType.SLOW_BALL;             // 5%
+        if (p < 40) {
+            if (p < 15) type = PowerUpType.COIN;
+            else if (p < 25) type = PowerUpType.EXTRA_LIFE;
+            else if (p < 35) type = PowerUpType.EXPAND_PADDLE;
+            else type = PowerUpType.SLOW_BALL;
         }
 
         if (type != null) {
@@ -81,21 +145,18 @@ public class GameController {
         }
     }
 
-    // Update item rơi trong game loop
     private void updatePowerUps() {
         Iterator<PowerUp> it = activePowerUps.iterator();
         while (it.hasNext()) {
             PowerUp p = it.next();
             p.update();
 
-            // item rơi ra ngoài màn
             if (p.getCenterY() > anchorPane.getHeight() + 20) {
                 anchorPane.getChildren().remove(p);
                 it.remove();
                 continue;
             }
 
-            // check va chạm với paddle
             if (p.getBoundsInParent().intersects(paddle.getBoundsInParent())) {
                 applyPowerUp(p.getType());
                 anchorPane.getChildren().remove(p);
@@ -104,8 +165,6 @@ public class GameController {
         }
     }
 
-
-    // Áp dụng hiệu ứng khi nhặt item
     private void applyPowerUp(PowerUpType type) {
         switch (type) {
             case COIN -> {
@@ -114,9 +173,8 @@ public class GameController {
                 System.out.println("Nhặt coin! Coins = " + GameState.INSTANCE.getCoins());
             }
             case EXTRA_LIFE -> {
-                lives++;
-                livesLabel.setText("Lives: " + lives);
-                System.out.println("Thêm mạng! Lives = " + lives);
+                // Power-up sẽ được xử lý bởi GameEngine
+                System.out.println("Nhặt được Extra Life power-up!");
             }
             case EXPAND_PADDLE -> {
                 double oldWidth = paddle.getWidth();
@@ -133,23 +191,128 @@ public class GameController {
         }
     }
 
+    // ========== SHOP ITEMS (với giới hạn thời gian 10s) ==========
 
-    // Update coins UI
-    private void updateCoinsUI() {
-        coinsLabel.setText("Coins: " + GameState.INSTANCE.getCoins());
+    private void useShopItem(int itemNumber) {
+        if (isPaused) return;
+
+        switch (itemNumber) {
+            case 1 -> {
+                if (!GameState.INSTANCE.useWideItem()) {
+                    System.out.println("No Wide Item available! Buy from shop first.");
+                    return;
+                }
+
+                // Cancel existing item 1 if active
+                if (item1Timeline != null) {
+                    item1Timeline.stop();
+                }
+
+                double oldWidth = paddle.getWidth();
+                paddle.setWidth(oldWidth + 50);
+                System.out.println("Item 1 activated: Paddle expanded for 10 seconds!");
+
+                item1Timeline = new Timeline(new KeyFrame(Duration.seconds(10), e -> {
+                    paddle.setWidth(oldWidth);
+                    System.out.println("Item 1 expired!");
+                    item1Timeline = null;
+                }));
+                item1Timeline.setCycleCount(1);
+                item1Timeline.play();
+
+                updateItemButtons();
+            }
+            case 2 -> {
+                if (!GameState.INSTANCE.useLifeItem()) {
+                    System.out.println("No Life Item available! Buy from shop first.");
+                    return;
+                }
+
+                // Thêm mạng thông qua GameEngine
+                //engine.addLife();
+                updateItemButtons();
+                System.out.println("Item 2 activated: Extra life!");
+            }
+            case 3 -> {
+                if (!GameState.INSTANCE.useSlowItem()) {
+                    System.out.println("No Slow Item available! Buy from shop first.");
+                    return;
+                }
+
+                // Cancel existing item 3 if active
+                if (item3Timeline != null) {
+                    item3Timeline.stop();
+                }
+
+                // Slow the ball
+                double currentDx = engine.getBall().getDx();
+                double currentDy = engine.getBall().getDy();
+                engine.getBall().setDx(currentDx * 0.5);
+                engine.getBall().setDy(currentDy * 0.5);
+                System.out.println("Item 3 activated: Ball slowed for 10 seconds!");
+
+                item3Timeline = new Timeline(new KeyFrame(Duration.seconds(10), e -> {
+                    engine.getBall().setDx(currentDx);
+                    engine.getBall().setDy(currentDy);
+                    System.out.println("Item 3 expired!");
+                    item3Timeline = null;
+                }));
+                item3Timeline.setCycleCount(1);
+                item3Timeline.play();
+
+                updateItemButtons();
+            }
+        }
     }
 
+    // ========== GAME CONTROL ==========
+
+    private void togglePause() {
+        isPaused = !isPaused;
+        if (pauseButton != null) {
+            pauseButton.setText(isPaused ? "▶" : "⏸");
+        }
+        System.out.println("Game " + (isPaused ? "paused" : "resumed"));
+    }
+
+    // ========== INITIALIZATION ==========
+
     public void initialize() {
-        // Khởi tạo Engine
         engine = new GameEngine(anchorPane, paddle, ball,
-                score -> scoreLabel.setText("Score: " + score),
-                l -> livesLabel.setText("Lives: " + l),
-                level -> levelLabel.setText("Level: " + level)
+                score -> {
+                    if (scoreLabel != null) {
+                        scoreLabel.setText(String.valueOf(score));
+                    }
+                },
+                l -> {
+                    // Chỉ cập nhật UI, không lưu biến local
+                    if (livesLabel != null) {
+                        livesLabel.setText(String.valueOf(l));
+                    }
+                },
+                level -> {
+                    if (levelLabel != null) {
+                        levelLabel.setText(String.valueOf(level));
+                    }
+                }
         );
-        engine.loadLevel(1); // mặc định Level 1
+
+        engine.setPowerUpUpdateCallback(powerUpText -> {
+            if (powerUpsLabel != null) {
+                powerUpsLabel.setText(powerUpText);
+            }
+        });
+
+        engine.loadLevel(1);
 
         updateCoinsUI();
+        updateItemButtons();
 
+        javafx.application.Platform.runLater(() -> {
+            resetPaddlePosition();
+        });
+
+        // Button handlers
         if (backButton != null) {
             backButton.setOnAction(e -> {
                 try {
@@ -158,9 +321,56 @@ public class GameController {
                     ex.printStackTrace();
                 }
             });
+            backButton.setFocusTraversable(false);
         }
 
-        anchorPane.setOnKeyPressed(e -> activeKeys.add(e.getCode()));
+        if (item1Button != null) {
+            item1Button.setOnAction(e -> {
+                useShopItem(1);
+                anchorPane.requestFocus();
+            });
+            item1Button.setFocusTraversable(false);
+        }
+
+        if (item2Button != null) {
+            item2Button.setOnAction(e -> {
+                useShopItem(2);
+                anchorPane.requestFocus();
+            });
+            item2Button.setFocusTraversable(false);
+        }
+
+        if (item3Button != null) {
+            item3Button.setOnAction(e -> {
+                useShopItem(3);
+                anchorPane.requestFocus();
+            });
+            item3Button.setFocusTraversable(false);
+        }
+
+        if (pauseButton != null) {
+            pauseButton.setOnAction(e -> {
+                togglePause();
+                anchorPane.requestFocus();
+            });
+            pauseButton.setFocusTraversable(false);
+        }
+
+        // Keyboard handlers
+        anchorPane.setOnKeyPressed(e -> {
+            activeKeys.add(e.getCode());
+
+            if (e.getCode() == KeyCode.DIGIT1) {
+                useShopItem(1);
+            } else if (e.getCode() == KeyCode.DIGIT2) {
+                useShopItem(2);
+            } else if (e.getCode() == KeyCode.DIGIT3) {
+                useShopItem(3);
+            } else if (e.getCode() == KeyCode.P) {
+                togglePause();
+            }
+        });
+
         anchorPane.setOnKeyReleased(e -> activeKeys.remove(e.getCode()));
 
         anchorPane.sceneProperty().addListener((obs, o, s) -> {
@@ -170,24 +380,57 @@ public class GameController {
             }
         });
 
-        // Vòng lặp game
+        javafx.application.Platform.runLater(() -> {
+            anchorPane.requestFocus();
+            anchorPane.setFocusTraversable(true);
+        });
+
+        // Game loop
         AnimationTimer timer = new AnimationTimer() {
             private long lastCoinUpdate = 0;
+            private long lastPowerUpUpdate = 0;
 
-            @Override public void handle(long now) {
-                if (activeKeys.contains(KeyCode.LEFT))  engine.movePaddleLeft();
-                if (activeKeys.contains(KeyCode.RIGHT)) engine.movePaddleRight();
+            @Override
+            public void handle(long now) {
+                if (!isPaused) {
+                    if (activeKeys.contains(KeyCode.LEFT))  engine.movePaddleLeft();
+                    if (activeKeys.contains(KeyCode.RIGHT)) engine.movePaddleRight();
 
-                engine.update();
-
-                updatePowerUps();
+                    engine.update();
+                    updatePowerUps();
+                }
 
                 if (now - lastCoinUpdate > 500_000_000) {
                     updateCoinsUI();
+                    updateItemButtons();
                     lastCoinUpdate = now;
+                }
+
+                if (now - lastPowerUpUpdate > 100_000_000) {
+                    lastPowerUpUpdate = now;
+                }
+
+                // Kiểm tra paddle visibility (đơn giản hóa)
+                if (!paddle.isVisible()) {
+                    paddle.setVisible(true);
+                }
+
+                if (paddle.getOpacity() < 1.0) {
+                    paddle.setOpacity(1.0);
                 }
             }
         };
         timer.start();
+
+        // Thêm gradient đẹp cho paddle
+        javafx.application.Platform.runLater(() -> {
+            javafx.scene.paint.LinearGradient gradient = new javafx.scene.paint.LinearGradient(
+                    0, 0, 0, 1, true, javafx.scene.paint.CycleMethod.NO_CYCLE,
+                    new javafx.scene.paint.Stop(0.0, javafx.scene.paint.Color.web("#00ffff")),
+                    new javafx.scene.paint.Stop(0.5, javafx.scene.paint.Color.web("#00d4ff")),
+                    new javafx.scene.paint.Stop(1.0, javafx.scene.paint.Color.web("#0080ff"))
+            );
+            paddle.setFill(gradient);
+        });
     }
 }

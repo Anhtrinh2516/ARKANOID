@@ -12,6 +12,11 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         mainStage = stage;
+        // Width: 220 (sidebar) + 920 (game area) + borders = 1148
+        // Height: 80 (toolbar) + 620 (game area) + borders = 708
+        mainStage.setWidth(1148);
+        mainStage.setHeight(708);
+        mainStage.setResizable(false);
         showMainMenu();
     }
 
@@ -24,11 +29,11 @@ public class MainApp extends Application {
     }
 
     public static void showGame(int levelIndex) throws Exception {
-        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/sample.fxml")); // CHÚ Ý đường dẫn
+        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/sample.fxml"));
         Scene scene = new Scene(loader.load());
         GameController controller = loader.getController();
         controller.startLevel(levelIndex);
-        mainStage.setTitle("Arkanoid v2");
+        mainStage.setTitle("Arkanoid - Level " + levelIndex);
         mainStage.setScene(scene);
         mainStage.show();
     }

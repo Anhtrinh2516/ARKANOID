@@ -3,11 +3,11 @@ package org.example.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import org.example.MainApp;
-import org.example.controller.GameState;
 
 public class ShopController {
 
     @FXML private Label coinsLabel, messageLabel;
+    @FXML private Label wideItemLabel, lifeItemLabel, slowItemLabel;
 
     public void initialize() {
         refreshUI();
@@ -26,9 +26,48 @@ public class ShopController {
     private void refreshUI() {
         coinsLabel.setText("Coins: " + GameState.INSTANCE.getCoins());
         messageLabel.setText("");
+
+        // Update item counts if labels exist
+        if (wideItemLabel != null) {
+            wideItemLabel.setText("Owned: " + GameState.INSTANCE.getWideItemCount());
+        }
+        if (lifeItemLabel != null) {
+            lifeItemLabel.setText("Owned: " + GameState.INSTANCE.getLifeItemCount());
+        }
+        if (slowItemLabel != null) {
+            slowItemLabel.setText("Owned: " + GameState.INSTANCE.getSlowItemCount());
+        }
     }
 
-    // === Actions ===
+    // === NEW: Buy consumable items ===
+    @FXML
+    private void buyWideItem() {
+        if (spend(3)) {
+            GameState.INSTANCE.addWideItem(1);
+            messageLabel.setText("Purchased Wide Paddle item! Press 1 to use in game.");
+            refreshUI();
+        }
+    }
+
+    @FXML
+    private void buyLifeItem() {
+        if (spend(5)) {
+            GameState.INSTANCE.addLifeItem(1);
+            messageLabel.setText("Purchased Extra Life item! Press 2 to use in game.");
+            refreshUI();
+        }
+    }
+
+    @FXML
+    private void buySlowItem() {
+        if (spend(4)) {
+            GameState.INSTANCE.addSlowItem(1);
+            messageLabel.setText("Purchased Slow Ball item! Press 3 to use in game.");
+            refreshUI();
+        }
+    }
+
+    // === OLD: Permanent upgrades ===
     @FXML
     private void buyLife() {
         if (spend(5)) {
