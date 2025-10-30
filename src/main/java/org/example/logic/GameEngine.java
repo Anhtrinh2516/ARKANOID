@@ -395,4 +395,10 @@ public class GameEngine {
             }
         }
     }
+    public void restoreGameState(int score, int lives) {
+        this.score = score;
+        this.lives = lives;
+        updateHUD();
+        System.out.println("Game state restored: Score=" + score + ", Lives=" + lives);
+    }
 }

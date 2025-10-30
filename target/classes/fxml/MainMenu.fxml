@@ -40,7 +40,7 @@
         <VBox fx:id="menuBox" spacing="12" prefWidth="320"
               AnchorPane.leftAnchor="140"
               AnchorPane.rightAnchor="140"
-              AnchorPane.topAnchor="220"
+              AnchorPane.topAnchor="200"
               AnchorPane.bottomAnchor="80"
               style="-fx-background-color: rgba(255,255,255,0.04); -fx-background-radius: 16; -fx-padding: 24;"
               alignment="CENTER">
@@ -51,6 +51,14 @@
                            -fx-background-color: linear-gradient(to bottom, #22c55e, #16a34a);
                            -fx-text-fill: white; -fx-background-radius: 12;
                            -fx-effect: dropshadow(gaussian, #22c55e, 16, 0.7, 0, 0);
+                           -fx-cursor: hand;"/>
+
+            <Button fx:id="continueButton" text="▶ Continue" prefWidth="260" prefHeight="48"
+                    onAction="#continueGame"
+                    style="-fx-font-size: 18px; -fx-font-weight: bold;
+                           -fx-background-color: linear-gradient(to bottom, #3b82f6, #2563eb);
+                           -fx-text-fill: white; -fx-background-radius: 12;
+                           -fx-effect: dropshadow(gaussian, #3b82f6, 16, 0.7, 0, 0);
                            -fx-cursor: hand;"/>
 
             <Button fx:id="shopButton" text="🛍 Shop" prefWidth="260" prefHeight="48"

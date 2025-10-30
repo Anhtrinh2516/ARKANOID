@@ -15,6 +15,7 @@ import org.example.MainApp;
 public class MainMenuController {
 
     @FXML private Button startButton;
+    @FXML private Button continueButton;
     @FXML private Button shopButton;
     @FXML private Button settingsButton;
     @FXML private Button leaderboardButton;
@@ -32,7 +33,23 @@ public class MainMenuController {
     @FXML private Label label13, label14, label15, label16;
 
     public void initialize() {
-        // Initialization code if needed
+        // Cập nhật trạng thái nút Continue
+        updateContinueButton();
+    }
+
+    private void updateContinueButton() {
+        if (continueButton != null) {
+            boolean hasGame = GameStateManager.INSTANCE.hasGameInProgress();
+            continueButton.setDisable(!hasGame);
+            continueButton.setOpacity(hasGame ? 1.0 : 0.5);
+
+            if (hasGame) {
+                int savedLevel = GameStateManager.INSTANCE.getSavedLevel();
+                continueButton.setText("▶ Continue (Lvl " + savedLevel + ")");
+            } else {
+                continueButton.setText("▶ Continue");
+            }
+        }
     }
 
     @FXML
@@ -99,6 +116,9 @@ public class MainMenuController {
     }
 
     private void startGameWithLevel(int level) throws Exception {
+        // Xóa game đã lưu khi bắt đầu level mới
+        GameStateManager.INSTANCE.clearGameState();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/sample.fxml"));
         Parent root = loader.load();
 
@@ -115,7 +135,30 @@ public class MainMenuController {
     @FXML
     private void startGame() {
         try {
+            // Bắt đầu game mới từ level 1
+            GameStateManager.INSTANCE.clearGameState();
             startGameWithLevel(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void continueGame() {
+        try {
+            // Tiếp tục game đã lưu
+            if (GameStateManager.INSTANCE.hasGameInProgress()) {
+                int savedLevel = GameStateManager.INSTANCE.getSavedLevel();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/sample.fxml"));
+                Parent root = loader.load();
+
+                GameController controller = loader.getController();
+                controller.startLevel(savedLevel, true); // true = continue game
+
+                Stage stage = (Stage) shopButton.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Arkanoid - Level " + savedLevel + " (Continued)");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

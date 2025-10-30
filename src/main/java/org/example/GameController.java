@@ -13,6 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.example.logic.*;
 import org.example.controller.GameState;
+import org.example.controller.GameStateManager;
 
 import java.util.*;
 
@@ -40,9 +41,12 @@ public class GameController {
     private final List<PowerUp> activePowerUps = new ArrayList<>();
 
     private GameEngine engine;
-    private int currentLevel = 1;  // FIXED: Added missing field
+    private int currentLevel = 1;
+    private int currentScore = 0;
+    private int currentLives = 3;
 
     private boolean isPaused = false;
+    private AnimationTimer gameTimer;
 
     private Timeline item1Timeline;
     private Timeline item2Timeline;
@@ -93,10 +97,35 @@ public class GameController {
     // ========== LEVEL MANAGEMENT ==========
 
     public void startLevel(int levelIndex) {
-        this.currentLevel = levelIndex;  // FIXED: Store current level
+        startLevel(levelIndex, false);
+    }
+
+    public void startLevel(int levelIndex, boolean continueGame) {
+        this.currentLevel = levelIndex;
         resetPaddlePosition();
 
-        engine.loadLevel(levelIndex);
+        if (continueGame && GameStateManager.INSTANCE.hasGameInProgress()) {
+            // Khôi phục trạng thái đã lưu
+            currentScore = GameStateManager.INSTANCE.getSavedScore();
+            currentLives = GameStateManager.INSTANCE.getSavedLives();
+
+            engine.loadLevel(levelIndex);
+            engine.restoreGameState(currentScore, currentLives);
+
+            // Khôi phục vị trí ball và paddle
+            javafx.application.Platform.runLater(() -> {
+                paddle.setX(GameStateManager.INSTANCE.getSavedPaddleX());
+                ball.setCenterX(GameStateManager.INSTANCE.getSavedBallX());
+                ball.setCenterY(GameStateManager.INSTANCE.getSavedBallY());
+                engine.getBall().setDx(GameStateManager.INSTANCE.getSavedBallDx());
+                engine.getBall().setDy(GameStateManager.INSTANCE.getSavedBallDy());
+            });
+
+            System.out.println("Continuing game from Level " + levelIndex);
+        } else {
+            // Bắt đầu game mới
+            engine.loadLevel(levelIndex);
+        }
 
         int bonus = GameState.INSTANCE.getPaddleWidthBonus();
         if (bonus > 0) {
@@ -112,7 +141,9 @@ public class GameController {
         }
 
         javafx.application.Platform.runLater(() -> {
-            resetPaddlePosition();
+            if (!continueGame) {
+                resetPaddlePosition();
+            }
             if (bonus > 0) {
                 paddle.setWidth(100 + bonus);
             }
@@ -268,16 +299,19 @@ public class GameController {
     public void initialize() {
         engine = new GameEngine(anchorPane, paddle, ball,
                 score -> {
+                    currentScore = score;
                     if (scoreLabel != null) {
                         scoreLabel.setText(String.valueOf(score));
                     }
                 },
                 l -> {
+                    currentLives = l;
                     if (livesLabel != null) {
                         livesLabel.setText(String.valueOf(l));
                     }
                 },
                 level -> {
+                    currentLevel = level;
                     if (levelLabel != null) {
                         levelLabel.setText(String.valueOf(level));
                     }
@@ -302,6 +336,14 @@ public class GameController {
         // Button handlers
         if (backButton != null) {
             backButton.setOnAction(e -> {
+                // Lưu trạng thái game
+                saveCurrentGameState();
+
+                // Dừng game timer
+                if (gameTimer != null) {
+                    gameTimer.stop();
+                }
+
                 try {
                     org.example.MainApp.showMainMenu();
                 } catch (Exception ex) {
@@ -373,7 +415,7 @@ public class GameController {
         });
 
         // Game loop
-        AnimationTimer timer = new AnimationTimer() {
+        gameTimer = new AnimationTimer() {
             private long lastCoinUpdate = 0;
 
             @Override
@@ -401,7 +443,7 @@ public class GameController {
                 }
             }
         };
-        timer.start();
+        gameTimer.start();
 
         // Apply gradient to paddle
         javafx.application.Platform.runLater(() -> {
@@ -413,5 +455,25 @@ public class GameController {
             );
             paddle.setFill(gradient);
         });
+    }
+
+    // ========== SAVE/RESTORE GAME STATE ==========
+
+    private void saveCurrentGameState() {
+        if (currentLives > 0) {
+            GameStateManager.INSTANCE.saveGameState(
+                    currentLevel,
+                    currentScore,
+                    currentLives,
+                    ball.getCenterX(),
+                    ball.getCenterY(),
+                    engine.getBall().getDx(),
+                    engine.getBall().getDy(),
+                    paddle.getX()
+            );
+        } else {
+            // Game over - xóa trạng thái đã lưu
+            GameStateManager.INSTANCE.clearGameState();
+        }
     }
 }

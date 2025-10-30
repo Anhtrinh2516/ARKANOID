@@ -35,11 +35,15 @@ public class MainApp extends Application {
     }
 
     public static void showGame(int levelIndex) throws Exception {
+        showGame(levelIndex, false);
+    }
+
+    public static void showGame(int levelIndex, boolean continueGame) throws Exception {
         FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/sample.fxml"));
         Scene scene = new Scene(loader.load());
         GameController controller = loader.getController();
-        controller.startLevel(levelIndex);
-        mainStage.setTitle("SPACE BREAKER - Level " + levelIndex);
+        controller.startLevel(levelIndex, continueGame);
+        mainStage.setTitle("SPACE BREAKER - Level " + levelIndex + (continueGame ? " (Continued)" : ""));
         mainStage.setScene(scene);
         mainStage.show();
     }
