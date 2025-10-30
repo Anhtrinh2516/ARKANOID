@@ -4,9 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -15,7 +13,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.example.logic.*;
 import org.example.controller.GameState;
-import org.example.controller.SkinManager;
 
 import java.util.*;
 
@@ -43,10 +40,10 @@ public class GameController {
     private final List<PowerUp> activePowerUps = new ArrayList<>();
 
     private GameEngine engine;
+    private int currentLevel = 1;  // FIXED: Added missing field
 
     private boolean isPaused = false;
 
-    // Active item timelines
     private Timeline item1Timeline;
     private Timeline item2Timeline;
     private Timeline item3Timeline;
@@ -96,6 +93,7 @@ public class GameController {
     // ========== LEVEL MANAGEMENT ==========
 
     public void startLevel(int levelIndex) {
+        this.currentLevel = levelIndex;  // FIXED: Store current level
         resetPaddlePosition();
 
         engine.loadLevel(levelIndex);
@@ -122,13 +120,6 @@ public class GameController {
     }
 
     // ========== POWER-UP SYSTEM ==========
-
-    private void onBrickDestroyed(Brick b) {
-        maybeSpawnPowerUpAt(
-                b.getNode().getBoundsInParent().getMinX() + b.getNode().getBoundsInParent().getWidth() / 2,
-                b.getNode().getBoundsInParent().getMinY() + b.getNode().getBoundsInParent().getHeight() / 2
-        );
-    }
 
     private void maybeSpawnPowerUpAt(double x, double y) {
         int p = rng.nextInt(100);
@@ -173,28 +164,27 @@ public class GameController {
             case COIN -> {
                 GameState.INSTANCE.addCoins(1);
                 updateCoinsUI();
-                System.out.println("Nhặt coin! Coins = " + GameState.INSTANCE.getCoins());
+                System.out.println("Collected coin! Coins = " + GameState.INSTANCE.getCoins());
             }
             case EXTRA_LIFE -> {
-                // Power-up sẽ được xử lý bởi GameEngine
-                System.out.println("Nhặt được Extra Life power-up!");
+                System.out.println("Collected Extra Life power-up!");
             }
             case EXPAND_PADDLE -> {
                 double oldWidth = paddle.getWidth();
                 paddle.setWidth(oldWidth + 40);
-                System.out.println("Paddle to hơn!");
+                System.out.println("Paddle expanded!");
                 Timeline t = new Timeline(new KeyFrame(Duration.seconds(10),
                         e -> paddle.setWidth(oldWidth)));
                 t.setCycleCount(1);
                 t.play();
             }
             case SLOW_BALL -> {
-                System.out.println("Bóng chậm lại!");
+                System.out.println("Ball slowed down!");
             }
         }
     }
 
-    // ========== SHOP ITEMS (với giới hạn thời gian 10s) ==========
+    // ========== SHOP ITEMS ==========
 
     private void useShopItem(int itemNumber) {
         if (isPaused) return;
@@ -206,7 +196,6 @@ public class GameController {
                     return;
                 }
 
-                // Cancel existing item 1 if active
                 if (item1Timeline != null) {
                     item1Timeline.stop();
                 }
@@ -231,8 +220,6 @@ public class GameController {
                     return;
                 }
 
-                // Thêm mạng thông qua GameEngine
-                //engine.addLife();
                 updateItemButtons();
                 System.out.println("Item 2 activated: Extra life!");
             }
@@ -242,12 +229,10 @@ public class GameController {
                     return;
                 }
 
-                // Cancel existing item 3 if active
                 if (item3Timeline != null) {
                     item3Timeline.stop();
                 }
 
-                // Slow the ball
                 double currentDx = engine.getBall().getDx();
                 double currentDy = engine.getBall().getDy();
                 engine.getBall().setDx(currentDx * 0.5);
@@ -288,7 +273,6 @@ public class GameController {
                     }
                 },
                 l -> {
-                    // Chỉ cập nhật UI, không lưu biến local
                     if (livesLabel != null) {
                         livesLabel.setText(String.valueOf(l));
                     }
@@ -391,7 +375,6 @@ public class GameController {
         // Game loop
         AnimationTimer timer = new AnimationTimer() {
             private long lastCoinUpdate = 0;
-            private long lastPowerUpUpdate = 0;
 
             @Override
             public void handle(long now) {
@@ -409,11 +392,6 @@ public class GameController {
                     lastCoinUpdate = now;
                 }
 
-                if (now - lastPowerUpUpdate > 100_000_000) {
-                    lastPowerUpUpdate = now;
-                }
-
-                // Kiểm tra paddle visibility (đơn giản hóa)
                 if (!paddle.isVisible()) {
                     paddle.setVisible(true);
                 }
@@ -425,7 +403,7 @@ public class GameController {
         };
         timer.start();
 
-        // Thêm gradient đẹp cho paddle
+        // Apply gradient to paddle
         javafx.application.Platform.runLater(() -> {
             javafx.scene.paint.LinearGradient gradient = new javafx.scene.paint.LinearGradient(
                     0, 0, 0, 1, true, javafx.scene.paint.CycleMethod.NO_CYCLE,
@@ -435,39 +413,5 @@ public class GameController {
             );
             paddle.setFill(gradient);
         });
-    }
-
-    private void showGameOverDialog() {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("GAME OVER");
-        alert.setHeaderText("Game Over!");
-        alert.setContentText("You ran out of lives. What would you like to do?");
-
-        ButtonType tryAgain = new ButtonType("Try Again");
-        ButtonType selectLevel = new ButtonType("Select Level");
-        ButtonType mainMenu = new ButtonType("Main Menu");
-
-        alert.getButtonTypes().setAll(tryAgain, selectLevel, mainMenu);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        
-        if (result.isPresent()) {
-            if (result.get() == tryAgain) {
-                engine.resetGame();
-                engine.loadLevel(currentLevel);
-            } else if (result.get() == selectLevel) {
-                try {
-                    MainApp.showLevelSelect();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else if (result.get() == mainMenu) {
-                try {
-                    MainApp.showMainMenu();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 }

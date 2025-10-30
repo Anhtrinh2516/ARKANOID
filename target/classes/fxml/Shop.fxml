@@ -1,205 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.controller.ShopController"
-            prefWidth="600"
-            prefHeight="750"
-            style="-fx-background-color: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);">
+<AnchorPane prefHeight="708" prefWidth="1148" style="-fx-background-color: #1a1d2e;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.ShopController">
 
-    <!-- Hiệu ứng sao nền -->
-    <Circle radius="2" centerX="50" centerY="50" fill="white" opacity="0.9"/>
-    <Circle radius="1.5" centerX="120" centerY="80" fill="white" opacity="0.7"/>
-    <Circle radius="1" centerX="200" centerY="60" fill="white" opacity="0.8"/>
-    <Circle radius="1.5" centerX="280" centerY="90" fill="white" opacity="0.6"/>
-    <Circle radius="2" centerX="360" centerY="70" fill="white" opacity="0.9"/>
-    <Circle radius="1" centerX="440" centerY="85" fill="white" opacity="0.7"/>
-    <Circle radius="1.5" centerX="80" centerY="200" fill="white" opacity="0.8"/>
-    <Circle radius="1" centerX="160" centerY="230" fill="white" opacity="0.6"/>
-    <Circle radius="2" centerX="240" centerY="210" fill="white" opacity="0.9"/>
-    <Circle radius="1.5" centerX="320" centerY="240" fill="white" opacity="0.7"/>
-    <Circle radius="1" centerX="400" centerY="220" fill="white" opacity="0.8"/>
+    <!-- Decorative stars background -->
+    <Circle centerX="100" centerY="80" fill="white" opacity="0.4" radius="1.5" />
+    <Circle centerX="300" centerY="120" fill="white" opacity="0.3" radius="1" />
+    <Circle centerX="500" centerY="90" fill="white" opacity="0.5" radius="1.5" />
+    <Circle centerX="700" centerY="110" fill="white" opacity="0.3" radius="1" />
+    <Circle centerX="900" centerY="85" fill="white" opacity="0.4" radius="1.5" />
+    <Circle centerX="1050" centerY="100" fill="white" opacity="0.3" radius="1" />
+    <Circle centerX="150" centerY="500" fill="white" opacity="0.3" radius="1.5" />
+    <Circle centerX="950" centerY="550" fill="white" opacity="0.4" radius="1" />
 
-    <VBox spacing="18" alignment="TOP_CENTER" style="-fx-padding: 25;">
+    <!-- Main Content -->
+    <VBox layoutX="23.0" spacing="0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="-23.0" AnchorPane.topAnchor="0.0">
 
-        <!-- Header -->
-        <Label text="🛸 SPACE SHOP"
-               style="-fx-font-size: 38px; -fx-font-weight: bold;
-                      -fx-text-fill: linear-gradient(to right, #00ffff, #ff00ff);
-                      -fx-effect: dropshadow(gaussian, #00ffff, 20, 0.8, 0, 0);"/>
+        <!-- Header Bar with Back Button -->
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-padding: 20 30 15 30; -fx-background-color: #252938;">
+            <!-- Back Button -->
+            <Button onAction="#backToMenu" prefHeight="40" prefWidth="120" style="-fx-background-color: #3d4463;                            -fx-text-fill: #e0e0e0;                            -fx-font-size: 14px;                            -fx-font-weight: 600;                            -fx-background-radius: 8;                            -fx-cursor: hand;                            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);" text="← BACK">
+                <tooltip>
+                    <Tooltip text="Return to Main Menu" />
+                </tooltip>
+            </Button>
 
-        <!-- Coins Display -->
-        <HBox alignment="CENTER" spacing="12"
-              style="-fx-background-color: rgba(255,215,0,0.15);
-                     -fx-padding: 12;
-                     -fx-background-radius: 12;
-                     -fx-border-color: rgba(255,215,0,0.5);
-                     -fx-border-width: 2;
-                     -fx-border-radius: 12;
-                     -fx-effect: dropshadow(gaussian, rgba(255,215,0,0.6), 10, 0.5, 0, 0);">
-            <Label text="💰" style="-fx-font-size: 26px;"/>
-            <Label fx:id="coinsLabel"
-                   text="Coins: 0"
-                   style="-fx-font-size: 26px; -fx-font-weight: bold;
-                          -fx-text-fill: gold;
-                          -fx-effect: dropshadow(gaussian, gold, 8, 0.7, 0, 0);"/>
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- Title and Coins -->
+            <VBox alignment="CENTER" spacing="5">
+                <Label style="-fx-font-size: 36px; -fx-font-weight: bold;                               -fx-text-fill: linear-gradient(to right, #5dadec, #a78bfa);                               -fx-effect: dropshadow(gaussian, rgba(0,212,255,0.4), 8, 0, 0, 0);" text="SPACE SHOP" />
+                <Label fx:id="coinsLabel" style="-fx-font-size: 18px; -fx-font-weight: 600;                               -fx-text-fill: #ffd700;" text="💰 0 Coins" />
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- Message Label -->
+            <Label fx:id="messageLabel" alignment="CENTER_RIGHT" prefWidth="200" style="-fx-font-size: 13px; -fx-font-weight: 600;" text="" wrapText="true" />
         </HBox>
 
-        <Separator style="-fx-background-color: rgba(255,255,255,0.3); -fx-padding: 5 0 5 0;"/>
+        <!-- Tab Pane -->
+        <TabPane style="-fx-background-color: #1a1d2e; -fx-padding: 0 30 30 30;" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
 
-        <Label text="⚡ CONSUMABLE ITEMS (Use in game with 1, 2, 3)"
-               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #ffd700;"/>
+            <!-- TAB 1: SHOP -->
+            <Tab closable="false" text="🛒 SHOP">
+                <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="540.0" prefWidth="1181.0" style="-fx-background: #1a1d2e; -fx-background-color: #1a1d2e;">
+                    <VBox spacing="25" style="-fx-padding: 25;">
 
-        <!-- Items -->
-        <VBox spacing="12" style="-fx-padding: 10;">
+                        <!-- Consumable Items Section -->
+                        <VBox spacing="12">
+                            <Label style="-fx-font-size: 16px; -fx-font-weight: 600; -fx-text-fill: #8b9dc3;                                           -fx-padding: 0 0 5 0;" text="CONSUMABLE ITEMS" />
 
-            <!-- Item 1: Wide Paddle (Consumable) -->
-            <HBox spacing="15" alignment="CENTER_LEFT"
-                  style="-fx-background-color: rgba(0,212,255,0.25);
-                         -fx-padding: 12;
-                         -fx-background-radius: 10;
-                         -fx-border-color: rgba(0,212,255,0.6);
-                         -fx-border-width: 2;
-                         -fx-border-radius: 10;
-                         -fx-effect: dropshadow(gaussian, rgba(0,212,255,0.5), 10, 0.5, 0, 0);">
-                <Label text="🛸" style="-fx-font-size: 28px;"/>
-                <VBox spacing="3" HBox.hgrow="ALWAYS">
-                    <Label text="Wide Paddle Item (10s)"
-                           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
-                    <Label text="Expand paddle for 10 seconds in game"
-                           style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.8);"/>
-                    <Label fx:id="wideItemLabel" text="Owned: 0"
-                           style="-fx-font-size: 10px; -fx-text-fill: #00d4ff;"/>
-                </VBox>
-                <VBox alignment="CENTER" spacing="5">
-                    <Label text="3 💰"
-                           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: gold;"/>
-                    <Button text="BUY" onAction="#buyWideItem"
-                            style="-fx-background-color: linear-gradient(to bottom, #4facfe, #00f2fe);
-                                   -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
-                                   -fx-padding: 6 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
-                </VBox>
-            </HBox>
+                            <GridPane alignment="CENTER" hgap="15" vgap="15">
 
-            <!-- Item 2: Extra Life (Consumable) -->
-            <HBox spacing="15" alignment="CENTER_LEFT"
-                  style="-fx-background-color: rgba(255,0,255,0.25);
-                         -fx-padding: 12;
-                         -fx-background-radius: 10;
-                         -fx-border-color: rgba(255,0,255,0.6);
-                         -fx-border-width: 2;
-                         -fx-border-radius: 10;
-                         -fx-effect: dropshadow(gaussian, rgba(255,0,255,0.5), 10, 0.5, 0, 0);">
-                <Label text="💖" style="-fx-font-size: 28px;"/>
-                <VBox spacing="3" HBox.hgrow="ALWAYS">
-                    <Label text="Extra Life Item"
-                           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
-                    <Label text="Get +1 life instantly when used"
-                           style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.8);"/>
-                    <Label fx:id="lifeItemLabel" text="Owned: 0"
-                           style="-fx-font-size: 10px; -fx-text-fill: #ff00ff;"/>
-                </VBox>
-                <VBox alignment="CENTER" spacing="5">
-                    <Label text="5 💰"
-                           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: gold;"/>
-                    <Button text="BUY" onAction="#buyLifeItem"
-                            style="-fx-background-color: linear-gradient(to bottom, #ff6b6b, #ee5a6f);
-                                   -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
-                                   -fx-padding: 6 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
-                </VBox>
-            </HBox>
+                                <!-- Wide Paddle -->
+                                <VBox alignment="CENTER" spacing="8" style="-fx-background-color: #2d3250;                                              -fx-padding: 20;                                              -fx-border-radius: 10;                                              -fx-background-radius: 10;                                              -fx-border-color: #3d4463;                                              -fx-border-width: 1.5;                                              -fx-pref-width: 280;                                              -fx-pref-height: 240;                                              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <Label style="-fx-font-size: 32px;" text="🛸" />
+                                    <Label style="-fx-font-size: 16px; -fx-font-weight: 600; -fx-text-fill: #e0e0e0;" text="Wide Paddle" />
+                                    <Label alignment="CENTER" maxWidth="250" style="-fx-font-size: 11px; -fx-text-fill: #8b9dc3; -fx-wrap-text: true;" text="Expand paddle for 10s" />
+                                    <Label fx:id="wideItemLabel" style="-fx-font-size: 10px; -fx-text-fill: #5dadec; -fx-font-weight: 600;" text="Owned: 0" />
+                                    <Region minHeight="5" VBox.vgrow="ALWAYS" />
+                                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #ffd700;" text="3 💰" />
+                                    <Button onAction="#buyWideItem" prefHeight="32" prefWidth="110" style="-fx-background-color: #5dadec;                                                    -fx-text-fill: white;                                                    -fx-font-weight: 600;                                                    -fx-font-size: 12px;                                                    -fx-background-radius: 8;                                                    -fx-cursor: hand;                                                    -fx-effect: dropshadow(gaussian, rgba(93,173,236,0.4), 5, 0, 0, 0);" text="BUY" />
+                                </VBox>
 
-            <!-- Item 3: Slow Ball (Consumable) -->
-            <HBox spacing="15" alignment="CENTER_LEFT"
-                  style="-fx-background-color: rgba(0,255,0,0.25);
-                         -fx-padding: 12;
-                         -fx-background-radius: 10;
-                         -fx-border-color: rgba(0,255,0,0.6);
-                         -fx-border-width: 2;
-                         -fx-border-radius: 10;
-                         -fx-effect: dropshadow(gaussian, rgba(0,255,0,0.5), 10, 0.5, 0, 0);">
-                <Label text="🐌" style="-fx-font-size: 28px;"/>
-                <VBox spacing="3" HBox.hgrow="ALWAYS">
-                    <Label text="Slow Ball Item (10s)"
-                           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
-                    <Label text="Slow down ball for 10 seconds"
-                           style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.8);"/>
-                    <Label fx:id="slowItemLabel" text="Owned: 0"
-                           style="-fx-font-size: 10px; -fx-text-fill: #00ff00;"/>
-                </VBox>
-                <VBox alignment="CENTER" spacing="5">
-                    <Label text="4 💰"
-                           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: gold;"/>
-                    <Button text="BUY" onAction="#buySlowItem"
-                            style="-fx-background-color: linear-gradient(to bottom, #00ff00, #00cc00);
-                                   -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 12px;
-                                   -fx-padding: 6 16; -fx-background-radius: 8; -fx-cursor: hand;"/>
-                </VBox>
-            </HBox>
+                                <!-- Extra Life -->
+                                <VBox alignment="CENTER" spacing="8" style="-fx-background-color: #2d3250;                                              -fx-padding: 20;                                              -fx-border-radius: 10;                                              -fx-background-radius: 10;                                              -fx-border-color: #3d4463;                                              -fx-border-width: 1.5;                                              -fx-pref-width: 280;                                              -fx-pref-height: 240;                                              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <Label style="-fx-font-size: 32px;" text="💖" />
+                                    <Label style="-fx-font-size: 16px; -fx-font-weight: 600; -fx-text-fill: #e0e0e0;" text="Extra Life" />
+                                    <Label alignment="CENTER" maxWidth="250" style="-fx-font-size: 11px; -fx-text-fill: #8b9dc3; -fx-wrap-text: true;" text="Get +1 life when used" />
+                                    <Label fx:id="lifeItemLabel" style="-fx-font-size: 10px; -fx-text-fill: #ff6b9d; -fx-font-weight: 600;" text="Owned: 0" />
+                                    <Region minHeight="5" VBox.vgrow="ALWAYS" />
+                                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #ffd700;" text="5 💰" />
+                                    <Button onAction="#buyLifeItem" prefHeight="32" prefWidth="110" style="-fx-background-color: #ff6b9d;                                                    -fx-text-fill: white;                                                    -fx-font-weight: 600;                                                    -fx-font-size: 12px;                                                    -fx-background-radius: 8;                                                    -fx-cursor: hand;                                                    -fx-effect: dropshadow(gaussian, rgba(255,107,157,0.4), 5, 0, 0, 0);" text="BUY" />
+                                </VBox>
 
-        </VBox>
+                                <!-- Slow Ball -->
+                                <VBox alignment="CENTER" spacing="8" style="-fx-background-color: #2d3250;                                              -fx-padding: 20;                                              -fx-border-radius: 10;                                              -fx-background-radius: 10;                                              -fx-border-color: #3d4463;                                              -fx-border-width: 1.5;                                              -fx-pref-width: 280;                                              -fx-pref-height: 240;                                              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                    <Label style="-fx-font-size: 32px;" text="🐌" />
+                                    <Label style="-fx-font-size: 16px; -fx-font-weight: 600; -fx-text-fill: #e0e0e0;" text="Slow Ball" />
+                                    <Label alignment="CENTER" maxWidth="250" style="-fx-font-size: 11px; -fx-text-fill: #8b9dc3; -fx-wrap-text: true;" text="Slow down ball for 10s" />
+                                    <Label fx:id="slowItemLabel" style="-fx-font-size: 10px; -fx-text-fill: #72f072; -fx-font-weight: 600;" text="Owned: 0" />
+                                    <Region minHeight="5" VBox.vgrow="ALWAYS" />
+                                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #ffd700;" text="4 💰" />
+                                    <Button onAction="#buySlowItem" prefHeight="32" prefWidth="110" style="-fx-background-color: #72f072;                                                    -fx-text-fill: #1a1d2e;                                                    -fx-font-weight: 600;                                                    -fx-font-size: 12px;                                                    -fx-background-radius: 8;                                                    -fx-cursor: hand;                                                    -fx-effect: dropshadow(gaussian, rgba(114,240,114,0.4), 5, 0, 0, 0);" text="BUY" />
+                                </VBox>
+                        <columnConstraints>
+                           <ColumnConstraints />
+                           <ColumnConstraints />
+                           <ColumnConstraints />
+                        </columnConstraints>
+                        <rowConstraints>
+                           <RowConstraints />
+                        </rowConstraints>
 
-        <Separator style="-fx-background-color: rgba(255,255,255,0.3); -fx-padding: 5 0 5 0;"/>
+                            </GridPane>
+                        </VBox>
 
-        <Label text="⬆️ PERMANENT UPGRADES"
-               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #a855f7;"/>
+                        <!-- Separator -->
+                        <Separator style="-fx-background-color: #3d4463; -fx-padding: 5 0;" />
 
-        <VBox spacing="12" style="-fx-padding: 10;">
+                        <!-- Permanent Upgrades Section -->
+                        <VBox spacing="12">
+                            <Label style="-fx-font-size: 16px; -fx-font-weight: 600; -fx-text-fill: #8b9dc3;                                           -fx-padding: 0 0 5 0;" text="PERMANENT UPGRADES" />
 
-            <!-- Permanent: Wider Paddle -->
-            <HBox spacing="15" alignment="CENTER_LEFT"
-                  style="-fx-background-color: rgba(168,85,247,0.2);
-                         -fx-padding: 12;
-                         -fx-background-radius: 10;
-                         -fx-border-color: rgba(168,85,247,0.5);
-                         -fx-border-width: 2;
-                         -fx-border-radius: 10;">
-                <Label text="🔧" style="-fx-font-size: 24px;"/>
-                <VBox spacing="3" HBox.hgrow="ALWAYS">
-                    <Label text="Permanent Paddle Width +20"
-                           style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;"/>
-                    <Label text="Paddle stays wider forever"
-                           style="-fx-font-size: 10px; -fx-text-fill: rgba(255,255,255,0.7);"/>
-                </VBox>
-                <VBox alignment="CENTER" spacing="5">
-                    <Label text="8 💰"
-                           style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: gold;"/>
-                    <Button text="BUY" onAction="#buyPaddleWidth"
-                            style="-fx-background-color: linear-gradient(to bottom, #a855f7, #7c3aed);
-                                   -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 11px;
-                                   -fx-padding: 5 14; -fx-background-radius: 8; -fx-cursor: hand;"/>
-                </VBox>
-            </HBox>
+                            <HBox alignment="CENTER" spacing="15">
+                                <!-- Paddle Width Upgrade -->
+                                <VBox alignment="CENTER" spacing="8" style="-fx-background-color: #2d3250;                                              -fx-padding: 20;                                              -fx-border-radius: 10;                                              -fx-background-radius: 10;                                              -fx-border-color: #a78bfa;                                              -fx-border-width: 2;                                              -fx-pref-width: 380;                                              -fx-pref-height: 220;                                              -fx-effect: dropshadow(gaussian, rgba(167,139,250,0.3), 8, 0, 0, 2);">
+                                    <Label style="-fx-font-size: 36px;" text="🔧" />
+                                    <Label style="-fx-font-size: 18px; -fx-font-weight: 600; -fx-text-fill: #e0e0e0;" text="Paddle Width +20" />
+                                    <Label style="-fx-font-size: 12px; -fx-text-fill: #8b9dc3;" text="Permanently wider paddle" />
+                                    <Region minHeight="8" VBox.vgrow="ALWAYS" />
+                                    <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #ffd700;" text="8 💰" />
+                                    <Button onAction="#buyPaddleWidth" prefHeight="36" prefWidth="150" style="-fx-background-color: #a78bfa;                                                    -fx-text-fill: white;                                                    -fx-font-weight: 600;                                                    -fx-font-size: 13px;                                                    -fx-background-radius: 8;                                                    -fx-cursor: hand;                                                    -fx-effect: dropshadow(gaussian, rgba(167,139,250,0.4), 5, 0, 0, 0);" text="BUY UPGRADE" />
+                                </VBox>
+                            </HBox>
+                        </VBox>
 
-        </VBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
 
-        <Separator style="-fx-background-color: rgba(255,255,255,0.3); -fx-padding: 5 0 5 0;"/>
+            <!-- TAB 2: SKINS -->
+            <Tab closable="false" text="🎨 SKINS">
+                <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background: #1a1d2e; -fx-background-color: #1a1d2e;">
+                    <VBox alignment="TOP_CENTER" spacing="30" style="-fx-padding: 30;">
 
-        <!-- Message -->
-        <Label fx:id="messageLabel"
-               textFill="#ffff00"
-               style="-fx-font-size: 13px; -fx-font-weight: bold;
-                      -fx-effect: dropshadow(gaussian, #ffff00, 5, 0.6, 0, 0);"/>
+                        <!-- Paddle Skins -->
+                        <VBox alignment="CENTER" spacing="15" style="-fx-background-color: #2d3250;                                      -fx-padding: 25;                                      -fx-border-radius: 10;                                      -fx-background-radius: 10;                                      -fx-border-color: #5dadec;                                      -fx-border-width: 2;                                      -fx-max-width: 950;                                      -fx-effect: dropshadow(gaussian, rgba(93,173,236,0.25), 8, 0, 0, 2);">
+                            <Label style="-fx-font-size: 18px; -fx-font-weight: 600; -fx-text-fill: #5dadec;" text="PADDLE SKINS" />
+                            <Label style="-fx-font-size: 11px; -fx-text-fill: #8b9dc3;" text="Gold border = equipped · Green border = selected" />
+                            <HBox fx:id="paddleSkinBox" alignment="CENTER" spacing="10">
+                                <padding>
+                                    <Insets bottom="8" top="8" />
+                                </padding>
+                            </HBox>
+                            <Button fx:id="selectPaddleButton" onAction="#handlePaddleAction" prefHeight="36" prefWidth="160" style="-fx-font-size: 13px;                                            -fx-background-color: #5dadec;                                            -fx-text-fill: white;                                            -fx-font-weight: 600;                                            -fx-border-radius: 8;                                            -fx-background-radius: 8;                                            -fx-cursor: hand;                                            -fx-effect: dropshadow(gaussian, rgba(93,173,236,0.4), 5, 0, 0, 0);" text="SELECT" />
+                        </VBox>
 
-        <!-- Back Button -->
-        <Button text="⬅️ Back to Menu"
-                onAction="#backToMenu"
-                prefWidth="220"
-                prefHeight="45"
-                style="-fx-background-color: linear-gradient(to bottom, #6c757d, #5a6268);
-                       -fx-text-fill: white;
-                       -fx-font-size: 17px;
-                       -fx-font-weight: bold;
-                       -fx-background-radius: 10;
-                       -fx-cursor: hand;
-                       -fx-effect: dropshadow(gaussian, rgba(108,117,125,0.6), 10, 0.5, 0, 2);"/>
+                        <!-- Ball Skins -->
+                        <VBox alignment="CENTER" spacing="15" style="-fx-background-color: #2d3250;                                      -fx-padding: 25;                                      -fx-border-radius: 10;                                      -fx-background-radius: 10;                                      -fx-border-color: #ff6b9d;                                      -fx-border-width: 2;                                      -fx-max-width: 950;                                      -fx-effect: dropshadow(gaussian, rgba(255,107,157,0.25), 8, 0, 0, 2);">
+                            <Label style="-fx-font-size: 18px; -fx-font-weight: 600; -fx-text-fill: #ff6b9d;" text="BALL SKINS" />
+                            <Label style="-fx-font-size: 11px; -fx-text-fill: #8b9dc3;" text="Gold border = equipped · Green border = selected" />
+                            <HBox fx:id="ballSkinBox" alignment="CENTER" spacing="10">
+                                <padding>
+                                    <Insets bottom="8" top="8" />
+                                </padding>
+                            </HBox>
+                            <Button fx:id="selectBallButton" onAction="#handleBallAction" prefHeight="36" prefWidth="160" style="-fx-font-size: 13px;                                            -fx-background-color: #ff6b9d;                                            -fx-text-fill: white;                                            -fx-font-weight: 600;                                            -fx-border-radius: 8;                                            -fx-background-radius: 8;                                            -fx-cursor: hand;                                            -fx-effect: dropshadow(gaussian, rgba(255,107,157,0.4), 5, 0, 0, 0);" text="SELECT" />
+                        </VBox>
+
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+        </TabPane>
 
     </VBox>
 

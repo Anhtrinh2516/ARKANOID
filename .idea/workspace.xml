@@ -5,26 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d14092cf-fefb-46f5-918a-92817d202965" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/logic/ActivePowerUp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/logic/EnhancedBrick.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/GameOverDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/Game.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/bg-retrospace(1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/GameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/MainApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/GameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/MainMenuController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/ShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/ShopController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/logic/Brick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/logic/Brick.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/logic/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/logic/GameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/logic/LevelLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/logic/LevelLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/logic/Paddle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/logic/Paddle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/MainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/MainMenu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Settings.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Settings.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Shop.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Shop.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/sample.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/Shop.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/Shop.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/GameController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/GameController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/GameController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/GameController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/GameController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/MainApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/MainApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/controller/ShopController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/controller/ShopController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/logic/GameEngine$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/logic/GameEngine$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/logic/GameEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/logic/GameEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/logic/Paddle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/logic/Paddle.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +158,9 @@
       <workItem from="1761642843841" duration="211000" />
       <workItem from="1761643791107" duration="11000" />
       <workItem from="1761644361766" duration="400000" />
-      <workItem from="1761756394258" duration="1718000" />
+      <workItem from="1761756394258" duration="3328000" />
+      <workItem from="1761789513238" duration="2491000" />
+      <workItem from="1761823817147" duration="1105000" />
     </task>
     <servers />
   </component>
