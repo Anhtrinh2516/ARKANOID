@@ -9,9 +9,6 @@ import org.example.controller.GameState;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
 
 public class GameEngine {
 
@@ -35,8 +32,7 @@ public class GameEngine {
     private int level = 1;
     private boolean levelCompleting = false;
     private long levelCompleteTime = 0;
-    private boolean isProcessingLifeLoss = false;  // NEW: Prevent multiple life loss
-    private boolean isGameOver = false;  // NEW: Track game over state
+    private boolean isGameOver = false;
 
     private double originalPaddleWidth = 0;
     private double originalBallDx = 0;
@@ -57,6 +53,9 @@ public class GameEngine {
 
         this.originalPaddleWidth = paddleNode.getWidth();
 
+        // Khởi tạo mũi tên cho ball
+        ball.initializeArrow(pane);
+
         updateHUD();
     }
 
@@ -68,8 +67,7 @@ public class GameEngine {
         this.level = idx;
         levelCb.accept(level);
         levelCompleting = false;
-        isProcessingLifeLoss = false;  // Reset flag when loading new level
-        isGameOver = false;  // Reset game over state
+        isGameOver = false;
 
         for (Brick b : bricks) pane.getChildren().remove(b.getNode());
         bricks.clear();
@@ -83,21 +81,67 @@ public class GameEngine {
         resetBallAndPaddle();
     }
 
+    /**
+     * Di chuyển paddle sang trái - ball attached sẽ theo
+     */
     public void movePaddleLeft()  {
         paddle.moveLeft(0);
+        // Cập nhật vị trí ball nếu đang attached
+        if (ball.isAttached()) {
+            ball.updateAttachment(
+                    paddle.getNode().getX(),
+                    paddle.getNode().getWidth(),
+                    paddle.getNode().getY()
+            );
+        }
     }
 
+    /**
+     * Di chuyển paddle sang phải - ball attached sẽ theo
+     */
     public void movePaddleRight() {
         paddle.moveRight(GAME_AREA_WIDTH);
+        // Cập nhật vị trí ball nếu đang attached
+        if (ball.isAttached()) {
+            ball.updateAttachment(
+                    paddle.getNode().getX(),
+                    paddle.getNode().getWidth(),
+                    paddle.getNode().getY()
+            );
+        }
+    }
+
+    /**
+     * Điều chỉnh góc phóng bóng khi đang attach
+     */
+    public void adjustAimLeft() {
+        if (ball.isAttached()) {
+            ball.adjustLaunchAngle(-5); // Xoay 5° sang trái
+        }
+    }
+
+    public void adjustAimRight() {
+        if (ball.isAttached()) {
+            ball.adjustLaunchAngle(5); // Xoay 5° sang phải
+        }
+    }
+
+    /**
+     * Phóng ball (gọi khi nhấn SPACE)
+     */
+    public void launchBall() {
+        ball.launch();
     }
 
     public Ball getBall() {
         return ball;
     }
 
+    /**
+     * Update game logic mỗi frame
+     */
     public void update() {
-        // Don't update if game is over or processing life loss
-        if (isGameOver || isProcessingLifeLoss) {
+        if (isGameOver) {
             return;
         }
 
@@ -108,6 +152,17 @@ public class GameEngine {
             return;
         }
 
+        // Nếu ball đang attached, không xử lý va chạm
+        if (ball.isAttached()) {
+            ball.updateAttachment(
+                    paddle.getNode().getX(),
+                    paddle.getNode().getWidth(),
+                    paddle.getNode().getY()
+            );
+            return; // Chờ người chơi nhấn SPACE
+        }
+
+        // Ball đang bay - xử lý di chuyển và va chạm
         ball.move();
 
         double r = ball.getR();
@@ -115,6 +170,7 @@ public class GameEngine {
         double H = GAME_AREA_HEIGHT;
         double HUD_HEIGHT = 60.0;
 
+        // Va chạm tường trái/phải
         if (ball.getX() - r <= 0) {
             ball.bounceX();
             ball.getNode().setCenterX(r + 1);
@@ -125,12 +181,13 @@ public class GameEngine {
             ball.getNode().setCenterX(W - r - 1);
         }
 
+        // Va chạm trần
         if (ball.getY() - r <= HUD_HEIGHT) {
             ball.bounceY();
             ball.getNode().setCenterY(HUD_HEIGHT + r + 1);
         }
 
-        // Improved paddle collision - more precise
+        // Va chạm paddle - ARKANOID STYLE
         double ballCenterX = ball.getX();
         double ballCenterY = ball.getY();
         double ballBottom = ballCenterY + r;
@@ -140,25 +197,40 @@ public class GameEngine {
         double paddleTop = paddle.getNode().getY();
         double paddleBottom = paddleTop + paddle.getNode().getHeight();
 
-        // Only bounce if ball is moving downward and actually intersects paddle
+        // Chỉ bounce khi ball đang rơi xuống (dy > 0) và chạm paddle
         if (ball.getDy() > 0) {
-            // Check if ball bottom is within paddle Y range
-            if (ballBottom >= paddleTop && ballBottom <= paddleBottom + 3) {
-                // Check if ball center X is within paddle X range
+            if (ballBottom >= paddleTop && ballBottom <= paddleBottom + 5) {
                 if (ballCenterX >= paddleLeft && ballCenterX <= paddleRight) {
-                    ball.bounceY();
-                    // Position ball just above paddle to prevent sticking
+                    // Tính góc bounce dựa trên vị trí va chạm (0.0 = trái, 1.0 = phải)
+                    double hitPos = (ballCenterX - paddleLeft) / paddle.getNode().getWidth();
+
+                    // Góc từ -150° (trái) đến -30° (phải)
+                    // Arkanoid style: trái = góc âm lớn, phải = góc âm nhỏ
+                    double angle = Math.toRadians(-150 + hitPos * 120); // -150° đến -30°
+
+                    // Tính vận tốc mới giữ nguyên tốc độ
+                    double speed = Math.sqrt(ball.getDx() * ball.getDx() + ball.getDy() * ball.getDy());
+                    ball.setDx(speed * Math.sin(angle));
+                    ball.setDy(speed * Math.cos(angle)); // dy luôn âm (đi lên)
+
+                    // Đặt ball phía trên paddle để tránh stuck
                     ball.getNode().setCenterY(paddleTop - r - 1);
+
+                    System.out.println("⚡ Paddle hit at " + String.format("%.2f", hitPos) +
+                            " → angle " + String.format("%.1f", Math.toDegrees(angle)) + "°" +
+                            " → dx=" + String.format("%.2f", ball.getDx()) +
+                            ", dy=" + String.format("%.2f", ball.getDy()));
                 }
             }
         }
 
-        // Check if ball fell below paddle - with flag protection
-        if (ballBottom >= H && !isProcessingLifeLoss) {
+        // Ball rơi xuống dưới - MẤT MẠNG
+        if (ballBottom >= H) {
             loseLife();
             return;
         }
 
+        // Va chạm brick
         for (Brick br : bricks) {
             if (!br.isDestroyed() && intersects(ball.getNode(), br.getNode())) {
                 boolean wasDestroyed = br.onHit();
@@ -176,6 +248,7 @@ public class GameEngine {
         updatePowerUps();
         updateActivePowerUps();
 
+        // Kiểm tra hoàn thành level
         if (allBreakableDestroyed()) {
             levelCompleting = true;
             levelCompleteTime = System.currentTimeMillis();
@@ -185,27 +258,26 @@ public class GameEngine {
         }
     }
 
+    /**
+     * Reset ball và paddle về vị trí ban đầu
+     * Ball sẽ ở trạng thái ATTACHED
+     */
     private void resetBallAndPaddle() {
         Platform.runLater(() -> {
-            // Reset paddle position - near bottom
+            // Reset paddle position
             double paddleX = (GAME_AREA_WIDTH - paddle.getNode().getWidth()) / 2;
-            double paddleY = 580;  // Near bottom of 620px height
+            double paddleY = 580;
             paddle.getNode().setX(paddleX);
             paddle.getNode().setY(paddleY);
 
-            // Reset ball position - on top of paddle center
-            double ballX = paddleX + paddle.getNode().getWidth() / 2;
-            double ballY = paddleY - 20;
-            ball.reset(ballX, ballY);
+            // Reset ball với 3 tham số (paddleX, paddleWidth, paddleY)
+            ball.reset(
+                    paddleX,
+                    paddle.getNode().getWidth(),
+                    paddleY
+            );
 
-            System.out.println("Reset - Paddle: (" + paddleX + ", " + paddleY + "), Ball: (" + ballX + ", " + ballY + ")");
-
-            // Reset processing flag after a short delay to prevent immediate re-trigger
-            Timeline resetDelay = new Timeline(new KeyFrame(Duration.millis(500), e -> {
-                isProcessingLifeLoss = false;
-            }));
-            resetDelay.setCycleCount(1);
-            resetDelay.play();
+            System.out.println("🎮 Game ready! Use Arrow Keys to aim, press SPACE to launch!");
         });
     }
 
@@ -220,13 +292,14 @@ public class GameEngine {
         return a.getBoundsInParent().intersects(b.getBoundsInParent());
     }
 
+    /**
+     * Mất mạng - reset ball về paddle
+     */
     private void loseLife() {
-        // Prevent multiple calls
-        if (isProcessingLifeLoss || isGameOver) {
+        if (isGameOver) {
             return;
         }
 
-        isProcessingLifeLoss = true;
         lives--;
 
         if (livesCb != null) {
@@ -240,20 +313,17 @@ public class GameEngine {
             int finalLevel = level;
 
             Platform.runLater(() -> {
-                // Show game over dialog
                 org.example.ui.GameOverDialog.show(finalScore, finalLevel);
 
-                // Reset game state after dialog
                 lives = 3;
                 score = 0;
                 isGameOver = false;
-                isProcessingLifeLoss = false;
                 updateHUD();
                 loadLevel(1);
             });
         } else {
-            // Lost a life but still have lives remaining
-            // Reset ball and paddle immediately without delay
+            // Còn mạng - reset ball về paddle (attached mode)
+            System.out.println("💔 Life lost! Lives remaining: " + lives);
             resetBallAndPaddle();
         }
     }
@@ -341,14 +411,16 @@ public class GameEngine {
                 updatePowerUpUI();
             }
             case SLOW_BALL -> {
-                if (originalBallDx == 0) {
-                    originalBallDx = ball.getDx();
-                    originalBallDy = ball.getDy();
+                if (!ball.isAttached()) {
+                    if (originalBallDx == 0) {
+                        originalBallDx = ball.getDx();
+                        originalBallDy = ball.getDy();
+                    }
+                    ball.setDx(ball.getDx() * 0.7);
+                    ball.setDy(ball.getDy() * 0.7);
+                    activePowerUps.add(new ActivePowerUp(PowerUpType.SLOW_BALL, 10000));
+                    updatePowerUpUI();
                 }
-                ball.setDx(ball.getDx() * 0.7);
-                ball.setDy(ball.getDy() * 0.7);
-                activePowerUps.add(new ActivePowerUp(PowerUpType.SLOW_BALL, 10000));
-                updatePowerUpUI();
             }
         }
     }
@@ -364,8 +436,10 @@ public class GameEngine {
                         paddle.getNode().setWidth(originalPaddleWidth);
                     }
                     case SLOW_BALL -> {
-                        ball.setDx(originalBallDx);
-                        ball.setDy(originalBallDy);
+                        if (!ball.isAttached()) {
+                            ball.setDx(originalBallDx);
+                            ball.setDy(originalBallDy);
+                        }
                     }
                 }
                 pu.deactivate();
@@ -395,6 +469,7 @@ public class GameEngine {
             }
         }
     }
+
     public void restoreGameState(int score, int lives) {
         this.score = score;
         this.lives = lives;

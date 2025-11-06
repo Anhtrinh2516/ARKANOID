@@ -5,7 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d14092cf-fefb-46f5-918a-92817d202965" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/GameStateManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/StyleConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/TutorialDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/ShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/ShopController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/logic/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/logic/Ball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/logic/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/logic/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ui/GameOverDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ui/GameOverDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Shop.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Shop.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/Shop.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/Shop.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/GameController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/GameController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/GameController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/GameController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/GameController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/controller/GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/controller/GameState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/controller/MainMenuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/controller/MainMenuController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/controller/ShopController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/controller/ShopController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/logic/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/logic/Ball.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/logic/GameEngine$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/logic/GameEngine$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/logic/GameEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/logic/GameEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/ui/GameOverDialog$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/ui/GameOverDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/ui/GameOverDialog.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +168,16 @@
       <workItem from="1761644361766" duration="400000" />
       <workItem from="1761756394258" duration="3328000" />
       <workItem from="1761789513238" duration="2491000" />
-      <workItem from="1761823817147" duration="1741000" />
+      <workItem from="1761823817147" duration="11289000" />
+      <workItem from="1762005608320" duration="153000" />
+      <workItem from="1762006399288" duration="114000" />
+      <workItem from="1762248192314" duration="816000" />
+      <workItem from="1762322265269" duration="3641000" />
+      <workItem from="1762366730573" duration="190000" />
+      <workItem from="1762370419383" duration="32000" />
+      <workItem from="1762370476562" duration="2000" />
+      <workItem from="1762370581714" duration="1000" />
+      <workItem from="1762410503377" duration="349000" />
     </task>
     <servers />
   </component>

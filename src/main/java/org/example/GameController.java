@@ -14,6 +14,7 @@ import javafx.util.Duration;
 import org.example.logic.*;
 import org.example.controller.GameState;
 import org.example.controller.GameStateManager;
+import org.example.controller.SkinManager;
 
 import java.util.*;
 
@@ -94,6 +95,26 @@ public class GameController {
         }
     }
 
+    // ========== APPLY SHOP SKINS ==========
+
+    private void applySkins() {
+        javafx.application.Platform.runLater(() -> {
+            // Apply paddle skin
+            SkinManager.PaddleSkin paddleSkin = SkinManager.INSTANCE.getPaddleSkin();
+            paddle.setFill(javafx.scene.paint.Color.web(paddleSkin.fill));
+            paddle.setStroke(javafx.scene.paint.Color.web(paddleSkin.stroke));
+            paddle.setStrokeWidth(3);
+
+            // Apply ball skin
+            SkinManager.BallSkin ballSkin = SkinManager.INSTANCE.getBallSkin();
+            ball.setFill(javafx.scene.paint.Color.web(ballSkin.color));
+            ball.setStroke(javafx.scene.paint.Color.BLACK);
+            ball.setStrokeWidth(2);
+
+            System.out.println("Applied skins - Paddle: " + paddleSkin + ", Ball: " + ballSkin);
+        });
+    }
+
     // ========== LEVEL MANAGEMENT ==========
 
     public void startLevel(int levelIndex) {
@@ -125,14 +146,27 @@ public class GameController {
         } else {
             // Bắt đầu game mới
             engine.loadLevel(levelIndex);
+
+            // Hiển thị hint cho người chơi
+            if (hintLabel != null) {
+                hintLabel.setText("🎯 Use Q/E to aim, Arrow Keys to move, SPACE to launch!");
+                Timeline t = new Timeline(new KeyFrame(Duration.seconds(4),
+                        e -> hintLabel.setText("")));
+                t.play();
+            }
         }
 
+        // Apply permanent paddle width bonus from shop
         int bonus = GameState.INSTANCE.getPaddleWidthBonus();
         if (bonus > 0) {
             paddle.setWidth(100 + bonus);
+            System.out.println("Applied paddle width bonus: +" + bonus);
         } else {
             paddle.setWidth(100);
         }
+
+        // Apply skins from shop
+        applySkins();
 
         updateCoinsUI();
         updateItemButtons();
@@ -198,6 +232,10 @@ public class GameController {
                 System.out.println("Collected coin! Coins = " + GameState.INSTANCE.getCoins());
             }
             case EXTRA_LIFE -> {
+                currentLives++;
+                if (livesLabel != null) {
+                    livesLabel.setText(String.valueOf(currentLives));
+                }
                 System.out.println("Collected Extra Life power-up!");
             }
             case EXPAND_PADDLE -> {
@@ -210,34 +248,64 @@ public class GameController {
                 t.play();
             }
             case SLOW_BALL -> {
+                double currentDx = engine.getBall().getDx();
+                double currentDy = engine.getBall().getDy();
+                engine.getBall().setDx(currentDx * 0.7);
+                engine.getBall().setDy(currentDy * 0.7);
                 System.out.println("Ball slowed down!");
+
+                Timeline t = new Timeline(new KeyFrame(Duration.seconds(10), e -> {
+                    engine.getBall().setDx(currentDx);
+                    engine.getBall().setDy(currentDy);
+                    System.out.println("Slow ball effect expired");
+                }));
+                t.setCycleCount(1);
+                t.play();
             }
         }
     }
 
-    // ========== SHOP ITEMS ==========
+    // ========== SHOP ITEMS (CONSUMABLES) ==========
 
     private void useShopItem(int itemNumber) {
         if (isPaused) return;
 
         switch (itemNumber) {
             case 1 -> {
+                // Wide Paddle Item
                 if (!GameState.INSTANCE.useWideItem()) {
-                    System.out.println("No Wide Item available! Buy from shop first.");
+                    System.out.println("❌ No Wide Paddle items! Buy from shop.");
+                    if (hintLabel != null) {
+                        hintLabel.setText("❌ No Wide Paddle items!");
+                        Timeline t = new Timeline(new KeyFrame(Duration.seconds(2),
+                                e -> hintLabel.setText("")));
+                        t.play();
+                    }
                     return;
                 }
 
+                // Cancel previous effect if active
                 if (item1Timeline != null) {
                     item1Timeline.stop();
                 }
 
                 double oldWidth = paddle.getWidth();
                 paddle.setWidth(oldWidth + 50);
-                System.out.println("Item 1 activated: Paddle expanded for 10 seconds!");
+                System.out.println("🛸 Wide Paddle activated for 10 seconds!");
+
+                if (hintLabel != null) {
+                    hintLabel.setText("🛸 Wide Paddle activated!");
+                }
 
                 item1Timeline = new Timeline(new KeyFrame(Duration.seconds(10), e -> {
                     paddle.setWidth(oldWidth);
-                    System.out.println("Item 1 expired!");
+                    System.out.println("Wide Paddle expired");
+                    if (hintLabel != null) {
+                        hintLabel.setText("Wide Paddle expired");
+                        Timeline t = new Timeline(new KeyFrame(Duration.seconds(2),
+                                ev -> hintLabel.setText("")));
+                        t.play();
+                    }
                     item1Timeline = null;
                 }));
                 item1Timeline.setCycleCount(1);
@@ -246,34 +314,76 @@ public class GameController {
                 updateItemButtons();
             }
             case 2 -> {
+                // Extra Life Item
                 if (!GameState.INSTANCE.useLifeItem()) {
-                    System.out.println("No Life Item available! Buy from shop first.");
+                    System.out.println("❌ No Extra Life items! Buy from shop.");
+                    if (hintLabel != null) {
+                        hintLabel.setText("❌ No Extra Life items!");
+                        Timeline t = new Timeline(new KeyFrame(Duration.seconds(2),
+                                e -> hintLabel.setText("")));
+                        t.play();
+                    }
                     return;
+                }
+
+                currentLives++;
+                if (livesLabel != null) {
+                    livesLabel.setText(String.valueOf(currentLives));
+                }
+
+                System.out.println("💖 Extra Life used! Lives: " + currentLives);
+
+                if (hintLabel != null) {
+                    hintLabel.setText("💖 Extra Life used!");
+                    Timeline t = new Timeline(new KeyFrame(Duration.seconds(2),
+                            e -> hintLabel.setText("")));
+                    t.play();
                 }
 
                 updateItemButtons();
-                System.out.println("Item 2 activated: Extra life!");
             }
             case 3 -> {
+                // Slow Ball Item
                 if (!GameState.INSTANCE.useSlowItem()) {
-                    System.out.println("No Slow Item available! Buy from shop first.");
+                    System.out.println("❌ No Slow Ball items! Buy from shop.");
+                    if (hintLabel != null) {
+                        hintLabel.setText("❌ No Slow Ball items!");
+                        Timeline t = new Timeline(new KeyFrame(Duration.seconds(2),
+                                e -> hintLabel.setText("")));
+                        t.play();
+                    }
                     return;
                 }
 
+                // Cancel previous effect if active
                 if (item3Timeline != null) {
                     item3Timeline.stop();
                 }
 
                 double currentDx = engine.getBall().getDx();
                 double currentDy = engine.getBall().getDy();
-                engine.getBall().setDx(currentDx * 0.5);
-                engine.getBall().setDy(currentDy * 0.5);
-                System.out.println("Item 3 activated: Ball slowed for 10 seconds!");
+                engine.getBall().setDx(currentDx * 0.6);
+                engine.getBall().setDy(currentDy * 0.6);
+
+                System.out.println("🌀 Slow Ball activated for 10 seconds!");
+
+                if (hintLabel != null) {
+                    hintLabel.setText("🌀 Slow Ball activated!");
+                }
 
                 item3Timeline = new Timeline(new KeyFrame(Duration.seconds(10), e -> {
-                    engine.getBall().setDx(currentDx);
-                    engine.getBall().setDy(currentDy);
-                    System.out.println("Item 3 expired!");
+                    // Only restore if ball is still moving in similar direction
+                    if (Math.signum(engine.getBall().getDx()) == Math.signum(currentDx)) {
+                        engine.getBall().setDx(currentDx);
+                        engine.getBall().setDy(currentDy);
+                    }
+                    System.out.println("Slow Ball expired");
+                    if (hintLabel != null) {
+                        hintLabel.setText("Slow Ball expired");
+                        Timeline t = new Timeline(new KeyFrame(Duration.seconds(2),
+                                ev -> hintLabel.setText("")));
+                        t.play();
+                    }
                     item3Timeline = null;
                 }));
                 item3Timeline.setCycleCount(1);
@@ -291,6 +401,18 @@ public class GameController {
         if (pauseButton != null) {
             pauseButton.setText(isPaused ? "▶" : "⏸");
         }
+
+        if (hintLabel != null) {
+            if (isPaused) {
+                hintLabel.setText("⏸ PAUSED - Press P to resume");
+            } else {
+                hintLabel.setText("▶ RESUMED");
+                Timeline t = new Timeline(new KeyFrame(Duration.seconds(2),
+                        e -> hintLabel.setText("")));
+                t.play();
+            }
+        }
+
         System.out.println("Game " + (isPaused ? "paused" : "resumed"));
     }
 
@@ -325,6 +447,18 @@ public class GameController {
         });
 
         engine.loadLevel(1);
+
+        // Apply skins and upgrades from shop
+        applySkins();
+
+        // Apply permanent paddle width bonus
+        int bonus = GameState.INSTANCE.getPaddleWidthBonus();
+        if (bonus > 0) {
+            javafx.application.Platform.runLater(() -> {
+                paddle.setWidth(100 + bonus);
+                System.out.println("Applied paddle width bonus: +" + bonus);
+            });
+        }
 
         updateCoinsUI();
         updateItemButtons();
@@ -389,14 +523,29 @@ public class GameController {
         anchorPane.setOnKeyPressed(e -> {
             activeKeys.add(e.getCode());
 
-            if (e.getCode() == KeyCode.DIGIT1) {
-                useShopItem(1);
-            } else if (e.getCode() == KeyCode.DIGIT2) {
-                useShopItem(2);
-            } else if (e.getCode() == KeyCode.DIGIT3) {
-                useShopItem(3);
-            } else if (e.getCode() == KeyCode.P) {
+            // SPACE để launch ball (chỉ khi ball đang attached)
+            if (e.getCode() == KeyCode.SPACE) {
+                if (engine.getBall().isAttached()) {
+                    engine.launchBall();
+                    if (hintLabel != null) {
+                        hintLabel.setText("🚀 Ball launched!");
+                        Timeline t = new Timeline(new KeyFrame(Duration.seconds(1.5),
+                                ev -> hintLabel.setText("")));
+                        t.play();
+                    }
+                }
+            }
+            // P để pause/resume
+            else if (e.getCode() == KeyCode.P) {
                 togglePause();
+            }
+            // Số 1, 2, 3 để dùng items
+            else if (e.getCode() == KeyCode.DIGIT1 || e.getCode() == KeyCode.NUMPAD1) {
+                useShopItem(1);
+            } else if (e.getCode() == KeyCode.DIGIT2 || e.getCode() == KeyCode.NUMPAD2) {
+                useShopItem(2);
+            } else if (e.getCode() == KeyCode.DIGIT3 || e.getCode() == KeyCode.NUMPAD3) {
+                useShopItem(3);
             }
         });
 
@@ -417,17 +566,37 @@ public class GameController {
         // Game loop
         gameTimer = new AnimationTimer() {
             private long lastCoinUpdate = 0;
+            private long lastAimAdjust = 0;
 
             @Override
             public void handle(long now) {
                 if (!isPaused) {
-                    if (activeKeys.contains(KeyCode.LEFT))  engine.movePaddleLeft();
-                    if (activeKeys.contains(KeyCode.RIGHT)) engine.movePaddleRight();
+                    // Di chuyển paddle (luôn cho phép)
+                    if (activeKeys.contains(KeyCode.LEFT) || activeKeys.contains(KeyCode.A))
+                        engine.movePaddleLeft();
+                    if (activeKeys.contains(KeyCode.RIGHT) || activeKeys.contains(KeyCode.D))
+                        engine.movePaddleRight();
+
+                    // Điều chỉnh góc ngắm - CHỈ khi ball đang attached
+                    if (engine.getBall().isAttached()) {
+                        // Throttle aim adjustment to prevent too fast rotation
+                        if (now - lastAimAdjust > 50_000_000) { // 50ms between adjustments
+                            if (activeKeys.contains(KeyCode.Q)) {
+                                engine.adjustAimLeft();
+                                lastAimAdjust = now;
+                            }
+                            if (activeKeys.contains(KeyCode.E)) {
+                                engine.adjustAimRight();
+                                lastAimAdjust = now;
+                            }
+                        }
+                    }
 
                     engine.update();
                     updatePowerUps();
                 }
 
+                // Update UI periodically
                 if (now - lastCoinUpdate > 500_000_000) {
                     updateCoinsUI();
                     updateItemButtons();
@@ -444,17 +613,6 @@ public class GameController {
             }
         };
         gameTimer.start();
-
-        // Apply gradient to paddle
-        javafx.application.Platform.runLater(() -> {
-            javafx.scene.paint.LinearGradient gradient = new javafx.scene.paint.LinearGradient(
-                    0, 0, 0, 1, true, javafx.scene.paint.CycleMethod.NO_CYCLE,
-                    new javafx.scene.paint.Stop(0.0, javafx.scene.paint.Color.web("#00ffff")),
-                    new javafx.scene.paint.Stop(0.5, javafx.scene.paint.Color.web("#00d4ff")),
-                    new javafx.scene.paint.Stop(1.0, javafx.scene.paint.Color.web("#0080ff"))
-            );
-            paddle.setFill(gradient);
-        });
     }
 
     // ========== SAVE/RESTORE GAME STATE ==========

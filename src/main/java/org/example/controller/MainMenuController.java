@@ -184,14 +184,13 @@ public class MainMenuController {
 
     @FXML
     private void openLeaderboard() {
-        // TODO: Implement leaderboard view
         System.out.println("Leaderboard feature coming soon!");
     }
 
     @FXML
     private void openHelp() {
-        // TODO: Implement help/about dialog
-        System.out.println("Help feature coming soon!");
+        // Show tutorial dialog
+        org.example.ui.TutorialDialog.show();
     }
 
     @FXML

@@ -3,7 +3,7 @@ package org.example.controller;
 public class GameState {
     public static final GameState INSTANCE = new GameState();
 
-    private int coins = 0;
+    private int coins = 100;
     private int paddleWidthBonus = 0;
     private double ballSpeedScale = 1;
 
