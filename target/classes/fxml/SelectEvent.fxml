@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controller.SelectEventController"
+            prefHeight="700.0" prefWidth="1000.0"
+            style="-fx-background-color: linear-gradient(to bottom, #0066cc, #003366);">
+
+    <!-- Title at top -->
+    <VBox alignment="TOP_CENTER" spacing="20" 
+        AnchorPane.topAnchor="60.0" 
+          AnchorPane.leftAnchor="0.0" 
+          AnchorPane.rightAnchor="0.0">
+        <Text text="EVENT MODE" 
+              style="-fx-font-size: 42px; -fx-font-weight: bold; -fx-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 12, 0, 0, 4);"/>
+    </VBox>
+
+    <!-- Horizontal ScrollPane for event chap$env:JAVA_HOME = "C:\Program Files\Java\jdk-24"; .\mvnw.cmd javafx:runters -->
+    <ScrollPane fx:id="eventScrollPane" 
+                AnchorPane.topAnchor="180.0" 
+                AnchorPane.bottomAnchor="140.0"
+                AnchorPane.leftAnchor="150.0" 
+                AnchorPane.rightAnchor="150.0"
+                style="-fx-background: transparent; 
+                       -fx-background-color: transparent; 
+                       -fx-border-color: transparent;"
+                hbarPolicy="ALWAYS" 
+                vbarPolicy="NEVER"
+                fitToHeight="true"
+                pannable="true">
+        <content>
+            <HBox fx:id="eventChapterBox" 
+                  spacing="40" 
+                  alignment="CENTER_LEFT" 
+                  style="-fx-background-color: transparent; -fx-padding: 30;">
+                <!-- Event chapters will be added here dynamically -->
+            </HBox>
+        </content>
+    </ScrollPane>
+
+    <!-- Bottom section with Back button and User info -->
+    <HBox spacing="20" alignment="CENTER_LEFT"
+          AnchorPane.bottomAnchor="30.0" 
+          AnchorPane.leftAnchor="50.0" 
+          AnchorPane.rightAnchor="50.0">
+        
+        <!-- Back button -->
+        <Button fx:id="backButton" text="BACK" onAction="#handleBack"
+                prefWidth="140.0" prefHeight="45.0"
+                style="-fx-background-color: #2a5a9f; -fx-text-fill: white; 
+                       -fx-font-size: 16px; -fx-font-weight: bold; 
+                       -fx-background-radius: 8; -fx-cursor: hand; 
+                       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 3);">
+            <cursor>
+                <javafx.scene.Cursor fx:constant="HAND"/>
+            </cursor>
+        </Button>
+        
+        <!-- Spacer -->
+        <Region HBox.hgrow="ALWAYS"/>
+        
+        <!-- User info -->
+        <Text fx:id="userInfoText" text="Signed in as: Player" 
+              style="-fx-font-size: 15px; -fx-fill: white; -fx-font-weight: bold;"/>
+    </HBox>
+
+</AnchorPane>
