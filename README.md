@@ -1,2 +1,1 @@
 # ARKANOID
-# ARKANOID

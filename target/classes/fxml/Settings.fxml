@@ -6,122 +6,123 @@
 <?import javafx.scene.shape.Circle?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.controller.SettingsController"
-            prefWidth="500"
-            prefHeight="500"
-            style="-fx-background-color: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);">
+       xmlns:fx="http://javafx.com/fxml/1"
+       fx:controller="controller.SettingsController"
+       prefWidth="500"
+       prefHeight="500"
+       style="-fx-background-color: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);">
 
-    <!-- Hiệu ứng sao nền -->
-    <Circle radius="2" centerX="60" centerY="60" fill="white" opacity="0.9"/>
-    <Circle radius="1.5" centerX="130" centerY="90" fill="white" opacity="0.7"/>
-    <Circle radius="1" centerX="210" centerY="70" fill="white" opacity="0.8"/>
-    <Circle radius="1.5" centerX="290" centerY="100" fill="white" opacity="0.6"/>
-    <Circle radius="2" centerX="370" centerY="80" fill="white" opacity="0.9"/>
-    <Circle radius="1" centerX="440" centerY="95" fill="white" opacity="0.7"/>
+       <!-- Hiệu ứng sao nền -->
+       <Circle radius="2" centerX="60" centerY="60" fill="white" opacity="0.9" />
+       <Circle radius="1.5" centerX="130" centerY="90" fill="white" opacity="0.7" />
+       <Circle radius="1" centerX="210" centerY="70" fill="white" opacity="0.8" />
+       <Circle radius="1.5" centerX="290" centerY="100" fill="white" opacity="0.6" />
+       <Circle radius="2" centerX="370" centerY="80" fill="white" opacity="0.9" />
+       <Circle radius="1" centerX="440" centerY="95" fill="white" opacity="0.7" />
 
-    <Circle radius="1.5" centerX="90" centerY="180" fill="white" opacity="0.8"/>
-    <Circle radius="1" centerX="170" centerY="210" fill="white" opacity="0.6"/>
-    <Circle radius="2" centerX="250" centerY="190" fill="white" opacity="0.9"/>
-    <Circle radius="1.5" centerX="330" centerY="220" fill="white" opacity="0.7"/>
-    <Circle radius="1" centerX="410" centerY="200" fill="white" opacity="0.8"/>
+       <Circle radius="1.5" centerX="90" centerY="180" fill="white" opacity="0.8" />
+       <Circle radius="1" centerX="170" centerY="210" fill="white" opacity="0.6" />
+       <Circle radius="2" centerX="250" centerY="190" fill="white" opacity="0.9" />
+       <Circle radius="1.5" centerX="330" centerY="220" fill="white" opacity="0.7" />
+       <Circle radius="1" centerX="410" centerY="200" fill="white" opacity="0.8" />
 
-    <Circle radius="1" centerX="110" centerY="350" fill="white" opacity="0.7"/>
-    <Circle radius="1.5" centerX="190" centerY="380" fill="white" opacity="0.8"/>
-    <Circle radius="2" centerX="270" centerY="360" fill="white" opacity="0.6"/>
-    <Circle radius="1" centerX="350" centerY="390" fill="white" opacity="0.9"/>
-    <Circle radius="1.5" centerX="430" centerY="370" fill="white" opacity="0.7"/>
+       <Circle radius="1" centerX="110" centerY="350" fill="white" opacity="0.7" />
+       <Circle radius="1.5" centerX="190" centerY="380" fill="white" opacity="0.8" />
+       <Circle radius="2" centerX="270" centerY="360" fill="white" opacity="0.6" />
+       <Circle radius="1" centerX="350" centerY="390" fill="white" opacity="0.9" />
+       <Circle radius="1.5" centerX="430" centerY="370" fill="white" opacity="0.7" />
 
-    <VBox spacing="25"
-          alignment="TOP_CENTER"
-          style="-fx-padding: 35;">
+       <VBox spacing="25"
+              alignment="TOP_CENTER"
+              style="-fx-padding: 35;">
 
-        <!-- Back Button -->
-        <Button text="⬅️ Back to Menu"
-                onAction="#backToMenu"
-                prefWidth="220"
-                prefHeight="45"
-                style="-fx-background-color: linear-gradient(to bottom, #6c757d, #5a6268);
+              <!-- Back Button -->
+              <Button text="⬅️ Back to Menu"
+                     onAction="#backToMenu"
+                     prefWidth="220"
+                     prefHeight="45"
+                     style="-fx-background-color: linear-gradient(to bottom, #6c757d, #5a6268);
                        -fx-text-fill: white;
                        -fx-font-size: 17px;
                        -fx-font-weight: bold;
                        -fx-background-radius: 10;
                        -fx-cursor: hand;
-                       -fx-effect: dropshadow(gaussian, rgba(108,117,125,0.6), 10, 0.5, 0, 2);"/>
+                       -fx-effect: dropshadow(gaussian, rgba(108,117,125,0.6), 10, 0.5, 0, 2);" />
 
-    </VBox>
+       </VBox>
 
-</AnchorPane> Header -->
+</AnchorPane>
+<!-- Header -->
 <Label text="⚙️ SETTINGS"
        style="-fx-font-size: 38px; -fx-font-weight: bold;
                       -fx-text-fill: linear-gradient(to right, #a855f7, #7c3aed);
-                      -fx-effect: dropshadow(gaussian, #a855f7, 20, 0.8, 0, 0);"/>
+                      -fx-effect: dropshadow(gaussian, #a855f7, 20, 0.8, 0, 0);" />
 
-<Separator style="-fx-background-color: rgba(255,255,255,0.3); -fx-padding: 5 0 10 0;"/>
+<Separator style="-fx-background-color: rgba(255,255,255,0.3); -fx-padding: 5 0 10 0;" />
 
-        <!-- Volume Section -->
+<!-- Volume Section -->
 <VBox spacing="12" alignment="CENTER"
-      style="-fx-background-color: rgba(100,100,200,0.2);
+       style="-fx-background-color: rgba(100,100,200,0.2);
                      -fx-padding: 18;
                      -fx-background-radius: 12;
                      -fx-border-color: rgba(100,150,255,0.5);
                      -fx-border-width: 2;
                      -fx-border-radius: 12;
                      -fx-effect: dropshadow(gaussian, rgba(100,150,255,0.4), 10, 0.5, 0, 0);">
-<Label text="🔊 Volume Control"
-       style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;
-                          -fx-effect: dropshadow(gaussian, #4facfe, 5, 0.6, 0, 0);"/>
-<Slider fx:id="volumeSlider"
-        min="0" max="100" value="50"
-        showTickLabels="true"
-        showTickMarks="true"
-        majorTickUnit="25"
-        prefWidth="350"
-        style="-fx-control-inner-background: rgba(79,172,254,0.3);"/>
-<Label text="Adjust game sound volume"
-       style="-fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.7);"/>
+       <Label text="🔊 Volume Control"
+              style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;
+                          -fx-effect: dropshadow(gaussian, #4facfe, 5, 0.6, 0, 0);" />
+       <Slider fx:id="volumeSlider"
+              min="0" max="100" value="50"
+              showTickLabels="true"
+              showTickMarks="true"
+              majorTickUnit="25"
+              prefWidth="350"
+              style="-fx-control-inner-background: rgba(79,172,254,0.3);" />
+       <Label text="Adjust game sound volume"
+              style="-fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.7);" />
 </VBox>
 
-        <!-- Difficulty Section -->
+<!-- Difficulty Section -->
 <VBox spacing="12" alignment="CENTER"
-      style="-fx-background-color: rgba(200,100,200,0.2);
+       style="-fx-background-color: rgba(200,100,200,0.2);
                      -fx-padding: 18;
                      -fx-background-radius: 12;
                      -fx-border-color: rgba(168,85,247,0.5);
                      -fx-border-width: 2;
                      -fx-border-radius: 12;
                      -fx-effect: dropshadow(gaussian, rgba(168,85,247,0.4), 10, 0.5, 0, 0);">
-<Label text="🎯 Difficulty Level"
-       style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;
-                          -fx-effect: dropshadow(gaussian, #a855f7, 5, 0.6, 0, 0);"/>
-<ComboBox fx:id="difficultyCombo"
-          promptText="Select Difficulty"
-          prefWidth="250"
-          style="-fx-background-color: rgba(168,85,247,0.3);
+       <Label text="🎯 Difficulty Level"
+              style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;
+                          -fx-effect: dropshadow(gaussian, #a855f7, 5, 0.6, 0, 0);" />
+       <ComboBox fx:id="difficultyCombo"
+              promptText="Select Difficulty"
+              prefWidth="250"
+              style="-fx-background-color: rgba(168,85,247,0.3);
                              -fx-text-fill: white;
                              -fx-font-size: 15px;
-                             -fx-background-radius: 8;"/>
-<Label text="Choose your challenge level"
-       style="-fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.7);"/>
+                             -fx-background-radius: 8;" />
+       <Label text="Choose your challenge level"
+              style="-fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.7);" />
 </VBox>
 
-<Separator style="-fx-background-color: rgba(255,255,255,0.3); -fx-padding: 10 0 5 0;"/>
+<Separator style="-fx-background-color: rgba(255,255,255,0.3); -fx-padding: 10 0 5 0;" />
 
-        <!-- Credits -->
+<!-- Credits -->
 <VBox spacing="6" alignment="CENTER"
-      style="-fx-background-color: rgba(50,50,80,0.3);
+       style="-fx-background-color: rgba(50,50,80,0.3);
                      -fx-padding: 15;
                      -fx-background-radius: 10;
                      -fx-border-color: rgba(100,200,255,0.3);
                      -fx-border-width: 1;
                      -fx-border-radius: 10;">
-<Label text="🌌 Space Breaker"
-       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #4facfe;
-                          -fx-effect: dropshadow(gaussian, #4facfe, 5, 0.6, 0, 0);"/>
-<Label text="v1.0 - Made with ❤️"
-       style="-fx-font-size: 14px; -fx-text-fill: rgba(255,255,255,0.7);"/>
-<Label text="Break through the cosmic barriers!"
-       style="-fx-font-size: 12px; -fx-text-fill: rgba(255,255,255,0.5); -fx-font-style: italic;"/>
+       <Label text="🌌 Space Breaker"
+              style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #4facfe;
+                          -fx-effect: dropshadow(gaussian, #4facfe, 5, 0.6, 0, 0);" />
+       <Label text="v1.0 - Made with ❤️"
+              style="-fx-font-size: 14px; -fx-text-fill: rgba(255,255,255,0.7);" />
+       <Label text="Break through the cosmic barriers!"
+              style="-fx-font-size: 12px; -fx-text-fill: rgba(255,255,255,0.5); -fx-font-style: italic;" />
 </VBox>
 
-        <!--
+<!--
