@@ -7,49 +7,66 @@ public class SkinManager {
     public static final SkinManager INSTANCE = new SkinManager();
 
     public enum SkinType {
-        FREE,   // Miễn phí từ đầu
-        SHOP,   // Mua bằng coins
-        EVENT   // Unlock qua event
+        FREE,
+        SHOP,
+        EVENT
     }
 
-    // Danh sách skin
     public enum PaddleSkin {
-        DEFAULT(SkinType.FREE, 0, "#3498db", "#2980b9"),
-        FIRE(SkinType.SHOP, 10, "#e74c3c", "#c0392b"),
-        GRASS(SkinType.SHOP, 10, "#27ae60", "#229954"),
-        GOLD(SkinType.SHOP, 10, "#f39c12", "#d68910"),
-        PURPLE(SkinType.SHOP, 10, "#9b59b6", "#8e44ad"),
-        EVENT_SPECIAL(SkinType.EVENT, 0, "#000000", "#333333"); // Event skin - màu đen tạm
+        DEFAULT(SkinType.FREE, 0, "#3498db", "#2980b9", "", null),
+        FIRE(SkinType.SHOP, 10, "#e74c3c", "#c0392b", "", null),
+        GRASS(SkinType.SHOP, 10, "#27ae60", "#229954", "", null),
+        GOLD(SkinType.SHOP, 10, "#f39c12", "#d68910", "", null),
+        PURPLE(SkinType.SHOP, 10, "#9b59b6", "#8e44ad", "", null),
+        
+        TREASURE_HUNTER(SkinType.EVENT, 0, "#00CED1", "#008B8B", "🏴‍☠️ Treasure Hunter", "/event/skins/treasure_hunter/treasure_hunter_paddle.png"),
+        PENALDO(SkinType.EVENT, 0, "#0064FF", "#0050CC", "Penaldo", "/event/skins/penaldo/penaldo_paddle.png"),
+        UNIVERSE(SkinType.EVENT, 0, "#00FF41", "#00CC33", "Universe", "/event/skins/universe/universe_paddle.png"),
+        CASINO(SkinType.EVENT, 0, "#FF4500", "#DC143C", "Casino", "/event/skins/casino/casino_paddle.png"),
+        CASTLE(SkinType.EVENT, 0, "#00BFFF", "#1E90FF", "Castle", "/event/skins/castle/castle_paddle.png");
 
         public final SkinType type;
         public final int price;
         public final String fill;
         public final String stroke;
+        public final String eventName;
+        public final String imagePath;
 
-        PaddleSkin(SkinType type, int price, String fill, String stroke) {
+        PaddleSkin(SkinType type, int price, String fill, String stroke, String eventName, String imagePath) {
             this.type = type;
             this.price = price;
             this.fill = fill;
             this.stroke = stroke;
+            this.eventName = eventName;
+            this.imagePath = imagePath;
         }
     }
 
     public enum BallSkin {
-        DEFAULT(SkinType.FREE, 0, "#e74c3c"),
-        BLUE(SkinType.SHOP, 10, "#3498db"),
-        GREEN(SkinType.SHOP, 10, "#2ecc71"),
-        GOLD(SkinType.SHOP, 10, "#f1c40f"),
-        PINK(SkinType.SHOP, 10, "#e91e63"),
-        EVENT_SPECIAL(SkinType.EVENT, 0, "#000000"); // Event skin - màu đen tạm
+        DEFAULT(SkinType.FREE, 0, "#e74c3c", "", null),
+        BLUE(SkinType.SHOP, 10, "#3498db", "", null),
+        GREEN(SkinType.SHOP, 10, "#2ecc71", "", null),
+        GOLD(SkinType.SHOP, 10, "#f1c40f", "", null),
+        PINK(SkinType.SHOP, 10, "#e91e63", "", null),
+        
+        TREASURE_HUNTER(SkinType.EVENT, 0, "#FFD700", "Treasure Hunter", "/event/skins/treasure_hunter/treasure_hunter_ball.png"),
+        PENALDO(SkinType.EVENT, 0, "#FFFFFF", "Penaldo", "/event/skins/penaldo/penaldo_ball.png"),
+        UNIVERSE(SkinType.EVENT, 0, "#39FF14", "Universe", "/event/skins/universe/universe_ball.png"),
+        CASINO(SkinType.EVENT, 0, "#FF6347", "Casino", "/event/skins/casino/casino_ball.png"),
+        CASTLE(SkinType.EVENT, 0, "#87CEEB", "Castle", "/event/skins/castle/castle_ball.png");
 
         public final SkinType type;
         public final int price;
         public final String color;
+        public final String eventName;
+        public final String imagePath;
 
-        BallSkin(SkinType type, int price, String color) {
+        BallSkin(SkinType type, int price, String color, String eventName, String imagePath) {
             this.type = type;
             this.price = price;
             this.color = color;
+            this.eventName = eventName;
+            this.imagePath = imagePath;
         }
     }
 
@@ -60,7 +77,6 @@ public class SkinManager {
     private Set<BallSkin> unlockedBallSkins = new HashSet<>();
 
     private SkinManager() {
-        // Unlock skin FREE mặc định
         unlockedPaddleSkins.add(PaddleSkin.DEFAULT);
         unlockedBallSkins.add(BallSkin.DEFAULT);
     }
