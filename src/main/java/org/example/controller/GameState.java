@@ -23,6 +23,11 @@ public class GameState {
         if (coins < 0) coins = 0;
     }
 
+    public void setCoins(int amount) {
+        coins = amount;
+        if (coins < 0) coins = 0;
+    }
+    
     public int getPaddleWidthBonus() {
         return paddleWidthBonus;
     }
