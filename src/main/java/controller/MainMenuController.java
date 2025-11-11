@@ -164,7 +164,7 @@ public class MainMenuController {
         // Xóa game đã lưu khi bắt đầu level mới
         GameStateManager.INSTANCE.clearGameState();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/sample.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GamePlay.fxml"));
         Parent root = loader.load();
 
         // Get game controller and start selected level
@@ -194,7 +194,7 @@ public class MainMenuController {
             // Tiếp tục game đã lưu
             if (GameStateManager.INSTANCE.hasGameInProgress()) {
                 int savedLevel = GameStateManager.INSTANCE.getSavedLevel();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/sample.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GamePlay.fxml"));
                 Parent root = loader.load();
 
                 GameController controller = loader.getController();

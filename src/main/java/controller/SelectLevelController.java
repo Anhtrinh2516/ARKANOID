@@ -78,7 +78,7 @@ public class SelectLevelController {
 
     private void goToLevel(int index) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/sample.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GamePlay.fxml"));
             Parent root = loader.load();
 
             // Gọi controller của game

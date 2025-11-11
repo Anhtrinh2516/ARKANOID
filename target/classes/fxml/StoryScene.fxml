@@ -7,28 +7,31 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-<AnchorPane fx:id="storyRootPane" xmlns="http://javafx.com/javafx/17"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="utils.StorySceneController">
+<!-- Đặt kích thước mặc định cho Scene -->
+<AnchorPane fx:id="storyRootPane" 
+            prefWidth="1148.0" prefHeight="708.0" 
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="utils.StorySceneController">
 
+    <!-- ImageView nền (vẫn giữ neo 4 góc để tự động co giãn nếu cửa sổ bị resize) -->
     <ImageView fx:id="backgroundImageView"
-        preserveRatio="false" pickOnBounds="false"
-        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-        AnchorPane.topAnchor="0.0" />
+               preserveRatio="false" pickOnBounds="false"
+               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 
-    <!-- Vùng chứa nội dung (150px) -->
+    <!-- Vùng chứa nội dung text (vẫn chiếm 1/4 đáy) -->
     <VBox alignment="TOP_LEFT" spacing="10.0"
-        prefHeight="150.0" maxHeight="150.0"
-        style="-fx-padding: 20; -fx-background-color: rgba(0, 0, 0, 0.7);"
-        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+          prefHeight="180.0" maxHeight="180.0" 
+          style="-fx-padding: 20; -fx-background-color: rgba(0, 0, 0, 0.7);"
+          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <Label fx:id="storyTextLabel" wrapText="true"
-            style="-fx-font-size: 14; -fx-text-fill: white; -fx-font-family: 'Inter';"
-            VBox.vgrow="ALWAYS" />
+               style="-fx-font-size: 14; -fx-text-fill: white; -fx-font-family: 'Inter';"
+               VBox.vgrow="ALWAYS" />
     </VBox>
 
-    <!-- Nút Skip All -->
+    <!-- Nút Skip All (vẫn neo góc phải trên) -->
     <Button fx:id="skipButton" onAction="#handleSkipAll"
-        AnchorPane.topAnchor="20.0" AnchorPane.rightAnchor="20.0"
-        style="-fx-background-color: transparent;
+            AnchorPane.topAnchor="20.0" AnchorPane.rightAnchor="20.0"
+            style="-fx-background-color: transparent;
                    -fx-border-color: white;
                    -fx-border-width: 1.5;
                    -fx-border-radius: 50%;
@@ -40,8 +43,7 @@
                    -fx-cursor: hand;
                    -fx-padding: 0;">
         <graphic>
-            <SVGPath content="M 6 6 L 18 15 L 6 24 Z M 20 6 L 32 15 L 20 24 Z" fill="WHITE"
-                scaleX="0.6" scaleY="0.6" />
+            <SVGPath content="M 6 6 L 18 15 L 6 24 Z M 20 6 L 32 15 L 20 24 Z" fill="WHITE" scaleX="0.6" scaleY="0.6" />
         </graphic>
     </Button>
 

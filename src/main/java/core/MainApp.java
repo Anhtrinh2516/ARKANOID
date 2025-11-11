@@ -37,7 +37,7 @@ public class MainApp extends Application {
     }
 
     public static void showGame(int levelIndex, boolean continueGame) throws Exception {
-        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/sample.fxml"));
+        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/GamePlay.fxml"));
         Scene scene = new Scene(loader.load(), 1148, 708);
         GameController controller = loader.getController();
         controller.startLevel(levelIndex, continueGame);
