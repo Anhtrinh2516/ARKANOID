@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d14092cf-fefb-46f5-918a-92817d202965" name="Changes" comment="Them mui ten dieu chinh hương bong">
       <changelist_data name="Trinh Tuan Anh" email="24020032@vnu.edu.vn" automatic="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/TutorialDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/TutorialDialog.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
