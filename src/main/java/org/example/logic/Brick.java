@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class Brick {
     private final Rectangle node;
-    private int hitsRemaining;
+    protected int hitsRemaining; 
     private final boolean indestructible;
     private final int scoreValue;
 
@@ -45,6 +45,7 @@ public class Brick {
     public boolean isIndestructible() { return indestructible; }
     public boolean isDestroyed() { return hitsRemaining <= 0 && !indestructible; }
     public int getScoreValue() { return scoreValue; }
+    public int getHitsRemaining() { return hitsRemaining; } 
 
     public boolean onHit() {
         if (indestructible) return false;
@@ -57,7 +58,7 @@ public class Brick {
         return false;
     }
 
-    private void refreshColor() {
+    protected void refreshColor() {
         // Hiệu ứng phát sáng
         DropShadow glow = new DropShadow();
         glow.setRadius(10);
