@@ -1,203 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.shape.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-    xmlns:fx="http://javafx.com/fxml"
-    fx:controller="core.GameController"
-    style="-fx-background-color: #0a0e27;">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-    <!-- TOP TOOLBAR -->
-    <top>
-        <HBox
-            style="-fx-padding: 8 15; -fx-spacing: 15;
-                     -fx-background-color: linear-gradient(to bottom, rgba(26, 31, 58, 0.95), rgba(15, 20, 40, 0.95));
-                     -fx-border-color: #00d4ff; -fx-border-width: 0 0 2 0;"
-            alignment="CENTER_LEFT">
+<BorderPane prefHeight="708" prefWidth="1148" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="core.GameController">
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox alignment="TOP_CENTER" prefWidth="260" spacing="12" style="-fx-padding:16; -fx-background-color: #111827; -fx-border-color: #43e6ff; -fx-border-width: 3; -fx-border-style: solid;">
+            <!-- Top: Title / Board -->
+            <Label style="-fx-text-fill: #43e6ff; -fx-font-weight: bold; -fx-font-size: 20;" text="BOARD" />
 
-            <Button fx:id="backButton" text="◀ MENU"
-                style="-fx-padding: 8 16; -fx-font-size: 11; -fx-font-weight: bold;
-                           -fx-text-fill: white; -fx-background-color: #ff6b35;
-                           -fx-border-radius: 6; -fx-background-radius: 6;
-                           -fx-cursor: hand;" />
-
-            <Separator orientation="VERTICAL"
-                style="-fx-background-color: rgba(0, 212, 255, 0.3); -fx-min-height: 40;" />
-
-            <Label text="⚡" style="-fx-font-size: 16; -fx-text-fill: #ffd700;" />
-
-            <VBox spacing="2" alignment="CENTER"
-                style="-fx-background-color: rgba(0, 212, 255, 0.08); -fx-padding: 6 10;
-                         -fx-border-color: #00d4ff; -fx-border-width: 2;
-                         -fx-border-radius: 6; -fx-background-radius: 6;">
-                <HBox spacing="5" alignment="CENTER">
-                    <Label text="🛸" style="-fx-font-size: 14;" />
-                    <Button fx:id="item1Button" text="1"
-                        style="-fx-min-width: 28; -fx-min-height: 28; -fx-font-size: 13; -fx-font-weight: bold;
-                                   -fx-text-fill: #00d4ff; -fx-background-color: transparent;
-                                   -fx-border-color: #00d4ff; -fx-border-width: 2;
-                                   -fx-border-radius: 14; -fx-background-radius: 14; -fx-cursor: hand;" />
+            <!-- Score box -->
+            <VBox prefWidth="220" spacing="6" style="-fx-background-color:#0b1220; -fx-border-color:#21d4ff; -fx-border-radius:6; -fx-padding:10; -fx-border-width:2; -fx-background-radius:6;">
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <Label alignment="CENTER_LEFT" style="-fx-text-fill:#21d4ff; -fx-font-weight:bold;" text="SCORE">
+                        <font>
+                            <Font size="15.0" />
+                        </font>
+                    </Label>
+                    <Pane HBox.hgrow="ALWAYS" />
+                    <Label fx:id="scoreLabel" alignment="CENTER_RIGHT" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" text="0" />
                 </HBox>
-                <Label text="Wide" style="-fx-text-fill: #00d4ff; -fx-font-size: 8;" />
             </VBox>
 
-            <VBox spacing="2" alignment="CENTER"
-                style="-fx-background-color: rgba(255, 0, 255, 0.08); -fx-padding: 6 10;
-                         -fx-border-color: #ff00ff; -fx-border-width: 2;
-                         -fx-border-radius: 6; -fx-background-radius: 6;">
-                <HBox spacing="5" alignment="CENTER">
-                    <Label text="💖" style="-fx-font-size: 14;" />
-                    <Button fx:id="item2Button" text="2"
-                        style="-fx-min-width: 28; -fx-min-height: 28; -fx-font-size: 13; -fx-font-weight: bold;
-                                   -fx-text-fill: #ff00ff; -fx-background-color: transparent;
-                                   -fx-border-color: #ff00ff; -fx-border-width: 2;
-                                   -fx-border-radius: 14; -fx-background-radius: 14; -fx-cursor: hand;" />
+            <!-- Lives box -->
+            <VBox prefHeight="73.0" prefWidth="228.0" spacing="6" style="-fx-background-color:#0b1220; -fx-border-color:#e14ecf; -fx-border-radius:6; -fx-padding:10; -fx-border-width:2; -fx-background-radius:6;">
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <Label alignment="CENTER_LEFT" style="-fx-text-fill:#e14ecf; -fx-font-weight:bold;" text="LIVES">
+                        <font>
+                            <Font size="15.0" />
+                        </font>
+                    </Label>
+                    <Pane HBox.hgrow="ALWAYS" />
+                    <Label fx:id="livesLabel" alignment="CENTER_RIGHT" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" text="3" />
                 </HBox>
-                <Label text="Life" style="-fx-text-fill: #ff00ff; -fx-font-size: 8;" />
             </VBox>
 
-            <VBox spacing="2" alignment="CENTER"
-                style="-fx-background-color: rgba(0, 255, 0, 0.08); -fx-padding: 6 10;
-                         -fx-border-color: #00ff00; -fx-border-width: 2;
-                         -fx-border-radius: 6; -fx-background-radius: 6;">
-                <HBox spacing="5" alignment="CENTER">
-                    <Label text="🐌" style="-fx-font-size: 14;" />
-                    <Button fx:id="item3Button" text="3"
-                        style="-fx-min-width: 28; -fx-min-height: 28; -fx-font-size: 13; -fx-font-weight: bold;
-                                   -fx-text-fill: #00ff00; -fx-background-color: transparent;
-                                   -fx-border-color: #00ff00; -fx-border-width: 2;
-                                   -fx-border-radius: 14; -fx-background-radius: 14; -fx-cursor: hand;" />
+            <!-- Level box -->
+            <VBox prefWidth="220" spacing="6" style="-fx-background-color:#0b1220; -fx-border-color:#2cd86a; -fx-border-radius:6; -fx-padding:10; -fx-border-width:2; -fx-background-radius:6;">
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <Label alignment="CENTER_LEFT" style="-fx-text-fill:#2cd86a; -fx-font-weight:bold;" text="LEVEL">
+                        <font>
+                            <Font size="15.0" />
+                        </font>
+                    </Label>
+                    <Pane HBox.hgrow="ALWAYS" />
+                    <Label fx:id="levelLabel" alignment="CENTER_RIGHT" style="-fx-text-fill:white; -fx-font-size:20; -fx-font-weight:bold;" text="1" />
                 </HBox>
-                <Label text="Slow" style="-fx-text-fill: #00ff00; -fx-font-size: 8;" />
             </VBox>
 
-            <Region HBox.hgrow="ALWAYS" />
+            <!-- Coins box -->
+            <VBox prefWidth="220" spacing="6" style="-fx-background-color:#0b1220; -fx-border-color:#f39c12; -fx-border-radius:6; -fx-padding:10; -fx-border-width:2; -fx-background-radius:6;">
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <Label alignment="CENTER_LEFT" style="-fx-text-fill:#f39c12; -fx-font-weight:bold;" text="COINS">
+                        <font>
+                            <Font size="15.0" />
+                        </font>
+                    </Label>
+                    <Pane HBox.hgrow="ALWAYS" />
+                    <Label fx:id="coinsLabel" alignment="CENTER_RIGHT" style="-fx-text-fill:white; -fx-font-size:20; -fx-font-weight:bold;" text="0" />
+                </HBox>
+            </VBox>
 
-            <Label fx:id="hintLabel" text="[1] [2] [3] | [P]"
-                style="-fx-text-fill: #666; -fx-font-size: 10;" />
+            <!-- Boosters / Items -->
+            <VBox prefWidth="220" spacing="6" style="-fx-background-color:#0b1220; -fx-border-color:#2cd86a; -fx-border-radius:6; -fx-padding:10; -fx-border-width:2; -fx-background-radius:6;">
+                <Label alignment="CENTER" prefHeight="17.0" prefWidth="214.0" style="-fx-text-fill:#2cd86a; -fx-font-weight:bold;" text="BOOSTERS">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Label>
+                <HBox alignment="CENTER" spacing="12">
+                    <!-- Item buttons - Changed IDs to match GameController -->
+                    <Button fx:id="item1Button" prefHeight="48" prefWidth="48" style="-fx-background-color:#1a4d7a; -fx-border-color:#21d4ff; -fx-border-width:2; -fx-border-radius:24; -fx-background-radius:24; -fx-text-fill:#21d4ff; -fx-font-weight:bold; -fx-font-size:14;" text="🛸" />
+                    <Button fx:id="item2Button" prefHeight="48" prefWidth="48" style="-fx-background-color:#7a1a5e; -fx-border-color:#e14ecf; -fx-border-width:2; -fx-border-radius:24; -fx-background-radius:24; -fx-text-fill:#e14ecf; -fx-font-weight:bold; -fx-font-size:14;" text="💖" />
+                    <Button fx:id="item3Button" prefHeight="48" prefWidth="48" style="-fx-background-color:#1a5e2d; -fx-border-color:#2cd86a; -fx-border-width:2; -fx-border-radius:24; -fx-background-radius:24; -fx-text-fill:#2cd86a; -fx-font-weight:bold; -fx-font-size:14;" text="🐌" />
+                </HBox>
+            </VBox>
 
-            <Button fx:id="pauseButton" text="⏸"
-                style="-fx-min-width: 45; -fx-min-height: 45; -fx-font-size: 18;
-                           -fx-text-fill: #00d4ff; -fx-background-color: rgba(0, 212, 255, 0.1);
-                           -fx-border-color: #00d4ff; -fx-border-width: 2;
-                           -fx-border-radius: 8; -fx-background-radius: 8; -fx-cursor: hand;" />
-        </HBox>
-    </top>
+            <!-- Active Power-ups - Changed ID from activeLabel to powerUpsLabel -->
+            <VBox prefHeight="79.0" prefWidth="228.0" spacing="6" style="-fx-background-color:#0b1220; -fx-border-color:#8b5cf6; -fx-border-radius:6; -fx-padding:10; -fx-border-width:2; -fx-background-radius:6; -fx-vgrow:ALWAYS;">
+                <Label alignment="CENTER" prefHeight="17.0" prefWidth="219.0" style="-fx-text-fill:#8b5cf6; -fx-font-weight:bold;" text="ACTIVE">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Label>
+                <Label fx:id="powerUpsLabel" alignment="CENTER" prefHeight="17.0" prefWidth="227.0" style="-fx-text-fill:white;" text="None" wrapText="true" />
+            </VBox>
 
+            <Region prefHeight="12" />
+
+            <!-- Added hintLabel to match GameController -->
+            <Label fx:id="hintLabel" alignment="CENTER" prefWidth="220" style="-fx-text-fill:#666; -fx-font-size: 9; -fx-wrap-text: true;" text="" wrapText="true" />
+
+            <Region prefHeight="8" />
+
+            <!-- Control buttons - Changed IDs: returnButton -> backButton, removed restartButton -->
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="228.0" spacing="8">
+                <Button fx:id="backButton" mnemonicParsing="false" prefHeight="54.0" prefWidth="105.0" style="-fx-background-color:#0b1220; -fx-border-color:#43e6ff; -fx-border-radius:6; -fx-padding:8; -fx-text-fill:white; -fx-font-weight:bold;" text="◀ ">
+                    <font>
+                        <Font name="System Bold" size="30.0" />
+                    </font>
+                </Button>
+                <Button fx:id="pauseButton" mnemonicParsing="false" prefHeight="54.0" prefWidth="105.0" style="-fx-background-color:#0b1220; -fx-border-color:#43e6ff; -fx-border-radius:6; -fx-padding:8;" text="⏸" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="30.0" />
+                    </font>
+                </Button>
+            </HBox>
+        </VBox>
+    </left>
+
+    <!-- CENTER -->
     <center>
-        <HBox spacing="0">
-            <!-- LEFT SIDEBAR -->
-            <VBox spacing="0"
-                style="-fx-min-width: 220; -fx-max-width: 220; -fx-background-color: #1a1e2e; -fx-padding: 12;">
-
-                <VBox spacing="5"
-                    style="-fx-border-color: #00d4ff; -fx-border-width: 2; -fx-border-radius: 6; -fx-background-color: #0a0e1f; -fx-padding: 10;">
-                    <Label text="BOARD"
-                        style="-fx-text-fill: #00d4ff; -fx-font-size: 11; -fx-font-weight: bold;" />
-                </VBox>
-
-                <Region minHeight="12" maxHeight="12" />
-
-                <VBox spacing="5"
-                    style="-fx-border-color: #00d4ff; -fx-border-width: 2; -fx-border-radius: 6; -fx-background-color: #0a0e1f; -fx-padding: 10;">
-                    <Label text="SCORE"
-                        style="-fx-text-fill: #00d4ff; -fx-font-size: 11; -fx-font-weight: bold;" />
-                    <Label fx:id="scoreLabel" text="0"
-                        style="-fx-text-fill: #ffffff; -fx-font-size: 28; -fx-font-weight: bold;" />
-                </VBox>
-
-                <Region minHeight="12" maxHeight="12" />
-
-                <VBox spacing="5"
-                    style="-fx-border-color: #ff00ff; -fx-border-width: 2; -fx-border-radius: 6; -fx-background-color: #0a0e1f; -fx-padding: 10;">
-                    <Label text="LIVES"
-                        style="-fx-text-fill: #ff00ff; -fx-font-size: 11; -fx-font-weight: bold;" />
-                    <Label fx:id="livesLabel" text="3"
-                        style="-fx-text-fill: #ffffff; -fx-font-size: 28; -fx-font-weight: bold;" />
-                </VBox>
-
-                <Region minHeight="12" maxHeight="12" />
-
-                <VBox spacing="5"
-                    style="-fx-border-color: #00ff00; -fx-border-width: 2; -fx-border-radius: 6; -fx-background-color: #0a0e1f; -fx-padding: 10;">
-                    <Label text="LEVEL"
-                        style="-fx-text-fill: #00ff00; -fx-font-size: 11; -fx-font-weight: bold;" />
-                    <Label fx:id="levelLabel" text="1"
-                        style="-fx-text-fill: #ffffff; -fx-font-size: 28; -fx-font-weight: bold;" />
-                </VBox>
-
-                <Region minHeight="12" maxHeight="12" />
-
-                <VBox spacing="5"
-                    style="-fx-border-color: #ffd60a; -fx-border-width: 2; -fx-border-radius: 6; -fx-background-color: #0a0e1f; -fx-padding: 10;">
-                    <Label text="COINS"
-                        style="-fx-text-fill: #ffd60a; -fx-font-size: 11; -fx-font-weight: bold;" />
-                    <Label fx:id="coinsLabel" text="0"
-                        style="-fx-text-fill: #ffffff; -fx-font-size: 28; -fx-font-weight: bold;" />
-                </VBox>
-
-                <Region minHeight="12" maxHeight="12" />
-
-                <VBox spacing="5"
-                    style="-fx-border-color: #9d4edd; -fx-border-width: 2; -fx-border-radius: 6; -fx-background-color: #0a0e1f; -fx-padding: 10;">
-                    <Label text="ACTIVE"
-                        style="-fx-text-fill: #9d4edd; -fx-font-size: 11; -fx-font-weight: bold;" />
-                    <Label fx:id="powerUpsLabel" text="None"
-                        style="-fx-text-fill: #888888; -fx-font-size: 9; -fx-wrap-text: true;" />
-                </VBox>
-
-            </VBox>
-
-            <!-- RIGHT: Game area - NO OVERLAY -->
-            <AnchorPane fx:id="anchorPane"
-                focusTraversable="true"
-                HBox.hgrow="ALWAYS"
-                minWidth="920" minHeight="620"
-                prefWidth="920" prefHeight="620"
-                maxWidth="920" maxHeight="620"
-                style="-fx-background-color: transparent;
-                   -fx-border-color: #00d4ff;
-                   -fx-border-width: 2;">
-
-                <!-- Background image layer -->
-                <ImageView fx:id="backgroundImage"
-                    layoutX="0" layoutY="0"
-                    fitWidth="920" fitHeight="620"
-                    preserveRatio="false"
-                    pickOnBounds="false"
-                    opacity="1.0"
-                    AnchorPane.topAnchor="0"
-                    AnchorPane.leftAnchor="0"
-                    AnchorPane.rightAnchor="0"
-                    AnchorPane.bottomAnchor="0" />
-
-                <!-- Overlay background color -->
-                <Rectangle width="920" height="620"
-                    fill="#0a0e27"
-                    opacity="0.25"
-                    AnchorPane.topAnchor="0"
-                    AnchorPane.leftAnchor="0"
-                    AnchorPane.rightAnchor="0"
-                    AnchorPane.bottomAnchor="0" />
-
-                <!-- Ball -->
-                <Circle fx:id="ball"
-                    centerX="460" centerY="500"
-                    radius="8"
-                    fill="#ff4444"
-                    mouseTransparent="true"
-                    style="-fx-effect: dropshadow(gaussian, rgba(255, 68, 68, 0.8), 10, 0, 0, 0);" />
-
-                <!-- Paddle -->
-                <Rectangle fx:id="paddle"
-                    x="410" y="580"
-                    width="100" height="15"
-                    arcWidth="8" arcHeight="8"
-                    fill="#00d4ff"
-                    style="-fx-effect: dropshadow(gaussian, #00d4ff, 15, 0.7, 0, 0);" />
-            </AnchorPane>
-        </HBox>
+        <AnchorPane fx:id="anchorPane" prefHeight="708" prefWidth="888" style="-fx-background-color: linear-gradient(#0b1430, #071026); -fx-border-color: #43e6ff; -fx-border-width: 3; -fx-border-style: solid;">
+            <!-- Paddle - Position will be set by controller -->
+            <Rectangle fx:id="paddle" arcHeight="8" arcWidth="8" fill="#3498db" height="16" width="100" x="394" y="650" />
+            <!-- Ball - Position will be set by controller -->
+            <Circle fx:id="ball" centerX="444" centerY="630" fill="#e74c3c" radius="8" />
+        </AnchorPane>
     </center>
+
 </BorderPane>

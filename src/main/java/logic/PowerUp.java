@@ -20,15 +20,18 @@ public class PowerUp extends Circle {
         super(x, y, 12);
         this.type = type;
 
+
         DropShadow shadow = new DropShadow();
         shadow.setRadius(8);
         shadow.setOffsetX(3);
         shadow.setOffsetY(3);
         shadow.setColor(Color.rgb(0, 0, 0, 0.7));
 
+
         Glow glow = new Glow(0.8);
         shadow.setInput(glow);
         setEffect(shadow);
+
 
         switch (type) {
             case COIN -> {
@@ -38,7 +41,8 @@ public class PowerUp extends Circle {
                         new Stop(0, Color.YELLOW),
                         new Stop(0.3, Color.GOLD),
                         new Stop(0.7, Color.ORANGE),
-                        new Stop(1, Color.DARKGOLDENROD));
+                        new Stop(1, Color.DARKGOLDENROD)
+                );
                 setFill(gradient);
                 setStroke(Color.DARKGOLDENROD);
                 setStrokeWidth(3);
@@ -48,7 +52,8 @@ public class PowerUp extends Circle {
                         0, 0, 0.5, 0.5, 0.7, true, CycleMethod.NO_CYCLE,
                         new Stop(0, Color.LIGHTCORAL),
                         new Stop(0.5, Color.RED),
-                        new Stop(1, Color.DARKRED));
+                        new Stop(1, Color.DARKRED)
+                );
                 setFill(gradient);
                 setStroke(Color.DARKRED);
                 setStrokeWidth(2.5);
@@ -58,7 +63,8 @@ public class PowerUp extends Circle {
                         0, 0, 0.5, 0.5, 0.7, true, CycleMethod.NO_CYCLE,
                         new Stop(0, Color.LIGHTBLUE),
                         new Stop(0.5, Color.BLUE),
-                        new Stop(1, Color.DARKBLUE));
+                        new Stop(1, Color.DARKBLUE)
+                );
                 setFill(gradient);
                 setStroke(Color.DARKBLUE);
                 setStrokeWidth(2.5);
@@ -68,7 +74,8 @@ public class PowerUp extends Circle {
                         0, 0, 0.5, 0.5, 0.7, true, CycleMethod.NO_CYCLE,
                         new Stop(0, Color.LIGHTGREEN),
                         new Stop(0.5, Color.GREEN),
-                        new Stop(1, Color.DARKGREEN));
+                        new Stop(1, Color.DARKGREEN)
+                );
                 setFill(gradient);
                 setStroke(Color.DARKGREEN);
                 setStrokeWidth(2.5);

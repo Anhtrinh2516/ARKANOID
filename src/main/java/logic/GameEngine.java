@@ -14,8 +14,8 @@ public class GameEngine {
 
     private static final double HUD_HEIGHT = 48.0;
     private static final int LEVEL_COMPLETE_DELAY = 1500;
-    private static final double GAME_AREA_WIDTH = 920.0;
-    private static final double GAME_AREA_HEIGHT = 620.0;
+    private static final double GAME_AREA_WIDTH = 888.0;  // EventGame.fxml game area width
+    private static final double GAME_AREA_HEIGHT = 708.0; // EventGame.fxml game area height
 
     private final AnchorPane pane;
     private final Paddle paddle;
@@ -43,7 +43,7 @@ public class GameEngine {
     private IntConsumer levelCb;
 
     public GameEngine(AnchorPane pane, Rectangle paddleNode, Circle ballNode,
-            IntConsumer scoreCb, IntConsumer livesCb, IntConsumer levelCb) {
+                      IntConsumer scoreCb, IntConsumer livesCb, IntConsumer levelCb) {
         this.pane = pane;
         this.paddle = new Paddle(paddleNode);
         this.ball = new Ball(ballNode);
@@ -69,17 +69,14 @@ public class GameEngine {
         levelCompleting = false;
         isGameOver = false;
 
-        for (Brick b : bricks)
-            pane.getChildren().remove(b.getNode());
+        for (Brick b : bricks) pane.getChildren().remove(b.getNode());
         bricks.clear();
-        for (PowerUp p : powerUps)
-            pane.getChildren().remove(p);
+        for (PowerUp p : powerUps) pane.getChildren().remove(p);
         powerUps.clear();
 
-        List<Brick> created = LevelLoader.createLevel(level, pane.getWidth());
+        List<Brick> created = LevelLoader.loadLevelFromFile(level, GAME_AREA_WIDTH);
         bricks.addAll(created);
-        for (Brick b : bricks)
-            pane.getChildren().add(b.getNode());
+        for (Brick b : bricks) pane.getChildren().add(b.getNode());
 
         resetBallAndPaddle();
     }
@@ -87,14 +84,15 @@ public class GameEngine {
     /**
      * Di chuyển paddle sang trái - ball attached sẽ theo
      */
-    public void movePaddleLeft() {
+    public void movePaddleLeft()  {
         paddle.moveLeft(0);
         // Cập nhật vị trí ball nếu đang attached
         if (ball.isAttached()) {
             ball.updateAttachment(
                     paddle.getNode().getX(),
                     paddle.getNode().getWidth(),
-                    paddle.getNode().getY());
+                    paddle.getNode().getY()
+            );
         }
     }
 
@@ -108,7 +106,8 @@ public class GameEngine {
             ball.updateAttachment(
                     paddle.getNode().getX(),
                     paddle.getNode().getWidth(),
-                    paddle.getNode().getY());
+                    paddle.getNode().getY()
+            );
         }
     }
 
@@ -158,7 +157,8 @@ public class GameEngine {
             ball.updateAttachment(
                     paddle.getNode().getX(),
                     paddle.getNode().getWidth(),
-                    paddle.getNode().getY());
+                    paddle.getNode().getY()
+            );
             return; // Chờ người chơi nhấn SPACE
         }
 
@@ -266,7 +266,7 @@ public class GameEngine {
         Platform.runLater(() -> {
             // Reset paddle position
             double paddleX = (GAME_AREA_WIDTH - paddle.getNode().getWidth()) / 2;
-            double paddleY = 580;
+            double paddleY = 650;  // Match EventGame.fxml position
             paddle.getNode().setX(paddleX);
             paddle.getNode().setY(paddleY);
 
@@ -274,7 +274,8 @@ public class GameEngine {
             ball.reset(
                     paddleX,
                     paddle.getNode().getWidth(),
-                    paddleY);
+                    paddleY
+            );
 
             System.out.println("🎮 Game ready! Use Arrow Keys to aim, press SPACE to launch!");
         });
@@ -282,8 +283,7 @@ public class GameEngine {
 
     private boolean allBreakableDestroyed() {
         for (Brick b : bricks) {
-            if (!b.isIndestructible() && !b.isDestroyed())
-                return false;
+            if (!b.isIndestructible() && !b.isDestroyed()) return false;
         }
         return true;
     }
@@ -329,12 +329,9 @@ public class GameEngine {
     }
 
     private void updateHUD() {
-        if (scoreCb != null)
-            scoreCb.accept(score);
-        if (livesCb != null)
-            livesCb.accept(lives);
-        if (levelCb != null)
-            levelCb.accept(level);
+        if (scoreCb != null) scoreCb.accept(score);
+        if (livesCb != null) livesCb.accept(lives);
+        if (levelCb != null) levelCb.accept(level);
     }
 
     public void resetGame() {
@@ -365,7 +362,8 @@ public class GameEngine {
             PowerUp pu = new PowerUp(
                     type,
                     br.getNode().getBoundsInParent().getCenterX(),
-                    br.getNode().getBoundsInParent().getCenterY());
+                    br.getNode().getBoundsInParent().getCenterY()
+            );
             powerUps.add(pu);
             pane.getChildren().add(pu);
         }
@@ -397,14 +395,12 @@ public class GameEngine {
         switch (type) {
             case COIN -> {
                 score += 50;
-                if (scoreCb != null)
-                    scoreCb.accept(score);
+                if (scoreCb != null) scoreCb.accept(score);
                 GameState.INSTANCE.addCoins(1);
             }
             case EXTRA_LIFE -> {
                 lives++;
-                if (livesCb != null)
-                    livesCb.accept(lives);
+                if (livesCb != null) livesCb.accept(lives);
             }
             case EXPAND_PADDLE -> {
                 if (originalPaddleWidth == 0) {

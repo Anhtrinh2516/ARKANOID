@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import core.GameController;
+import core.MainApp;
 
 public class SelectLevelController {
 

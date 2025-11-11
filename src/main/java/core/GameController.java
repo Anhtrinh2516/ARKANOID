@@ -15,42 +15,36 @@ import logic.*;
 import controller.GameState;
 import controller.GameStateManager;
 import controller.SkinManager;
+
 import java.util.*;
 
 public class GameController {
 
-    @FXML
-    private AnchorPane anchorPane;
-    @FXML
-    private Rectangle paddle;
-    @FXML
-    private Circle ball;
-    @FXML
-    private javafx.scene.image.ImageView backgroundImage;
+    @FXML private AnchorPane anchorPane;
+    @FXML private Rectangle paddle;
+    @FXML private Circle ball;
 
-    @FXML
-    private Label scoreLabel;
-    @FXML
-    private Label livesLabel;
-    @FXML
-    private Label levelLabel;
-    @FXML
-    private Label hintLabel;
-    @FXML
-    private Label coinsLabel;
-    @FXML
-    private Label powerUpsLabel;
-    @FXML
-    private Button backButton;
+    @FXML private Label scoreLabel;
+    @FXML private Label livesLabel;
+    @FXML private Label levelLabel;
+    @FXML private Label hintLabel;
+    @FXML private Label coinsLabel;
+    @FXML private Label powerUpsLabel;
+    @FXML private Button backButton;
 
-    @FXML
-    private Button item1Button;
-    @FXML
-    private Button item2Button;
-    @FXML
-    private Button item3Button;
-    @FXML
-    private Button pauseButton;
+    @FXML private Button item1Button;
+    @FXML private Button item2Button;
+    @FXML private Button item3Button;
+    @FXML private Button pauseButton;
+
+    // ========== GAME DIMENSIONS FOR EVENTGAME.FXML ==========
+    // EventGame.fxml game area dimensions
+    private static final double GAME_WIDTH = 888.0;
+    private static final double GAME_HEIGHT = 708.0;
+
+    // Paddle limits to prevent overflow (leave margin on edges)
+    private static final double PADDLE_MIN_X = 10.0;
+    private static final double PADDLE_MAX_X = GAME_WIDTH - 110.0;  // Width - paddle width - margin
 
     private final Random rng = new Random();
     private final Set<KeyCode> activeKeys = new HashSet<>();
@@ -71,8 +65,10 @@ public class GameController {
     // ========== HELPER METHODS ==========
 
     private void resetPaddlePosition() {
-        paddle.setX((920 - paddle.getWidth()) / 2);
-        paddle.setY(570);
+        // Center paddle horizontally: (888 - 100) / 2 = 394
+        // Position near bottom: 650 (leaving 58px for bottom margin)
+        paddle.setX((GAME_WIDTH - paddle.getWidth()) / 2);
+        paddle.setY(GAME_HEIGHT - 58);
         paddle.setLayoutX(0);
         paddle.setLayoutY(0);
         paddle.setTranslateX(0);
@@ -95,18 +91,21 @@ public class GameController {
     private void updateItemButtons() {
         if (item1Button != null) {
             int count = GameState.INSTANCE.getWideItemCount();
-            item1Button.setText("1 (" + count + ")");
+            item1Button.setText(count > 0 ? "🛸" : "🛸");
             item1Button.setDisable(count == 0);
+            item1Button.setOpacity(count == 0 ? 0.5 : 1.0);
         }
         if (item2Button != null) {
             int count = GameState.INSTANCE.getLifeItemCount();
-            item2Button.setText("2 (" + count + ")");
+            item2Button.setText(count > 0 ? "💖" : "💖");
             item2Button.setDisable(count == 0);
+            item2Button.setOpacity(count == 0 ? 0.5 : 1.0);
         }
         if (item3Button != null) {
             int count = GameState.INSTANCE.getSlowItemCount();
-            item3Button.setText("3 (" + count + ")");
+            item3Button.setText(count > 0 ? "🐌" : "🐌");
             item3Button.setDisable(count == 0);
+            item3Button.setOpacity(count == 0 ? 0.5 : 1.0);
         }
     }
 
@@ -138,7 +137,6 @@ public class GameController {
 
     public void startLevel(int levelIndex, boolean continueGame) {
         this.currentLevel = levelIndex;
-        resetPaddlePosition();
 
         if (continueGame && GameStateManager.INSTANCE.hasGameInProgress()) {
             // Khôi phục trạng thái đã lưu
@@ -149,22 +147,22 @@ public class GameController {
             engine.restoreGameState(currentScore, currentLives);
 
             // Khôi phục vị trí ball và paddle
-            javafx.application.Platform.runLater(() -> {
-                paddle.setX(GameStateManager.INSTANCE.getSavedPaddleX());
-                ball.setCenterX(GameStateManager.INSTANCE.getSavedBallX());
-                ball.setCenterY(GameStateManager.INSTANCE.getSavedBallY());
-                engine.getBall().setDx(GameStateManager.INSTANCE.getSavedBallDx());
-                engine.getBall().setDy(GameStateManager.INSTANCE.getSavedBallDy());
-            });
+            paddle.setX(GameStateManager.INSTANCE.getSavedPaddleX());
+            ball.setCenterX(GameStateManager.INSTANCE.getSavedBallX());
+            ball.setCenterY(GameStateManager.INSTANCE.getSavedBallY());
+            engine.getBall().setDx(GameStateManager.INSTANCE.getSavedBallDx());
+            engine.getBall().setDy(GameStateManager.INSTANCE.getSavedBallDy());
 
             System.out.println("Continuing game from Level " + levelIndex);
         } else {
-            // Bắt đầu game mới
+            // Bắt đầu game mới - Reset paddle position
+            resetPaddlePosition();
+
             engine.loadLevel(levelIndex);
 
             // Hiển thị hint cho người chơi
             if (hintLabel != null) {
-                hintLabel.setText("🎯 Use Q/E to aim, Arrow Keys to move, SPACE to launch!");
+                hintLabel.setText("🎯 [Q/E] Aim | [SPACE] Launch | [←→] Move");
                 Timeline t = new Timeline(new KeyFrame(Duration.seconds(4),
                         e -> hintLabel.setText("")));
                 t.play();
@@ -188,15 +186,6 @@ public class GameController {
         if (levelLabel != null) {
             levelLabel.setText(String.valueOf(levelIndex));
         }
-
-        javafx.application.Platform.runLater(() -> {
-            if (!continueGame) {
-                resetPaddlePosition();
-            }
-            if (bonus > 0) {
-                paddle.setWidth(100 + bonus);
-            }
-        });
     }
 
     // ========== POWER-UP SYSTEM ==========
@@ -206,14 +195,10 @@ public class GameController {
         PowerUpType type = null;
 
         if (p < 40) {
-            if (p < 15)
-                type = PowerUpType.COIN;
-            else if (p < 25)
-                type = PowerUpType.EXTRA_LIFE;
-            else if (p < 35)
-                type = PowerUpType.EXPAND_PADDLE;
-            else
-                type = PowerUpType.SLOW_BALL;
+            if (p < 15) type = PowerUpType.COIN;
+            else if (p < 25) type = PowerUpType.EXTRA_LIFE;
+            else if (p < 35) type = PowerUpType.EXPAND_PADDLE;
+            else type = PowerUpType.SLOW_BALL;
         }
 
         if (type != null) {
@@ -287,8 +272,7 @@ public class GameController {
     // ========== SHOP ITEMS (CONSUMABLES) ==========
 
     private void useShopItem(int itemNumber) {
-        if (isPaused)
-            return;
+        if (isPaused) return;
 
         switch (itemNumber) {
             case 1 -> {
@@ -439,12 +423,6 @@ public class GameController {
     // ========== INITIALIZATION ==========
 
     public void initialize() {
-
-        String bgUrl = utils.BackgroundSelector.getBackgroundUrl();
-        backgroundImage.setImage(new javafx.scene.image.Image(bgUrl, 920, 620, false, true));
-        backgroundImage.fitWidthProperty().bind(anchorPane.widthProperty());
-        backgroundImage.fitHeightProperty().bind(anchorPane.heightProperty());
-
         engine = new GameEngine(anchorPane, paddle, ball,
                 score -> {
                     currentScore = score;
@@ -463,7 +441,8 @@ public class GameController {
                     if (levelLabel != null) {
                         levelLabel.setText(String.valueOf(level));
                     }
-                });
+                }
+        );
 
         engine.setPowerUpUpdateCallback(powerUpText -> {
             if (powerUpsLabel != null) {
@@ -473,24 +452,21 @@ public class GameController {
 
         engine.loadLevel(1);
 
+        // Reset paddle position FIRST before applying any modifiers
+        resetPaddlePosition();
+
         // Apply skins and upgrades from shop
         applySkins();
 
         // Apply permanent paddle width bonus
         int bonus = GameState.INSTANCE.getPaddleWidthBonus();
         if (bonus > 0) {
-            javafx.application.Platform.runLater(() -> {
-                paddle.setWidth(100 + bonus);
-                System.out.println("Applied paddle width bonus: +" + bonus);
-            });
+            paddle.setWidth(100 + bonus);
+            System.out.println("Applied paddle width bonus: +" + bonus);
         }
 
         updateCoinsUI();
         updateItemButtons();
-
-        javafx.application.Platform.runLater(() -> {
-            resetPaddlePosition();
-        });
 
         // Button handlers
         if (backButton != null) {
@@ -504,7 +480,7 @@ public class GameController {
                 }
 
                 try {
-                    MainApp.showMainMenu();
+                    core.MainApp.showMainMenu();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -652,7 +628,8 @@ public class GameController {
                     ball.getCenterY(),
                     engine.getBall().getDx(),
                     engine.getBall().getDy(),
-                    paddle.getX());
+                    paddle.getX()
+            );
         } else {
             // Game over - xóa trạng thái đã lưu
             GameStateManager.INSTANCE.clearGameState();

@@ -7,7 +7,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="controller.SelectEventController"
-            prefHeight="700.0" prefWidth="1000.0"
+            prefHeight="708" prefWidth="1148"
             style="-fx-background-color: linear-gradient(to bottom, #0066cc, #003366);">
 
     <!-- Title at top -->

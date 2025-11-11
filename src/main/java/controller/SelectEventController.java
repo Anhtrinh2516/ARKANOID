@@ -31,31 +31,31 @@ public class SelectEventController {
 
     private void setBackground() {
         eventScrollPane.getParent().setStyle(
-            "-fx-background-image: url('/event_background/event_background.png');" +
-            "-fx-background-size: cover;" +
-            "-fx-background-position: center;"
+                "-fx-background-image: url('/event_background/event_background.png');" +
+                        "-fx-background-size: cover;" +
+                        "-fx-background-position: center;"
         );
     }
 
     private void makeScrollBarNice() {
         eventScrollPane.setStyle(
-            "-fx-background: transparent;" +
-            "-fx-background-color: transparent;" +
-            "-fx-border-color: transparent;"
+                "-fx-background: transparent;" +
+                        "-fx-background-color: transparent;" +
+                        "-fx-border-color: transparent;"
         );
     }
 
     private void loadChapters() {
         String[] names = {"Universe", "Treasure Hunter", "Castle Attack", "Casino", "Penaldo", "Coming Soon"};
         String[] images = {
-            "/event_background/universe_background.png",
-            "/event_background/deepsea_background.png",
-            "/event_background/castle_background.png",
-            "/event_background/casino_background.png",
-            "/event_background/penalty_background.png",
-            "/event_background/comingsoon_background.png"
+                "/event_background/universe_background.png",
+                "/event_background/deepsea_background.png",
+                "/event_background/castle_background.png",
+                "/event_background/casino_background.png",
+                "/event_background/penalty_background.png",
+                "/event_background/comingsoon_background.png"
         };
-        
+
         for (int i = 0; i < names.length; i++) {
             VBox box = makeChapterBox(names[i], images[i], i + 1);
             eventChapterBox.getChildren().add(box);
@@ -68,21 +68,21 @@ public class SelectEventController {
         box.setSpacing(15);
         box.setPrefSize(280, 420);
         box.setStyle(
-            "-fx-background-color: transparent;" +
-            "-fx-background-radius: 12;" +
-            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 15, 0, 0, 5);" +
-            "-fx-cursor: hand;"
+                "-fx-background-color: transparent;" +
+                        "-fx-background-radius: 12;" +
+                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 15, 0, 0, 5);" +
+                        "-fx-cursor: hand;"
         );
-        
+
         StackPane imageBox = new StackPane();
         imageBox.setPrefSize(260, 360);
         imageBox.setStyle(
-            "-fx-background-image: url('" + imagePath + "');" +
-            "-fx-background-size: cover;" +
-            "-fx-background-position: center;" +
-            "-fx-background-radius: 12;"
+                "-fx-background-image: url('" + imagePath + "');" +
+                        "-fx-background-size: cover;" +
+                        "-fx-background-position: center;" +
+                        "-fx-background-radius: 12;"
         );
-        
+
         Rectangle corners = new Rectangle(260, 360);
         corners.setArcWidth(24);
         corners.setArcHeight(24);
@@ -92,22 +92,22 @@ public class SelectEventController {
 
         Label nameLabel = new Label(name);
         nameLabel.setStyle(
-            "-fx-font-size: 22px;" +
-            "-fx-font-weight: bold;" +
-            "-fx-text-fill: white;" +
-            "-fx-padding: 6 12;" +
-            "-fx-background-color: rgba(0,0,0,0.4);" +
-            "-fx-background-radius: 8;" +
-            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 6, 0, 0, 2);"
+                "-fx-font-size: 22px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-padding: 6 12;" +
+                        "-fx-background-color: rgba(0,0,0,0.4);" +
+                        "-fx-background-radius: 8;" +
+                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 6, 0, 0, 2);"
         );
         StackPane.setAlignment(nameLabel, Pos.BOTTOM_CENTER);
         StackPane.setMargin(nameLabel, new Insets(0, 0, 10, 0));
 
         imageBox.getChildren().add(nameLabel);
         box.getChildren().add(imageBox);
-        
+
         box.setOnMouseClicked(e -> openChapter(number));
-        
+
         return box;
     }
 

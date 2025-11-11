@@ -30,11 +30,11 @@ public class EnhancedBrick extends StackPane {
     private final Random random = new Random();
 
     private static final Color[] TIER_COLORS = {
-            Color.web("#00ff00"), // 1 hit - Green
-            Color.web("#ffff00"), // 2 hits - Yellow
-            Color.web("#ff8800"), // 3 hits - Orange
-            Color.web("#ff0000"), // 4 hits - Red
-            Color.web("#ff00ff") // 5+ hits - Magenta
+            Color.web("#00ff00"),  // 1 hit - Green
+            Color.web("#ffff00"),  // 2 hits - Yellow
+            Color.web("#ff8800"),  // 3 hits - Orange
+            Color.web("#ff0000"),  // 4 hits - Red
+            Color.web("#ff00ff")   // 5+ hits - Magenta
     };
 
     public EnhancedBrick(double x, double y, double width, double height, int hits) {
@@ -129,7 +129,8 @@ public class EnhancedBrick extends StackPane {
                 0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
                 new Stop(0.0, topColor),
                 new Stop(0.5, midColor),
-                new Stop(1.0, bottomColor));
+                new Stop(1.0, bottomColor)
+        );
 
         mainRect.setFill(gradient);
     }
@@ -206,7 +207,8 @@ public class EnhancedBrick extends StackPane {
                 new KeyFrame(Duration.millis(50), new KeyValue(layoutXProperty(), originalX - 3)),
                 new KeyFrame(Duration.millis(100), new KeyValue(layoutXProperty(), originalX + 3)),
                 new KeyFrame(Duration.millis(150), new KeyValue(layoutXProperty(), originalX - 2)),
-                new KeyFrame(Duration.millis(200), new KeyValue(layoutXProperty(), originalX)));
+                new KeyFrame(Duration.millis(200), new KeyValue(layoutXProperty(), originalX))
+        );
         shake.play();
     }
 
@@ -243,8 +245,7 @@ public class EnhancedBrick extends StackPane {
      * Create simple particle effect on destroy
      */
     private void createParticles() {
-        if (getParent() == null)
-            return;
+        if (getParent() == null) return;
 
         javafx.scene.layout.Pane parent = (javafx.scene.layout.Pane) getParent();
         double centerX = getLayoutX() + getPrefWidth() / 2;

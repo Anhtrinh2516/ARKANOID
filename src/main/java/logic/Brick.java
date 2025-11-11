@@ -33,36 +33,21 @@ public class Brick {
         int chance = rand.nextInt(100);
         if (chance < 30) {
             PowerUpType type;
-            if (chance < 10)
-                type = PowerUpType.COIN;
-            else if (chance < 20)
-                type = PowerUpType.EXTRA_LIFE;
-            else
-                type = PowerUpType.EXPAND_PADDLE;
+            if (chance < 10) type = PowerUpType.COIN;
+            else if (chance < 20) type = PowerUpType.EXTRA_LIFE;
+            else type = PowerUpType.EXPAND_PADDLE;
             return new PowerUp(type, x, y);
         }
         return null;
     }
 
-    public Rectangle getNode() {
-        return node;
-    }
-
-    public boolean isIndestructible() {
-        return indestructible;
-    }
-
-    public boolean isDestroyed() {
-        return hitsRemaining <= 0 && !indestructible;
-    }
-
-    public int getScoreValue() {
-        return scoreValue;
-    }
+    public Rectangle getNode() { return node; }
+    public boolean isIndestructible() { return indestructible; }
+    public boolean isDestroyed() { return hitsRemaining <= 0 && !indestructible; }
+    public int getScoreValue() { return scoreValue; }
 
     public boolean onHit() {
-        if (indestructible)
-            return false;
+        if (indestructible) return false;
         hitsRemaining--;
         refreshColor();
         if (hitsRemaining <= 0) {
@@ -84,7 +69,8 @@ public class Brick {
                     0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
                     new Stop(0, Color.rgb(50, 50, 50)),
                     new Stop(0.5, Color.rgb(30, 30, 30)),
-                    new Stop(1, Color.rgb(40, 40, 40)));
+                    new Stop(1, Color.rgb(40, 40, 40))
+            );
             node.setFill(gradient);
             node.setStroke(Color.rgb(150, 0, 0));
             node.setStrokeWidth(2);
@@ -98,7 +84,8 @@ public class Brick {
                             0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
                             new Stop(0, Color.rgb(255, 50, 50)),
                             new Stop(0.5, Color.rgb(200, 0, 0)),
-                            new Stop(1, Color.rgb(150, 0, 0)));
+                            new Stop(1, Color.rgb(150, 0, 0))
+                    );
                     node.setFill(gradient);
                     node.setStroke(Color.rgb(255, 100, 100));
                     node.setStrokeWidth(2);
@@ -111,7 +98,8 @@ public class Brick {
                             0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
                             new Stop(0, Color.rgb(255, 200, 50)),
                             new Stop(0.5, Color.rgb(255, 150, 0)),
-                            new Stop(1, Color.rgb(200, 100, 0)));
+                            new Stop(1, Color.rgb(200, 100, 0))
+                    );
                     node.setFill(gradient);
                     node.setStroke(Color.rgb(255, 220, 100));
                     node.setStrokeWidth(2);
@@ -124,7 +112,8 @@ public class Brick {
                             0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
                             new Stop(0, Color.rgb(50, 255, 150)),
                             new Stop(0.5, Color.rgb(0, 200, 255)),
-                            new Stop(1, Color.rgb(0, 150, 200)));
+                            new Stop(1, Color.rgb(0, 150, 200))
+                    );
                     node.setFill(gradient);
                     node.setStroke(Color.rgb(100, 255, 200));
                     node.setStrokeWidth(2);

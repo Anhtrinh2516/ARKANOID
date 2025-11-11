@@ -12,15 +12,13 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         mainStage = stage;
-        mainStage.setWidth(1148);
-        mainStage.setHeight(708);
         mainStage.setResizable(false);
         showMainMenu();
     }
 
     public static void showMainMenu() throws Exception {
         FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/MainMenu.fxml"));
-        Scene scene = new Scene(loader.load());
+        Scene scene = new Scene(loader.load(), 1148, 708);
         mainStage.setTitle("SPACE BREAKER - Main Menu");
         mainStage.setScene(scene);
         mainStage.show();
@@ -28,7 +26,7 @@ public class MainApp extends Application {
 
     public static void showLevelSelect() throws Exception {
         FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/SelectLevel.fxml"));
-        Scene scene = new Scene(loader.load());
+        Scene scene = new Scene(loader.load(), 1148, 708);
         mainStage.setTitle("SPACE BREAKER - Select Level");
         mainStage.setScene(scene);
         mainStage.show();
@@ -40,7 +38,7 @@ public class MainApp extends Application {
 
     public static void showGame(int levelIndex, boolean continueGame) throws Exception {
         FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/sample.fxml"));
-        Scene scene = new Scene(loader.load());
+        Scene scene = new Scene(loader.load(), 1148, 708);
         GameController controller = loader.getController();
         controller.startLevel(levelIndex, continueGame);
         mainStage.setTitle("SPACE BREAKER - Level " + levelIndex + (continueGame ? " (Continued)" : ""));
@@ -50,7 +48,7 @@ public class MainApp extends Application {
 
     public static void showShop() throws Exception {
         FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/Shop.fxml"));
-        Scene scene = new Scene(loader.load());
+        Scene scene = new Scene(loader.load(), 1148, 708);
         mainStage.setTitle("SPACE BREAKER - Shop & Skins");
         mainStage.setScene(scene);
         mainStage.show();
@@ -58,8 +56,16 @@ public class MainApp extends Application {
 
     public static void showSettings() throws Exception {
         FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/Settings.fxml"));
-        Scene scene = new Scene(loader.load());
+        Scene scene = new Scene(loader.load(), 1148, 708);
         mainStage.setTitle("SPACE BREAKER - Settings");
+        mainStage.setScene(scene);
+        mainStage.show();
+    }
+
+    public static void showSelectEvent() throws Exception {
+        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/SelectEvent.fxml"));
+        Scene scene = new Scene(loader.load(), 1148, 708);
+        mainStage.setTitle("SPACE BREAKER - Select Event");
         mainStage.setScene(scene);
         mainStage.show();
     }
