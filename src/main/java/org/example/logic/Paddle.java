@@ -5,8 +5,9 @@ import javafx.scene.shape.Rectangle;
 public class Paddle {
     private final Rectangle node;
     private double speed = 10.0;
-    private static final double GAME_AREA_WIDTH = 920.0;
-    private static final double GAME_AREA_MIN_X = 0.0;
+    private static final double GAME_AREA_WIDTH = 888.0; 
+    private static final double GAME_AREA_MIN_X = 10.0;   
+    private static final double RIGHT_MARGIN = 10.0;      
 
     public Paddle(Rectangle node) {
         this.node = node;
@@ -35,9 +36,8 @@ public class Paddle {
 
     public void moveRight(double maxX) {
         double newX = node.getX() + speed;
-
-        if (newX + node.getWidth() > GAME_AREA_WIDTH) {
-            newX = GAME_AREA_WIDTH - node.getWidth();
+        if (newX + node.getWidth() > GAME_AREA_WIDTH - RIGHT_MARGIN) {
+            newX = GAME_AREA_WIDTH - RIGHT_MARGIN - node.getWidth();
         }
         node.setX(newX);
     }
