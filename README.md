@@ -121,7 +121,7 @@ The game uses multiple threads to ensure smooth performance:
 ![Power-ups](src/screenshots/powerups.jpg)
 
 **Leaderboard**  
-![Leaderboard](src/creenshots/leaderboard.jpg)
+![Leaderboard](src/screenshots/leaderboard.jpg)
 
 ### Video Demo
 [![Video Demo](src/screenshots/video-thumbnail.jpg)](src/demo/gameplay.mkv)
