@@ -73,6 +73,7 @@
 
                 <!-- Asia -->
                 <VBox alignment="CENTER" spacing="15" prefWidth="280.0" prefHeight="420.0"
+                      onMouseClicked="#openAsia"
                       style='-fx-background-color: transparent; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 15, 0, 0, 5); -fx-cursor: hand;'>
                     <StackPane prefWidth="260.0" prefHeight="360.0"
                                style='-fx-background-image: url("/backgrounds/asianmode_background.png"); -fx-background-size: cover; -fx-background-position: center; -fx-background-radius: 20;'>
