@@ -160,7 +160,15 @@ public class GameController {
     public void startLevel(int l) {
         startLevel(l, false);
     }
-
+    
+    public void startClassicMode() {
+        engine.setGameMode("CLASSIC");
+        this.lvl = 1;
+        this.score = 0;
+        this.lives = 3;
+        startLevel(1, false);
+    }
+    
     public void startLevel(int l, boolean cont) {
         this.lvl = l;
 

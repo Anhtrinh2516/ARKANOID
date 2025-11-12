@@ -35,6 +35,8 @@ public class GameEngine {
 
     private double originalPaddleWidth = 0;
 
+    private String gameMode = "STORY";
+
     private IntConsumer scoreCb;
     private IntConsumer livesCb;
     private IntConsumer levelCb;
@@ -63,6 +65,10 @@ public class GameEngine {
         this.powerUpUpdateCb = callback;
     }
 
+        public void setGameMode(String mode) {
+        this.gameMode = mode;
+    }
+    
     public void loadLevel(int idx) {
         this.level = idx;
         levelCb.accept(level);
@@ -74,7 +80,18 @@ public class GameEngine {
         for (PowerUp p : powerUps) pane.getChildren().remove(p);
         powerUps.clear();
 
-        List<Brick> created = LevelLoader.loadLevelFromFile(level, GAME_AREA_WIDTH);
+        int actualLevel;
+        int difficultyBonus = 0;
+        
+        if ("CLASSIC".equals(gameMode)) {
+            actualLevel = ((idx - 1) % 16) + 1;  // lặp từ màn 1 đến 16
+            difficultyBonus = (idx - 1) / 16;     // cứ xong mỗi 16 màn tăng độ khó
+        } else {
+            actualLevel = idx;
+            difficultyBonus = 0;
+        }
+
+        List<Brick> created = LevelLoader.loadLevelFromFile(actualLevel, GAME_AREA_WIDTH, difficultyBonus);
         bricks.addAll(created);
         for (Brick b : bricks) pane.getChildren().add(b.getNode());
 
