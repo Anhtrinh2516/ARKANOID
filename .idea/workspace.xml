@@ -7,19 +7,16 @@
     <list default="true" id="d14092cf-fefb-46f5-918a-92817d202965" name="Changes" comment="Them mui ten dieu chinh hương bong">
       <changelist_data name="Trinh Tuan Anh" email="24020032@vnu.edu.vn" automatic="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/leaderboard.txt" beforeDir="false" afterPath="$PROJECT_DIR$/leaderboard.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/SoundManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/SoundManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Game.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/GamePlay.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/GamePlay.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/3-31.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/bg-retrospace.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/space-background.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/core/GameController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/GameController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/core/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/GameController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/event/base/EventGameEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/base/EventGameEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sound/SoundBgr.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screenshots/gameplay.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screenshots/powerups.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/SoundManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SoundManager.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/fxml/Game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/Game.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/GamePlay.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/GamePlay.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/images/3-31.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/logic/GameEngine$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/GameEngine$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/logic/GameEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/GameEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sound/SoundBgr.ogg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

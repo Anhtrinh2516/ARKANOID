@@ -34,7 +34,7 @@ public class SoundManager {
     
     // Nhạc nền
     public static final String MUSIC_MENU = "Arkanoid_sound_menu.wav";
-    public static final String MUSIC_GAME = "SoundBgr.ogg";
+    public static final String MUSIC_GAME = "SoundBgr.mp3";
 
     private Random rng = new Random();
 
