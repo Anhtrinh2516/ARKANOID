@@ -6,6 +6,81 @@
   <component name="ChangeListManager">
     <list default="true" id="d14092cf-fefb-46f5-918a-92817d202965" name="Changes" comment="Them mui ten dieu chinh hương bong">
       <changelist_data name="Trinh Tuan Anh" email="24020032@vnu.edu.vn" automatic="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/levels/level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/levels/level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/GameState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/GameStateManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/GameStateManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/LeaderboardManager$Entry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/LeaderboardManager$Entry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/LeaderboardManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/LeaderboardManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/MainMenuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MainMenuController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/SelectEventController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SelectEventController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/SelectLevelController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SelectLevelController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/SelectModeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SelectModeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/SettingsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SettingsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/ShopController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/ShopController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/SkinController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SkinController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/SkinManager$BallSkin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SkinManager$BallSkin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/SkinManager$PaddleSkin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SkinManager$PaddleSkin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/SkinManager$SkinType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SkinManager$SkinType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/SkinManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SkinManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/SoundManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SoundManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/core/GameController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/GameController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/core/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/GameController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/core/MainApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/MainApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/base/EventGameController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/base/EventGameController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/base/EventGameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/base/EventGameController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/base/EventGameEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/base/EventGameEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/base/EventLevelLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/base/EventLevelLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/castleattack/CastleAttackController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/castleattack/CastleAttackController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/castleattack/logic/BrickWall.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/castleattack/logic/BrickWall.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/castleattack/logic/Canon.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/castleattack/logic/Canon.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/castleattack/logic/CanonBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/castleattack/logic/CanonBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/castleattack/logic/CastleAttackEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/castleattack/logic/CastleAttackEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/castleattack/logic/CastleAttackLevelLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/castleattack/logic/CastleAttackLevelLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/castleattack/logic/GateBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/castleattack/logic/GateBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/castleattack/logic/Soldier.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/castleattack/logic/Soldier.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/penaldo/controller/PenaldoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/penaldo/controller/PenaldoController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/penaldo/logic/FootballBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/penaldo/logic/FootballBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/penaldo/logic/GoalPostBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/penaldo/logic/GoalPostBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/penaldo/logic/GoalkeeperBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/penaldo/logic/GoalkeeperBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/penaldo/logic/PenaldoEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/penaldo/logic/PenaldoEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/penaldo/logic/PenaldoLevelLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/penaldo/logic/PenaldoLevelLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/treasurehunter/controller/TreasureHunterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/treasurehunter/controller/TreasureHunterController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/treasurehunter/logic/Coin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/treasurehunter/logic/Coin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/treasurehunter/logic/StoneBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/treasurehunter/logic/StoneBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/treasurehunter/logic/TreasureBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/treasurehunter/logic/TreasureBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/treasurehunter/logic/TreasureHunterEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/treasurehunter/logic/TreasureHunterEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/treasurehunter/logic/TreasureHunterLevelLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/treasurehunter/logic/TreasureHunterLevelLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/universe/controller/UniverseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/universe/controller/UniverseController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/universe/logic/AlienBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/universe/logic/AlienBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/universe/logic/Laser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/universe/logic/Laser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/universe/logic/ShipBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/universe/logic/ShipBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/universe/logic/StoneBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/universe/logic/StoneBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/universe/logic/UniverseEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/universe/logic/UniverseEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/event/universe/logic/UniverseLevelLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/event/universe/logic/UniverseLevelLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/levels/level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/levels/level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/ActivePowerUp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/ActivePowerUp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/Ball.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/Brick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/EnhancedBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/EnhancedBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/GameEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/GameEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/LevelLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/LevelLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/Paddle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/Paddle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/PowerUp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/PowerUp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/PowerUpType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/PowerUpType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storycontroller/BackgroundSelector.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storycontroller/BackgroundSelector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storycontroller/StoryImagePicker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storycontroller/StoryImagePicker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storycontroller/StoryLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storycontroller/StoryLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storycontroller/StorySceneController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storycontroller/StorySceneController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ui/ComingSoonDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ui/ComingSoonDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ui/CongratsAnimation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ui/CongratsAnimation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ui/DialogResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ui/DialogResult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ui/GameOverDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ui/GameOverDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ui/LeaderboardDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ui/LeaderboardDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ui/StyleConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ui/StyleConstants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ui/TaiXiuDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ui/TaiXiuDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ui/TutorialDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ui/TutorialDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ui/TutorialDialogController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ui/TutorialDialogController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,33 +121,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.MainApp.executor": "Run",
-    "Application.Unnamed.executor": "Run",
-    "Application.game.MainApp.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "test-",
-    "js.debugger.nextJs.config.created.client": "true",
-    "js.debugger.nextJs.config.created.server": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "/Users/tta/Documents/Code IntelliJ/Arkanoidv1/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.JavaFX",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MainApp.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Application.game.MainApp.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;test-&quot;,
+    &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
+    &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/Users/tta/Documents/Code IntelliJ/Arkanoidv1/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\github\1\ARKANOID" />
