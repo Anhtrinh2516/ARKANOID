@@ -218,7 +218,7 @@ mvn clean package
 ### Video Demo
 [![Video Demo](src/screenshots/demo.png)](src/demo/demo.mp4)
 
-*Full gameplay video is available in `src/demo/gameplay.mkv`*
+*Full gameplay video is available in `src/demo/demo.mp4`*
 
 ## 10) Kế hoạch mở rộng
 
