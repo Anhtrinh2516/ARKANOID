@@ -13,11 +13,11 @@ public class SkinManager {
     }
 
     public enum PaddleSkin {
-        DEFAULT(SkinType.FREE, 0, "#3498db", "#2980b9", "", null),
-        FIRE(SkinType.SHOP, 10, "#e74c3c", "#c0392b", "", null),
-        GRASS(SkinType.SHOP, 10, "#27ae60", "#229954", "", null),
-        GOLD(SkinType.SHOP, 10, "#f39c12", "#d68910", "", null),
-        PURPLE(SkinType.SHOP, 10, "#9b59b6", "#8e44ad", "", null),
+        DEFAULT(SkinType.FREE, 0, "#3498db", "#2980b9", "", "/images/paddle/paddle1.jpg"),
+        FIRE(SkinType.SHOP, 10, "#e74c3c", "#c0392b", "", "/images/paddle/paddle2.jpg"),
+        GRASS(SkinType.SHOP, 10, "#27ae60", "#229954", "", "/images/paddle/paddle3.png"),
+        GOLD(SkinType.SHOP, 10, "#f39c12", "#d68910", "", "/images/paddle/paddle4.png"),
+        PURPLE(SkinType.SHOP, 10, "#9b59b6", "#8e44ad", "", "/images/paddle/paddle5.png"),
         
         TREASURE_HUNTER(SkinType.EVENT, 0, "#00CED1", "#008B8B", "🏴‍☠️ Treasure Hunter", "/event/skins/treasure_hunter/treasure_hunter_paddle.png"),
         PENALDO(SkinType.EVENT, 0, "#0064FF", "#0050CC", "Penaldo", "/event/skins/penaldo/penaldo_paddle.png"),
@@ -43,11 +43,11 @@ public class SkinManager {
     }
 
     public enum BallSkin {
-        DEFAULT(SkinType.FREE, 0, "#e74c3c", "", null),
-        BLUE(SkinType.SHOP, 10, "#3498db", "", null),
-        GREEN(SkinType.SHOP, 10, "#2ecc71", "", null),
-        GOLD(SkinType.SHOP, 10, "#f1c40f", "", null),
-        PINK(SkinType.SHOP, 10, "#e91e63", "", null),
+        DEFAULT(SkinType.FREE, 0, "#e74c3c", "", "/images/ball/ball1.png"),
+        BLUE(SkinType.SHOP, 10, "#3498db", "", "/images/ball/ball2.png"),
+        GREEN(SkinType.SHOP, 10, "#2ecc71", "", "/images/ball/ball3.png"),
+        GOLD(SkinType.SHOP, 10, "#f1c40f", "", "/images/ball/ball4.png"),
+        PINK(SkinType.SHOP, 10, "#e91e63", "", "/images/ball/ball5.png"),
         
         TREASURE_HUNTER(SkinType.EVENT, 0, "#FFD700", "Treasure Hunter", "/event/skins/treasure_hunter/treasure_hunter_ball.png"),
         PENALDO(SkinType.EVENT, 0, "#FFFFFF", "Penaldo", "/event/skins/penaldo/penaldo_ball.png"),
