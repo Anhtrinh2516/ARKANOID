@@ -297,28 +297,90 @@ public abstract class EventGameEngine {
     }
 
     private void handlePaddleCollision(double r) {
-        double ballCenterX = ball.getX();
-        double ballCenterY = ball.getY();
-        double ballBottom = ballCenterY + r;
+        double bx = ball.getX();
+        double by = ball.getY();
+        double br = r;
+        double dx = ball.getDx();
+        double dy = ball.getDy();
 
-        double paddleLeft = paddle.getNode().getX();
-        double paddleRight = paddleLeft + paddle.getNode().getWidth();
-        double paddleTop = paddle.getNode().getY();
-        double paddleBottom = paddleTop + paddle.getNode().getHeight();
+        Rectangle pn = paddle.getNode();
+        double x1 = pn.getX();
+        double x2 = x1 + pn.getWidth();
+        double y1 = pn.getY();
+        double y2 = y1 + pn.getHeight();
 
-        if (ball.getDy() > 0) {
-            if (ballBottom >= paddleTop && ballBottom <= paddleBottom + 5) {
-                if (ballCenterX >= paddleLeft && ballCenterX <= paddleRight) {
-                    double hitPos = (ballCenterX - paddleLeft) / paddle.getNode().getWidth();
-                    double angle = Math.toRadians(-150 + hitPos * 120);
+        // Tìm điểm gần nhất trên paddle với tâm ball
+        double nearX = bx;
+        if (bx < x1) nearX = x1;
+        if (bx > x2) nearX = x2;
+        
+        double nearY = by;
+        if (by < y1) nearY = y1;
+        if (by > y2) nearY = y2;
 
-                    double speed = Math.sqrt(ball.getDx() * ball.getDx() + ball.getDy() * ball.getDy());
-                    ball.setDx(speed * Math.sin(angle));
-                    ball.setDy(speed * Math.cos(angle));
+        double distX = bx - nearX;
+        double distY = by - nearY;
+        double dist = Math.sqrt(distX * distX + distY * distY);
 
-                    ball.getNode().setCenterY(paddleTop - r - 1);
-                }
+        // Không va chạm
+        if (dist > br) return;
+
+        // Xác định side va chạm
+        int hitSide = -1;
+        boolean atCorner = (nearX == x1 || nearX == x2) && 
+                           (nearY == y1 || nearY == y2);
+
+        if (atCorner) {
+            // Ở góc: xét theo hướng vận tốc
+            if (Math.abs(dx) > Math.abs(dy)) {
+                hitSide = (bx < (x1 + x2) / 2) ? 2 : 3; // Left or Right
+            } else {
+                hitSide = (by < (y1 + y2) / 2) ? 0 : 1; // Top or Bottom
             }
+        } else {
+            // Không ở góc: xét theo overlap
+            double overTop = (by + br) - y1;
+            double overBot = y2 - (by - br);
+            double overLeft = (bx + br) - x1;
+            double overRight = x2 - (bx - br);
+
+            double minOver = Math.min(Math.min(overTop, overBot), 
+                                     Math.min(overLeft, overRight));
+
+            if (minOver == overTop) hitSide = 0;       // Top
+            else if (minOver == overBot) hitSide = 1;  // Bottom
+            else if (minOver == overLeft) hitSide = 2; // Left
+            else hitSide = 3;                          // Right
+        }
+
+        // Tính speed hiện tại
+        double speed = Math.sqrt(dx * dx + dy * dy);
+
+        // Xử lý theo side
+        if (hitSide == 0 && dy > 0) {
+            // Va chạm mặt TRÊN paddle - trường hợp bình thường
+            double hitPos = (bx - x1) / pn.getWidth();
+            hitPos = Math.max(0, Math.min(1, hitPos)); // Clamp 0-1
+            double angle = Math.toRadians(-150 + hitPos * 120);
+            
+            ball.setDx(speed * Math.sin(angle));
+            ball.setDy(speed * Math.cos(angle));
+            ball.getNode().setCenterY(y1 - br - 1);
+            
+        } else if (hitSide == 1 && dy < 0) {
+            // Va chạm mặt DƯỚI paddle (hiếm)
+            ball.bounceY();
+            ball.getNode().setCenterY(y2 + br + 1);
+            
+        } else if (hitSide == 2 && dx > 0) {
+            // Va chạm cạnh TRÁI paddle
+            ball.bounceX();
+            ball.getNode().setCenterX(x1 - br - 1);
+            
+        } else if (hitSide == 3 && dx < 0) {
+            // Va chạm cạnh PHẢI paddle
+            ball.bounceX();
+            ball.getNode().setCenterX(x2 + br + 1);
         }
     }
 
