@@ -69,7 +69,7 @@ The game uses multiple threads to ensure smooth performance:
 
 1. Clone the project from the repository.
 2. Open the project in the IDE.
-3. Run the project.
+3. Run the project using : `mvn clean javafx:run`.
 
 ## Usage
 
