@@ -11,7 +11,7 @@
 <AnchorPane fx:id="storyRootPane"
     prefWidth="1148.0" prefHeight="708.0"
     xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="utils.StorySceneController">
+    fx:controller="storycontroller.StorySceneController">
 
     <!-- ImageView nền (vẫn giữ neo 4 góc để tự động co giãn nếu cửa sổ bị resize) -->
     <ImageView fx:id="backgroundImageView"
