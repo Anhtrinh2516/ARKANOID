@@ -98,7 +98,7 @@ arkanoid-event/
 | --- | --- |
 | `A` / `←` | Di chuyển Paddle trái |
 | `D` / `→` | Di chuyển Paddle phải |
-| `SPACE` | Thả bóng / Bắn (khi có Laser) |
+| `SPACE` | Thả bóng |
 | `P` / `ESC` | Tạm dừng / Mở Pause |
 | `R` | Chơi lại màn hiện tại |
 | `Q` | Thoát về Menu |
