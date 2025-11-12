@@ -207,16 +207,16 @@ mvn clean package
 ![Main Menu](src/screenshots/menu.jpg)
 
 **Gameplay**  
-![Gameplay](src/screenshots/gameplay.jpg)
+![Gameplay](src/screenshots/gameplay.png)
 
 **Power-ups in Action**  
-![Power-ups](src/screenshots/powerups.jpg)
+![Power-ups](src/screenshots/powerup.png)
 
 **Leaderboard**  
 ![Leaderboard](src/screenshots/leaderboard.jpg)
 
 ### Video Demo
-[![Video Demo](src/screenshots/video-thumbnail.jpg)](src/demo/gameplay.mkv)
+[![Video Demo](src/screenshots/demo.png)](src/demo/demo.mp4)
 
 *Full gameplay video is available in `src/demo/gameplay.mkv`*
 
