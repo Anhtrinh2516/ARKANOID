@@ -208,9 +208,9 @@ public class ShopController {
         VBox skinBox = new VBox(6);
         skinBox.setAlignment(javafx.geometry.Pos.CENTER);
 
-        // Create paddle preview (image for EVENT, rectangle for others)
+        // Create paddle preview (image for EVENT)
         javafx.scene.Node paddlePreview;
-        if (skin.type == SkinManager.SkinType.EVENT && skin.imagePath != null) {
+        if (skin.imagePath != null) {
             try {
                 javafx.scene.image.Image img = new javafx.scene.image.Image(
                     getClass().getResourceAsStream(skin.imagePath)
@@ -278,9 +278,9 @@ public class ShopController {
         VBox skinBox = new VBox(6);
         skinBox.setAlignment(javafx.geometry.Pos.CENTER);
 
-        // Create ball preview (image for EVENT, circle for others)
+        // Create ball preview (image for EVENT)
         javafx.scene.Node ballPreview;
-        if (skin.type == SkinManager.SkinType.EVENT && skin.imagePath != null) {
+        if (skin.imagePath != null) {
             try {
                 javafx.scene.image.Image img = new javafx.scene.image.Image(
                     getClass().getResourceAsStream(skin.imagePath)
