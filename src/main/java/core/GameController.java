@@ -117,7 +117,7 @@ public class GameController {
         javafx.application.Platform.runLater(() -> {
             SkinManager.PaddleSkin ps = SkinManager.INSTANCE.getPaddleSkin();
 
-            if (ps.type == SkinManager.SkinType.EVENT && ps.imagePath != null) {
+            if (ps.imagePath != null) {
                 try {
                     javafx.scene.image.Image img = new javafx.scene.image.Image(
                             getClass().getResourceAsStream(ps.imagePath));
@@ -137,7 +137,7 @@ public class GameController {
 
             SkinManager.BallSkin bs = SkinManager.INSTANCE.getBallSkin();
 
-            if (bs.type == SkinManager.SkinType.EVENT && bs.imagePath != null) {
+            if (bs.imagePath != null) {
                 try {
                     javafx.scene.image.Image img = new javafx.scene.image.Image(
                             getClass().getResourceAsStream(bs.imagePath));
