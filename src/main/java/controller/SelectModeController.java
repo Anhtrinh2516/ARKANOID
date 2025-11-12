@@ -70,6 +70,29 @@ public class SelectModeController {
     }
 
     @FXML
+    private void openClassic(MouseEvent event) {
+        try {
+            GameStateManager.INSTANCE.clear();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Game.fxml"));
+            Parent root = loader.load();
+
+            GameController controller = loader.getController();
+            controller.startClassicMode();
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            if (stage.getScene() != null) {
+                stage.getScene().setRoot(root);
+            } else {
+                stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
+            }
+            stage.setTitle("Arkanoid - Classic Mode");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
     private void openAsia(MouseEvent event) {
         try {
             Stage stage = (Stage) backButton.getScene().getWindow();
