@@ -13,6 +13,7 @@ import java.util.function.IntConsumer;
 public class GameEngine {
 
     private static final double HUD_HEIGHT = 20.0;
+    private static final int LEVEL_COMPLETE_DELAY = 1000;
     private static final double GAME_AREA_WIDTH = 888.0; 
     private static final double GAME_AREA_HEIGHT = 708.0; 
 
@@ -31,27 +32,26 @@ public class GameEngine {
     private int lives = 3;
     private int level = 1;
     private boolean levelCompleting = false;
+    private long levelCompleteTime = 0;
     private boolean isGameOver = false;
 
     private double originalPaddleWidth = 0;
-
-    private String gameMode = "STORY";
+    
+    // Classic mode support
+    private String gameMode = "STORY";  // "STORY" or "CLASSIC"
 
     private IntConsumer scoreCb;
     private IntConsumer livesCb;
     private IntConsumer levelCb;
-    private Consumer<Integer> levelCompleteCb;
 
     public GameEngine(AnchorPane pane, Rectangle paddleNode, Circle ballNode,
-                      IntConsumer scoreCb, IntConsumer livesCb, IntConsumer levelCb,
-                      Consumer<Integer> levelCompleteCb) { 
+                      IntConsumer scoreCb, IntConsumer livesCb, IntConsumer levelCb) {
         this.pane = pane;
         this.paddle = new Paddle(paddleNode);
         this.ball = new Ball(ballNode);
         this.scoreCb = scoreCb;
         this.livesCb = livesCb;
         this.levelCb = levelCb;
-        this.levelCompleteCb = levelCompleteCb; 
 
         this.originalPaddleWidth = paddleNode.getWidth();
 
@@ -65,10 +65,10 @@ public class GameEngine {
         this.powerUpUpdateCb = callback;
     }
 
-        public void setGameMode(String mode) {
+    public void setGameMode(String mode) {
         this.gameMode = mode;
     }
-    
+
     public void loadLevel(int idx) {
         this.level = idx;
         levelCb.accept(level);
@@ -80,12 +80,13 @@ public class GameEngine {
         for (PowerUp p : powerUps) pane.getChildren().remove(p);
         powerUps.clear();
 
+        // Classic mode: loop 16 levels với độ khó tăng dần
         int actualLevel;
         int difficultyBonus = 0;
         
         if ("CLASSIC".equals(gameMode)) {
-            actualLevel = ((idx - 1) % 16) + 1;  // lặp từ màn 1 đến 16
-            difficultyBonus = (idx - 1) / 16;     // cứ xong mỗi 16 màn tăng độ khó
+            actualLevel = ((idx - 1) % 16) + 1;  // Loop 1-16
+            difficultyBonus = (idx - 1) / 16;     // Mỗi 16 màn tăng độ khó
         } else {
             actualLevel = idx;
             difficultyBonus = 0;
@@ -148,6 +149,9 @@ public class GameEngine {
     }
 
     if (levelCompleting) {
+        if (System.currentTimeMillis() - levelCompleteTime >= LEVEL_COMPLETE_DELAY) {
+            loadLevel(level + 1);
+        }
         return;
     }
 
@@ -203,17 +207,14 @@ public class GameEngine {
     updateActivePowerUps();
 
     if (allBreakableDestroyed()) {
-        if (!levelCompleting) { 
-                levelCompleting = true; 
-                score += 500;
-                scoreCb.accept(score);
-                GameState.INSTANCE.addCoins(2);
-
-                if (levelCompleteCb != null) {
-                    final int completedLevel = this.level;
-                    Platform.runLater(() -> levelCompleteCb.accept(completedLevel));
-                }
-            }
+        levelCompleting = true;
+        levelCompleteTime = System.currentTimeMillis();
+        score += 500;
+        scoreCb.accept(score);
+        GameState.INSTANCE.addCoins(2);
+        
+        // Phát âm thanh hoàn thành màn
+        controller.SoundManager.INSTANCE.playLevelComplete();
     }
     }
 
@@ -260,6 +261,9 @@ public class GameEngine {
     if (b.getDy() > 0) {
         if (bottom >= pT && bottom <= pB + 5) {
             if (x >= pL && x <= pR) {
+                // Phát âm thanh paddle hit
+                controller.SoundManager.INSTANCE.playPaddleHit();
+                
                 // QUAN TRỌNG: Giữ nguyên tốc độ hiện tại
                 double speed = Math.sqrt(b.getDx() * b.getDx() + b.getDy() * b.getDy());
                 
@@ -397,9 +401,17 @@ public class GameEngine {
             }
 
             boolean destroyed = hitBrick.onHit();
+            
+            // Phát âm thanh khi đập brick
+            controller.SoundManager.INSTANCE.playBounce();
+            
             if (destroyed) {
                 score += hitBrick.getScoreValue();
                 scoreCb.accept(score);
+                
+                // Âm thanh phá vỡ brick
+                controller.SoundManager.INSTANCE.playBrickDestroy();
+                
                 maybeSpawnPowerUp(hitBrick);
             }
         }
@@ -411,6 +423,9 @@ public class GameEngine {
         }
 
         lives--;
+        
+        // Phát âm thanh mất mạng
+        controller.SoundManager.INSTANCE.playLifeLost();
 
         if (livesCb != null) {
             livesCb.accept(lives);
@@ -490,6 +505,9 @@ public class GameEngine {
             p.update();
 
             if (intersects(p, paddle.getNode())) {
+                // Phát âm thanh nhặt powerup
+                controller.SoundManager.INSTANCE.playPowerUpCollect();
+                
                 applyPowerUp(p);
                 pane.getChildren().remove(p);
                 it.remove();
