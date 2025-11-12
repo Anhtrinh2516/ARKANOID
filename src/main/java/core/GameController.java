@@ -396,6 +396,7 @@ public class GameController {
     }
 
     public void initialize() {
+        controller.SoundManager.INSTANCE.playGameMusic();
         engine = new GameEngine(anchorPane, paddle, ball,
                 s -> {
                     score = s;
