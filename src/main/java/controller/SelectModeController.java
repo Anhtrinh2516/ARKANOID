@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import core.GameController;
+import ui.ComingSoonDialog;
 
 public class SelectModeController {
 
@@ -63,6 +64,16 @@ public class SelectModeController {
             } else {
                 stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void openAsia(MouseEvent event) {
+        try {
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            ComingSoonDialog.show(stage);
         } catch (Exception e) {
             e.printStackTrace();
         }
