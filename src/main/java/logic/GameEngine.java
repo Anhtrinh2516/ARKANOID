@@ -13,9 +13,8 @@ import java.util.function.IntConsumer;
 public class GameEngine {
 
     private static final double HUD_HEIGHT = 20.0;
-    private static final int LEVEL_COMPLETE_DELAY = 1000;
-    private static final double GAME_AREA_WIDTH = 888.0; 
-    private static final double GAME_AREA_HEIGHT = 708.0; 
+    private static final double GAME_AREA_WIDTH = 888.0;
+    private static final double GAME_AREA_HEIGHT = 708.0;
 
     private final AnchorPane pane;
     private final Paddle paddle;
@@ -32,22 +31,21 @@ public class GameEngine {
     private int lives = 3;
     private int level = 1;
     private boolean levelCompleting = false;
-    private long levelCompleteTime = 0;
     private boolean isGameOver = false;
     private Consumer<Integer> levelCompleteCb;
 
     private double originalPaddleWidth = 0;
-    
+
     // Classic mode support
-    private String gameMode = "STORY";  // "STORY" or "CLASSIC"
+    private String gameMode = "STORY"; // "STORY" or "CLASSIC"
 
     private IntConsumer scoreCb;
     private IntConsumer livesCb;
     private IntConsumer levelCb;
 
     public GameEngine(AnchorPane pane, Rectangle paddleNode, Circle ballNode,
-                      IntConsumer scoreCb, IntConsumer livesCb, IntConsumer levelCb,
-                      Consumer<Integer> levelCompleteCb) {
+            IntConsumer scoreCb, IntConsumer livesCb, IntConsumer levelCb,
+            Consumer<Integer> levelCompleteCb) {
         this.pane = pane;
         this.paddle = new Paddle(paddleNode);
         this.ball = new Ball(ballNode);
@@ -78,18 +76,20 @@ public class GameEngine {
         levelCompleting = false;
         isGameOver = false;
 
-        for (Brick b : bricks) pane.getChildren().remove(b.getNode());
+        for (Brick b : bricks)
+            pane.getChildren().remove(b.getNode());
         bricks.clear();
-        for (PowerUp p : powerUps) pane.getChildren().remove(p);
+        for (PowerUp p : powerUps)
+            pane.getChildren().remove(p);
         powerUps.clear();
 
         // Classic mode: loop 16 levels với độ khó tăng dần
         int actualLevel;
         int difficultyBonus = 0;
-        
+
         if ("CLASSIC".equals(gameMode)) {
-            actualLevel = ((idx - 1) % 16) + 1;  // Loop 1-16
-            difficultyBonus = (idx - 1) / 16;     // Mỗi 16 màn tăng độ khó
+            actualLevel = ((idx - 1) % 16) + 1; // Loop 1-16
+            difficultyBonus = (idx - 1) / 16; // Mỗi 16 màn tăng độ khó
         } else {
             actualLevel = idx;
             difficultyBonus = 0;
@@ -97,20 +97,20 @@ public class GameEngine {
 
         List<Brick> created = LevelLoader.loadLevelFromFile(actualLevel, GAME_AREA_WIDTH, difficultyBonus);
         bricks.addAll(created);
-        for (Brick b : bricks) pane.getChildren().add(b.getNode());
+        for (Brick b : bricks)
+            pane.getChildren().add(b.getNode());
 
         resetBallAndPaddle();
     }
 
-    public void movePaddleLeft()  {
+    public void movePaddleLeft() {
         paddle.moveLeft(0);
         // Cập nhật vị trí ball nếu đang attached
         if (ball.isAttached()) {
             ball.updateAttachment(
                     paddle.getNode().getX(),
                     paddle.getNode().getWidth(),
-                    paddle.getNode().getY()
-            );
+                    paddle.getNode().getY());
         }
     }
 
@@ -121,8 +121,7 @@ public class GameEngine {
             ball.updateAttachment(
                     paddle.getNode().getX(),
                     paddle.getNode().getWidth(),
-                    paddle.getNode().getY()
-            );
+                    paddle.getNode().getY());
         }
     }
 
@@ -147,64 +146,63 @@ public class GameEngine {
     }
 
     public void update() {
-    if (isGameOver) {
-        return;
-    }
-
-    if (levelCompleting) {
-        return;
-    }
-
-    if (ball.isAttached()) {
-        ball.updateAttachment(
-                paddle.getNode().getX(),
-                paddle.getNode().getWidth(),
-                paddle.getNode().getY()
-        );
-        return;
-    }
-
-    // Di chuyển tất cả balls
-    updateBall(ball);
-    for (Ball extra : extraBalls) {
-        updateBall(extra);
-    }
-
-    // Check brick collision NGAY SAU KHI di chuyển
-    checkBrickHit(ball);
-    for (Ball extra : extraBalls) {
-        checkBrickHit(extra);
-    }
-
-    // Check ball rơi xuống
-    double H = GAME_AREA_HEIGHT;
-    double r = ball.getR();
-
-    if (ball.getY() + r >= H) {
-        if (extraBalls.isEmpty()) {
-            loseLife();
+        if (isGameOver) {
             return;
-        } else {
-            Ball first = extraBalls.get(0);
-            ball.getNode().setCenterX(first.getX());
-            ball.getNode().setCenterY(first.getY());
-            ball.setVelocity(first.getDx(), first.getDy());
-            pane.getChildren().remove(first.getNode());
-            extraBalls.remove(0);
         }
-    }
 
-    Iterator<Ball> it = extraBalls.iterator();
-    while (it.hasNext()) {
-        Ball extra = it.next();
-        if (extra.getY() + extra.getR() >= H) {
-            pane.getChildren().remove(extra.getNode());
-            it.remove();
+        if (levelCompleting) {
+            return;
         }
-    }
 
-    updatePowerUps();
-    updateActivePowerUps();
+        if (ball.isAttached()) {
+            ball.updateAttachment(
+                    paddle.getNode().getX(),
+                    paddle.getNode().getWidth(),
+                    paddle.getNode().getY());
+            return;
+        }
+
+        // Di chuyển tất cả balls
+        updateBall(ball);
+        for (Ball extra : extraBalls) {
+            updateBall(extra);
+        }
+
+        // Check brick collision NGAY SAU KHI di chuyển
+        checkBrickHit(ball);
+        for (Ball extra : extraBalls) {
+            checkBrickHit(extra);
+        }
+
+        // Check ball rơi xuống
+        double H = GAME_AREA_HEIGHT;
+        double r = ball.getR();
+
+        if (ball.getY() + r >= H) {
+            if (extraBalls.isEmpty()) {
+                loseLife();
+                return;
+            } else {
+                Ball first = extraBalls.get(0);
+                ball.getNode().setCenterX(first.getX());
+                ball.getNode().setCenterY(first.getY());
+                ball.setVelocity(first.getDx(), first.getDy());
+                pane.getChildren().remove(first.getNode());
+                extraBalls.remove(0);
+            }
+        }
+
+        Iterator<Ball> it = extraBalls.iterator();
+        while (it.hasNext()) {
+            Ball extra = it.next();
+            if (extra.getY() + extra.getR() >= H) {
+                pane.getChildren().remove(extra.getNode());
+                it.remove();
+            }
+        }
+
+        updatePowerUps();
+        updateActivePowerUps();
 
         if (allBreakableDestroyed()) {
             if (!levelCompleting) {
@@ -222,92 +220,90 @@ public class GameEngine {
     }
 
     private void updateBall(Ball b) {
-    b.move();
+        b.move();
 
-    double r = b.getR();
-    double W = GAME_AREA_WIDTH;
-    double HUD = 20.0;
+        double r = b.getR();
+        double W = GAME_AREA_WIDTH;
+        double HUD = 20.0;
 
-    // Tường trái
-    if (b.getX() - r <= 0) {
-        b.bounceX();
-        b.getNode().setCenterX(r + 1);
-    }
+        // Tường trái
+        if (b.getX() - r <= 0) {
+            b.bounceX();
+            b.getNode().setCenterX(r + 1);
+        }
 
-    // Tường phải
-    if (b.getX() + r >= W) {
-        b.bounceX();
-        b.getNode().setCenterX(W - r - 1);
-    }
+        // Tường phải
+        if (b.getX() + r >= W) {
+            b.bounceX();
+            b.getNode().setCenterX(W - r - 1);
+        }
 
-    // Tường trên
-    if (b.getY() - r <= HUD) {
-        b.bounceY();
-        b.getNode().setCenterY(HUD + r + 1);
-    }
+        // Tường trên
+        if (b.getY() - r <= HUD) {
+            b.bounceY();
+            b.getNode().setCenterY(HUD + r + 1);
+        }
 
-    // Check paddle collision ở đây để đảm bảo không bị miss
-    checkPaddleHit(b);
+        // Check paddle collision ở đây để đảm bảo không bị miss
+        checkPaddleHit(b);
     }
 
     private void checkPaddleHit(Ball b) {
-    double x = b.getX();
-    double y = b.getY();
-    double r = b.getR();
-    double bottom = y + r;
+        double x = b.getX();
+        double y = b.getY();
+        double r = b.getR();
+        double bottom = y + r;
 
-    double pL = paddle.getNode().getX();
-    double pR = pL + paddle.getNode().getWidth();
-    double pT = paddle.getNode().getY();
-    double pB = pT + paddle.getNode().getHeight();
+        double pL = paddle.getNode().getX();
+        double pR = pL + paddle.getNode().getWidth();
+        double pT = paddle.getNode().getY();
+        double pB = pT + paddle.getNode().getHeight();
 
-    if (b.getDy() > 0) {
-        if (bottom >= pT && bottom <= pB + 5) {
-            if (x >= pL && x <= pR) {
-                // Phát âm thanh paddle hit
-                controller.SoundManager.INSTANCE.playPaddleHit();
-                
-                // QUAN TRỌNG: Giữ nguyên tốc độ hiện tại
-                double speed = Math.sqrt(b.getDx() * b.getDx() + b.getDy() * b.getDy());
-                
-                // Tính góc dựa trên vị trí chạm paddle
-                double hitPos = (x - pL) / paddle.getNode().getWidth();
-                double angle = Math.toRadians(-150 + hitPos * 120);
-                
-                // Set lại vận tốc với cùng tốc độ
-                b.setDx(speed * Math.sin(angle));
-                b.setDy(speed * Math.cos(angle));
-                
-                // Đẩy ball ra khỏi paddle
-                b.getNode().setCenterY(pT - r - 1);
+        if (b.getDy() > 0) {
+            if (bottom >= pT && bottom <= pB + 5) {
+                if (x >= pL && x <= pR) {
+                    // Phát âm thanh paddle hit
+                    controller.SoundManager.INSTANCE.playPaddleHit();
+
+                    // QUAN TRỌNG: Giữ nguyên tốc độ hiện tại
+                    double speed = Math.sqrt(b.getDx() * b.getDx() + b.getDy() * b.getDy());
+
+                    // Tính góc dựa trên vị trí chạm paddle
+                    double hitPos = (x - pL) / paddle.getNode().getWidth();
+                    double angle = Math.toRadians(-150 + hitPos * 120);
+
+                    // Set lại vận tốc với cùng tốc độ
+                    b.setDx(speed * Math.sin(angle));
+                    b.setDy(speed * Math.cos(angle));
+
+                    // Đẩy ball ra khỏi paddle
+                    b.getNode().setCenterY(pT - r - 1);
                 }
             }
         }
     }
 
     private void resetBallAndPaddle() {
-        Platform.runLater(() -> {
-            for (Ball extra : extraBalls) {
-                pane.getChildren().remove(extra.getNode());
-            }
-            extraBalls.clear();
+        for (Ball extra : extraBalls) {
+            pane.getChildren().remove(extra.getNode());
+        }
+        extraBalls.clear();
 
-            double paddleX = (GAME_AREA_WIDTH - paddle.getNode().getWidth()) / 2;
-            double paddleY = 650;
-            paddle.getNode().setX(paddleX);
-            paddle.getNode().setY(paddleY);
+        double paddleX = (GAME_AREA_WIDTH - paddle.getNode().getWidth()) / 2;
+        double paddleY = 650;
+        paddle.getNode().setX(paddleX);
+        paddle.getNode().setY(paddleY);
 
-            ball.reset(
-                    paddleX,
-                    paddle.getNode().getWidth(),
-                    paddleY
-            );
-        });
+        ball.reset(
+                paddleX,
+                paddle.getNode().getWidth(),
+                paddleY);
     }
 
     private boolean allBreakableDestroyed() {
         for (Brick b : bricks) {
-            if (!b.isIndestructible() && !b.isDestroyed()) return false;
+            if (!b.isIndestructible() && !b.isDestroyed())
+                return false;
         }
         return true;
     }
@@ -328,7 +324,8 @@ public class GameEngine {
         int hitSide = -1;
 
         for (Brick brick : bricks) {
-            if (brick.isDestroyed()) continue;
+            if (brick.isDestroyed())
+                continue;
 
             Node bn = brick.getNode();
             double x1 = bn.getBoundsInParent().getMinX();
@@ -337,25 +334,30 @@ public class GameEngine {
             double y2 = bn.getBoundsInParent().getMaxY();
 
             double nearX = bx;
-            if (bx < x1) nearX = x1;
-            if (bx > x2) nearX = x2;
-            
+            if (bx < x1)
+                nearX = x1;
+            if (bx > x2)
+                nearX = x2;
+
             double nearY = by;
-            if (by < y1) nearY = y1;
-            if (by > y2) nearY = y2;
+            if (by < y1)
+                nearY = y1;
+            if (by > y2)
+                nearY = y2;
 
             double distX = bx - nearX;
             double distY = by - nearY;
             double dist = Math.sqrt(distX * distX + distY * distY);
 
-            if (dist > br) continue;
+            if (dist > br)
+                continue;
 
             if (dist < minDist) {
                 minDist = dist;
                 hitBrick = brick;
 
-                boolean atCorner = (nearX == x1 || nearX == x2) && 
-                                   (nearY == y1 || nearY == y2);
+                boolean atCorner = (nearX == x1 || nearX == x2) &&
+                        (nearY == y1 || nearY == y2);
 
                 if (atCorner) {
                     if (Math.abs(dx) > Math.abs(dy)) {
@@ -369,13 +371,17 @@ public class GameEngine {
                     double overLeft = (bx + br) - x1;
                     double overRight = x2 - (bx - br);
 
-                    double minOver = Math.min(Math.min(overTop, overBot), 
-                                             Math.min(overLeft, overRight));
+                    double minOver = Math.min(Math.min(overTop, overBot),
+                            Math.min(overLeft, overRight));
 
-                    if (minOver == overTop) hitSide = 0;
-                    else if (minOver == overBot) hitSide = 1;
-                    else if (minOver == overLeft) hitSide = 2;
-                    else hitSide = 3;
+                    if (minOver == overTop)
+                        hitSide = 0;
+                    else if (minOver == overBot)
+                        hitSide = 1;
+                    else if (minOver == overLeft)
+                        hitSide = 2;
+                    else
+                        hitSide = 3;
                 }
             }
         }
@@ -404,17 +410,17 @@ public class GameEngine {
             }
 
             boolean destroyed = hitBrick.onHit();
-            
+
             // Phát âm thanh khi đập brick
             controller.SoundManager.INSTANCE.playBounce();
-            
+
             if (destroyed) {
                 score += hitBrick.getScoreValue();
                 scoreCb.accept(score);
-                
+
                 // Âm thanh phá vỡ brick
                 controller.SoundManager.INSTANCE.playBrickDestroy();
-                
+
                 maybeSpawnPowerUp(hitBrick);
             }
         }
@@ -426,7 +432,7 @@ public class GameEngine {
         }
 
         lives--;
-        
+
         // Phát âm thanh mất mạng
         controller.SoundManager.INSTANCE.playLifeLost();
 
@@ -444,7 +450,7 @@ public class GameEngine {
                 if (isTop) {
                     ui.CongratsAnimation.playAll(pane);
                 }
-                
+
                 ui.GameOverDialog.show(finalScore, finalLevel);
 
                 lives = 3;
@@ -459,9 +465,12 @@ public class GameEngine {
     }
 
     private void updateHUD() {
-        if (scoreCb != null) scoreCb.accept(score);
-        if (livesCb != null) livesCb.accept(lives);
-        if (levelCb != null) levelCb.accept(level);
+        if (scoreCb != null)
+            scoreCb.accept(score);
+        if (livesCb != null)
+            livesCb.accept(lives);
+        if (levelCb != null)
+            levelCb.accept(level);
     }
 
     public void resetGame() {
@@ -494,8 +503,7 @@ public class GameEngine {
             PowerUp pu = new PowerUp(
                     type,
                     br.getNode().getBoundsInParent().getCenterX(),
-                    br.getNode().getBoundsInParent().getCenterY()
-            );
+                    br.getNode().getBoundsInParent().getCenterY());
             powerUps.add(pu);
             pane.getChildren().add(pu);
         }
@@ -510,7 +518,7 @@ public class GameEngine {
             if (intersects(p, paddle.getNode())) {
                 // Phát âm thanh nhặt powerup
                 controller.SoundManager.INSTANCE.playPowerUpCollect();
-                
+
                 applyPowerUp(p);
                 pane.getChildren().remove(p);
                 it.remove();
@@ -530,12 +538,14 @@ public class GameEngine {
         switch (type) {
             case COIN -> {
                 score += 50;
-                if (scoreCb != null) scoreCb.accept(score);
+                if (scoreCb != null)
+                    scoreCb.accept(score);
                 GameState.INSTANCE.addCoins(1);
             }
             case EXTRA_LIFE -> {
                 lives++;
-                if (livesCb != null) livesCb.accept(lives);
+                if (livesCb != null)
+                    livesCb.accept(lives);
             }
             case EXPAND_PADDLE -> {
                 if (originalPaddleWidth == 0) {
@@ -554,7 +564,7 @@ public class GameEngine {
                             break;
                         }
                     }
-                    
+
                     if (!hasSlow) {
                         ball.setDx(ball.getDx() * 0.7);
                         ball.setDy(ball.getDy() * 0.7);
