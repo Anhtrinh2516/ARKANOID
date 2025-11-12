@@ -400,22 +400,20 @@ public class GameController {
         engine = new GameEngine(anchorPane, paddle, ball,
                 s -> {
                     score = s;
-                    if (scoreLabel != null)
-                        scoreLabel.setText(String.valueOf(s));
+                    if (scoreLabel != null) scoreLabel.setText(String.valueOf(s));
                 },
                 l -> {
                     lives = l;
-                    if (livesLabel != null)
-                        livesLabel.setText(String.valueOf(l));
+                    if (livesLabel != null) livesLabel.setText(String.valueOf(l));
                 },
                 lv -> {
                     lvl = lv;
-                    if (levelLabel != null)
-                        levelLabel.setText(String.valueOf(lv));
+                    if (levelLabel != null) levelLabel.setText(String.valueOf(lv));
                 },
                 completedLevel -> {
                     handleLevelComplete(completedLevel);
-                });
+                }
+        );
 
         engine.setPowerUpUpdateCallback(txt -> {
             if (powerUpsLabel != null)

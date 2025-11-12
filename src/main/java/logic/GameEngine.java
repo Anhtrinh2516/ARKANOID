@@ -34,6 +34,7 @@ public class GameEngine {
     private boolean levelCompleting = false;
     private long levelCompleteTime = 0;
     private boolean isGameOver = false;
+    private Consumer<Integer> levelCompleteCb;
 
     private double originalPaddleWidth = 0;
     
@@ -45,13 +46,15 @@ public class GameEngine {
     private IntConsumer levelCb;
 
     public GameEngine(AnchorPane pane, Rectangle paddleNode, Circle ballNode,
-                      IntConsumer scoreCb, IntConsumer livesCb, IntConsumer levelCb) {
+                      IntConsumer scoreCb, IntConsumer livesCb, IntConsumer levelCb,
+                      Consumer<Integer> levelCompleteCb) {
         this.pane = pane;
         this.paddle = new Paddle(paddleNode);
         this.ball = new Ball(ballNode);
         this.scoreCb = scoreCb;
         this.livesCb = livesCb;
         this.levelCb = levelCb;
+        this.levelCompleteCb = levelCompleteCb;
 
         this.originalPaddleWidth = paddleNode.getWidth();
 
@@ -149,9 +152,6 @@ public class GameEngine {
     }
 
     if (levelCompleting) {
-        if (System.currentTimeMillis() - levelCompleteTime >= LEVEL_COMPLETE_DELAY) {
-            loadLevel(level + 1);
-        }
         return;
     }
 
@@ -206,16 +206,19 @@ public class GameEngine {
     updatePowerUps();
     updateActivePowerUps();
 
-    if (allBreakableDestroyed()) {
-        levelCompleting = true;
-        levelCompleteTime = System.currentTimeMillis();
-        score += 500;
-        scoreCb.accept(score);
-        GameState.INSTANCE.addCoins(2);
-        
-        // Phát âm thanh hoàn thành màn
-        controller.SoundManager.INSTANCE.playLevelComplete();
-    }
+        if (allBreakableDestroyed()) {
+            if (!levelCompleting) {
+                levelCompleting = true;
+                score += 500;
+                scoreCb.accept(score);
+                GameState.INSTANCE.addCoins(2);
+
+                if (levelCompleteCb != null) {
+                    final int completedLevel = this.level;
+                    Platform.runLater(() -> levelCompleteCb.accept(completedLevel));
+                }
+            }
+        }
     }
 
     private void updateBall(Ball b) {
