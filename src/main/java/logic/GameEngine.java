@@ -316,10 +316,7 @@ public class GameEngine {
             // Va chạm mặt TRÊN paddle - trường hợp bình thường
             double hitPos = (bx - x1) / pn.getWidth();
             hitPos = Math.max(0, Math.min(1, hitPos)); // Clamp 0-1
-            double angle = Math.toRadians(-150 + hitPos * 120);
-            
-            b.setDx(speed * Math.sin(angle));
-            b.setDy(speed * Math.cos(angle));
+            b.bounceWithAngle(hitPos);
             b.getNode().setCenterY(y1 - br - 1);
             
         } else if (hitSide == 1 && dy < 0) {
