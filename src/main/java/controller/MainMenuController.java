@@ -34,6 +34,7 @@ public class MainMenuController {
 
     public void initialize() {
         updateContinue();
+        SoundManager.INSTANCE.playMenuMusic();
     }
 
     private void updateContinue() {
