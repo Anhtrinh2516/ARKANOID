@@ -124,9 +124,9 @@ The game uses multiple threads to ensure smooth performance:
 ![Leaderboard](src/creenshots/leaderboard.png)
 
 ### Video Demo
-[![Video Demo](src/screenshots/video-thumbnail.png)](src/demo/gameplay.mp4)
+[![Video Demo](src/screenshots/video-thumbnail.png)](src/demo/gameplay.mkv)
 
-*Full gameplay video is available in `src/demo/gameplay.mp4`*
+*Full gameplay video is available in `src/demo/gameplay.mkv`*
 
 ---
 
@@ -179,4 +179,4 @@ This project is developed for educational purposes only.
 
 ---
 
-*Last updated: [12/11/2025]*
+*Last updated: [13/11/2025]*
