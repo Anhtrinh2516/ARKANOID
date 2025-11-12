@@ -1,8 +1,5 @@
 package logic;
 
-/**
- * Lớp để quản lý power-up đang hoạt động với timer
- */
 public class ActivePowerUp {
     private final PowerUpType type;
     private final long startTime;

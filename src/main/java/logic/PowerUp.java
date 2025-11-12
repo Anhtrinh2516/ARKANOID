@@ -8,9 +8,6 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 
-/**
- * PowerUp rơi từ brick khi phá vỡ
- */
 public class PowerUp extends Circle {
     private PowerUpType type;
     private double speed = 3.0;
@@ -78,6 +75,17 @@ public class PowerUp extends Circle {
                 );
                 setFill(gradient);
                 setStroke(Color.DARKGREEN);
+                setStrokeWidth(2.5);
+            }
+            case MULTIBALL -> {
+                RadialGradient gradient = new RadialGradient(
+                        0, 0, 0.5, 0.5, 0.7, true, CycleMethod.NO_CYCLE,
+                        new Stop(0, Color.LAVENDER),
+                        new Stop(0.5, Color.PURPLE),
+                        new Stop(1, Color.DARKVIOLET)
+                );
+                setFill(gradient);
+                setStroke(Color.DARKVIOLET);
                 setStrokeWidth(2.5);
             }
         }

@@ -7,7 +7,116 @@
     <list default="true" id="d14092cf-fefb-46f5-918a-92817d202965" name="Changes" comment="Them mui ten dieu chinh hương bong">
       <changelist_data name="Trinh Tuan Anh" email="24020032@vnu.edu.vn" automatic="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/GameStateManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/GameStateManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/SelectEventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/SelectEventController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/SelectLevelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/SelectLevelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/SettingsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/ShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ShopController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/SkinController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/SkinController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/SkinManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/SkinManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/MainApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/ActivePowerUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/ActivePowerUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/Ball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/Brick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/Brick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/EnhancedBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/EnhancedBrick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/LevelLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/LevelLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/PowerUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/PowerUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/PowerUpType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/PowerUpType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/GameOverDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/GameOverDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/StyleConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/StyleConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ui/TutorialDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/TutorialDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/TutorialDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/TutorialDialogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/AudioPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/AudioPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/BackgroundSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/BackgroundSelector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/SoundManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/SoundManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/StoryImagePicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/StoryImagePicker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/StoryLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/StoryLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/StorySceneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/StorySceneController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/event_background/casino_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/event_background/castle_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/event_background/comingsoon_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/event_background/deepsea_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/event_background/event_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/event_background/penalty_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/event_background/universe_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/GamePlay.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/GamePlay.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/MainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/MainMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/SelectEvent.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/SelectEvent.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Shop.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Shop.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Skin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Skin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/StoryScene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/StoryScene.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/TutorialDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/TutorialDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/bg-retrospace(1).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/levels/level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/levels/level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/10.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/11.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/11.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/12.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/12.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/13.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/13.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/14.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/14.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/15.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/15.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/16.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/16.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/17.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/6.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/7.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/storymode/story/9.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/storymode/story/9.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/MainMenuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MainMenuController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/SelectEventController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SelectEventController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/SelectLevelController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SelectLevelController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/ShopController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/ShopController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/core/GameController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/GameController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/core/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/GameController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/core/MainApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/MainApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/GamePlay.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/GamePlay.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/MainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/MainMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/SelectEvent.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/SelectEvent.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/Shop.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/Shop.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/Skin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/Skin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/StoryScene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/StoryScene.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/images/bg-retrospace(1).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/levels/level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/levels/level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/Brick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/Brick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/EnhancedBrick.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/EnhancedBrick.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/GameEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/GameEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/LevelLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/LevelLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/Paddle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/Paddle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/10.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/11.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/11.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/12.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/12.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/13.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/13.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/14.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/14.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/15.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/15.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/16.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/16.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/17.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/6.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/7.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/storymode/story/9.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/storymode/story/9.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ui/GameOverDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ui/GameOverDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ui/TutorialDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ui/TutorialDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ui/TutorialDialogController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ui/TutorialDialogController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/utils/BackgroundSelector.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/BackgroundSelector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/utils/StoryImagePicker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/StoryImagePicker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/utils/StoryLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/StoryLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/utils/StorySceneController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/StorySceneController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +185,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\github\1\ARKANOID" />
       <recent name="D:\github\1\ARKANOID\src\main\resources" />
       <recent name="$PROJECT_DIR$/src/main/resources/images" />
       <recent name="$PROJECT_DIR$/src/main/resources/fxml" />
@@ -192,7 +302,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/logic/EnhancedBrick.java</url>
-          <line>175</line>
+          <line>160</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">

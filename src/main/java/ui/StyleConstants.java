@@ -3,18 +3,15 @@ package ui;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 
-/**
- * Unified style constants for consistent UI across the application
- */
 public class StyleConstants {
 
     // ===== GRADIENT BORDER STYLE =====
-    public static final String GRADIENT_BORDER_STYLE = "-fx-background-color: linear-gradient(to bottom, rgba(15, 23, 42, 0.98), rgba(10, 14, 39, 0.98));"
-            +
-            "-fx-background-radius: 20;" +
-            "-fx-border-width: 3;" +
-            "-fx-border-radius: 20;" +
-            "-fx-border-color: linear-gradient(to right, #00d4ff 0%, #8b5cf6 50%, #ff00ff 100%);";
+    public static final String GRADIENT_BORDER_STYLE =
+            "-fx-background-color: linear-gradient(to bottom, rgba(15, 23, 42, 0.98), rgba(10, 14, 39, 0.98));" +
+                    "-fx-background-radius: 20;" +
+                    "-fx-border-width: 3;" +
+                    "-fx-border-radius: 20;" +
+                    "-fx-border-color: linear-gradient(to right, #00d4ff 0%, #8b5cf6 50%, #ff00ff 100%);";
 
     // ===== COLORS =====
     public static final String COLOR_CYAN = "#00d4ff";
@@ -48,36 +45,37 @@ public class StyleConstants {
     }
 
     // ===== BUTTON STYLES =====
-    public static final String BUTTON_PRIMARY_STYLE = "-fx-background-color: linear-gradient(to bottom, #22c55e, #16a34a);"
-            +
-            "-fx-text-fill: white;" +
-            "-fx-padding: 10 40;" +
-            "-fx-background-radius: 10;" +
-            "-fx-cursor: hand;";
+    public static final String BUTTON_PRIMARY_STYLE =
+            "-fx-background-color: linear-gradient(to bottom, #22c55e, #16a34a);" +
+                    "-fx-text-fill: white;" +
+                    "-fx-padding: 10 40;" +
+                    "-fx-background-radius: 10;" +
+                    "-fx-cursor: hand;";
 
-    public static final String BUTTON_PRIMARY_HOVER_STYLE = "-fx-background-color: linear-gradient(to bottom, #16a34a, #15803d);"
-            +
-            "-fx-text-fill: white;" +
-            "-fx-padding: 10 40;" +
-            "-fx-background-radius: 10;" +
-            "-fx-cursor: hand;" +
-            "-fx-scale-x: 1.05;" +
-            "-fx-scale-y: 1.05;";
+    public static final String BUTTON_PRIMARY_HOVER_STYLE =
+            "-fx-background-color: linear-gradient(to bottom, #16a34a, #15803d);" +
+                    "-fx-text-fill: white;" +
+                    "-fx-padding: 10 40;" +
+                    "-fx-background-radius: 10;" +
+                    "-fx-cursor: hand;" +
+                    "-fx-scale-x: 1.05;" +
+                    "-fx-scale-y: 1.05;";
 
-    public static final String BUTTON_DANGER_STYLE = "-fx-background-color: linear-gradient(to bottom, #ef4444, #dc2626);"
-            +
-            "-fx-text-fill: white;" +
-            "-fx-padding: 10 40;" +
-            "-fx-background-radius: 10;" +
-            "-fx-cursor: hand;";
+    public static final String BUTTON_DANGER_STYLE =
+            "-fx-background-color: linear-gradient(to bottom, #ef4444, #dc2626);" +
+                    "-fx-text-fill: white;" +
+                    "-fx-padding: 10 40;" +
+                    "-fx-background-radius: 10;" +
+                    "-fx-cursor: hand;";
 
     // ===== SECTION STYLES =====
-    public static final String SECTION_STYLE = "-fx-background-color: rgba(30, 41, 59, 0.6);" +
-            "-fx-background-radius: 10;" +
-            "-fx-padding: 12;" +
-            "-fx-border-color: #475569;" +
-            "-fx-border-width: 1.5;" +
-            "-fx-border-radius: 10;";
+    public static final String SECTION_STYLE =
+            "-fx-background-color: rgba(30, 41, 59, 0.6);" +
+                    "-fx-background-radius: 10;" +
+                    "-fx-padding: 12;" +
+                    "-fx-border-color: #475569;" +
+                    "-fx-border-width: 1.5;" +
+                    "-fx-border-radius: 10;";
 
     // ===== GAME WINDOW SIZE =====
     public static final double GAME_WIDTH = 920.0;

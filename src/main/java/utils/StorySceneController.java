@@ -10,8 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-
 import java.util.List;
 
 public class StorySceneController {
@@ -34,25 +32,26 @@ public class StorySceneController {
     @FXML
     public void initialize() {
         storyTextLabel.setText("");
-        
-        // Load ảnh nền
-        String bgUrl = BackgroundSelector.getBackgroundUrl();
-        if (bgUrl != null) {
-            Image bgImage = new Image(bgUrl);
-            backgroundImageView.setImage(bgImage);
-            
-
-            backgroundImageView.fitWidthProperty().bind(storyRootPane.widthProperty());
-            backgroundImageView.fitHeightProperty().bind(storyRootPane.heightProperty());
-        }
-        
-        // Xử lý click để đọc tiếp
         storyRootPane.setOnMouseClicked(e -> handleNextParagraph());
     }
 
     public void loadAndStartStory(int levelId) {
+
+        String bgUrl = BackgroundSelector.getBackgroundUrl(levelId);
+
+        if (bgUrl != null) {
+            Image bgImage = new Image(bgUrl);
+            backgroundImageView.setImage(bgImage);
+
+            backgroundImageView.fitWidthProperty().bind(storyRootPane.widthProperty());
+            backgroundImageView.fitHeightProperty().bind(storyRootPane.heightProperty());
+        } else {
+            System.err.println("StorySceneController: Không thể load ảnh nền cho level " + levelId);
+        }
+
         this.paragraphs = StoryLoader.loadStory(levelId);
         if (paragraphs.isEmpty()) {
+            System.err.println("StorySceneController: Không load được nội dung story cho level " + levelId);
             closeStoryScene();
             return;
         }
@@ -66,11 +65,14 @@ public class StorySceneController {
             return;
         }
 
-        String paragraph = paragraphs.get(currentParagraphIndex);
+        String originalParagraph = paragraphs.get(currentParagraphIndex);
+        String paragraph = "    " + originalParagraph;
+
         storyTextLabel.setText("");
         isTyping = true;
 
-        if (pacingTimeline != null) pacingTimeline.stop();
+        if (pacingTimeline != null)
+            pacingTimeline.stop();
         pacingTimeline = new Timeline();
 
         final StringBuilder displayedText = new StringBuilder();
@@ -80,25 +82,27 @@ public class StorySceneController {
                 displayedText.append(paragraph.charAt(charIndex));
                 storyTextLabel.setText(displayedText.toString());
                 if (charIndex == paragraph.length() - 1) {
-                    isTyping = false;
                 }
             });
             pacingTimeline.getKeyFrames().add(kf);
         }
+
         pacingTimeline.setOnFinished(e -> {
-             isTyping = false;
-             currentParagraphIndex++;
+            isTyping = false;
         });
+
         pacingTimeline.play();
     }
 
     private void handleNextParagraph() {
         if (isTyping) {
-            if (pacingTimeline != null) pacingTimeline.stop();
-            storyTextLabel.setText(paragraphs.get(currentParagraphIndex));
+            if (pacingTimeline != null)
+                pacingTimeline.stop();
+            String originalParagraph = paragraphs.get(currentParagraphIndex);
+            storyTextLabel.setText("    " + originalParagraph);
             isTyping = false;
-            currentParagraphIndex++;
         } else {
+            currentParagraphIndex++;
             startTypingPacing();
         }
     }
@@ -109,7 +113,8 @@ public class StorySceneController {
     }
 
     private void closeStoryScene() {
-        if (pacingTimeline != null) pacingTimeline.stop();
+        if (pacingTimeline != null)
+            pacingTimeline.stop();
         Stage stage = (Stage) storyRootPane.getScene().getWindow();
         if (stage != null) {
             stage.close();

@@ -9,11 +9,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import core.MainApp;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import core.MainApp;
 
 public class ShopController {
 
@@ -149,77 +148,188 @@ public class ShopController {
     }
 
     private void initializeSkins() {
-        // Create paddle skin previews
-        for (SkinManager.PaddleSkin skin : SkinManager.PaddleSkin.values()) {
-            StackPane container = new StackPane();
-            container.setStyle("-fx-padding: 15; -fx-cursor: hand;" +
-                    "-fx-background-color: linear-gradient(to bottom, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));" +
-                    "-fx-background-radius: 14;" +
-                    "-fx-border-color: #475569;" +
-                    "-fx-border-width: 2;" +
-                    "-fx-border-radius: 14;");
+        // Clear existing children
+        paddleSkinBox.getChildren().clear();
+        ballSkinBox.getChildren().clear();
+        paddleContainers.clear();
+        ballContainers.clear();
 
-            Rectangle rect = new Rectangle(110, 22);
-            rect.setFill(javafx.scene.paint.Color.web(skin.fill));
-            rect.setStroke(javafx.scene.paint.Color.web(skin.stroke));
-            rect.setStrokeWidth(2.5);
-            rect.setArcWidth(10);
-            rect.setArcHeight(10);
+        // Create paddle skins grid (2 rows × 5 cols)
+        javafx.scene.layout.GridPane paddleGrid = new javafx.scene.layout.GridPane();
+        paddleGrid.setHgap(12);
+        paddleGrid.setVgap(12);
+        paddleGrid.setAlignment(javafx.geometry.Pos.CENTER);
 
-            container.getChildren().add(rect);
-
-            if (!SkinManager.INSTANCE.isPaddleSkinUnlocked(skin)) {
-                Label lockLabel = new Label("🔒");
-                lockLabel.setStyle("-fx-font-size: 28px;");
-                container.getChildren().add(lockLabel);
-            }
-
-            container.setOnMouseClicked(e -> {
-                selectedPaddle = skin;
-                updatePaddleBorders();
-                updateButtons();
-            });
-
+        SkinManager.PaddleSkin[] paddleSkins = SkinManager.PaddleSkin.values();
+        for (int i = 0; i < paddleSkins.length; i++) {
+            SkinManager.PaddleSkin skin = paddleSkins[i];
+            StackPane container = createPaddleSkinPreview(skin);
             paddleContainers.add(container);
-            paddleSkinBox.getChildren().add(container);
+            
+            int row = i / 5;
+            int col = i % 5;
+            paddleGrid.add(container, col, row);
         }
+        paddleSkinBox.getChildren().add(paddleGrid);
 
-        // Create ball skin previews
-        for (SkinManager.BallSkin skin : SkinManager.BallSkin.values()) {
-            StackPane container = new StackPane();
-            container.setStyle("-fx-padding: 15; -fx-cursor: hand;" +
-                    "-fx-background-color: linear-gradient(to bottom, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));" +
-                    "-fx-background-radius: 14;" +
-                    "-fx-border-color: #475569;" +
-                    "-fx-border-width: 2;" +
-                    "-fx-border-radius: 14;");
+        // Create ball skins grid (2 rows × 5 cols)
+        javafx.scene.layout.GridPane ballGrid = new javafx.scene.layout.GridPane();
+        ballGrid.setHgap(12);
+        ballGrid.setVgap(12);
+        ballGrid.setAlignment(javafx.geometry.Pos.CENTER);
 
-            Circle circle = new Circle(22);
-            circle.setFill(javafx.scene.paint.Color.web(skin.color));
-            circle.setStroke(javafx.scene.paint.Color.BLACK);
-            circle.setStrokeWidth(2.5);
-
-            container.getChildren().add(circle);
-
-            if (!SkinManager.INSTANCE.isBallSkinUnlocked(skin)) {
-                Label lockLabel = new Label("🔒");
-                lockLabel.setStyle("-fx-font-size: 24px;");
-                container.getChildren().add(lockLabel);
-            }
-
-            container.setOnMouseClicked(e -> {
-                selectedBall = skin;
-                updateBallBorders();
-                updateButtons();
-            });
-
+        SkinManager.BallSkin[] ballSkins = SkinManager.BallSkin.values();
+        for (int i = 0; i < ballSkins.length; i++) {
+            SkinManager.BallSkin skin = ballSkins[i];
+            StackPane container = createBallSkinPreview(skin);
             ballContainers.add(container);
-            ballSkinBox.getChildren().add(container);
+            
+            int row = i / 5;
+            int col = i % 5;
+            ballGrid.add(container, col, row);
         }
+        ballSkinBox.getChildren().add(ballGrid);
 
         updateButtons();
         updatePaddleBorders();
         updateBallBorders();
+    }
+
+    private StackPane createPaddleSkinPreview(SkinManager.PaddleSkin skin) {
+        StackPane container = new StackPane();
+        container.setPrefSize(140, 130);
+        container.setStyle("-fx-padding: 12; -fx-cursor: hand;" +
+                "-fx-background-color: linear-gradient(to bottom, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));" +
+                "-fx-background-radius: 14;" +
+                "-fx-border-color: #475569;" +
+                "-fx-border-width: 2;" +
+                "-fx-border-radius: 14;");
+
+        VBox skinBox = new VBox(6);
+        skinBox.setAlignment(javafx.geometry.Pos.CENTER);
+
+        // Create paddle preview (image for EVENT, rectangle for others)
+        javafx.scene.Node paddlePreview;
+        if (skin.type == SkinManager.SkinType.EVENT && skin.imagePath != null) {
+            try {
+                javafx.scene.image.Image img = new javafx.scene.image.Image(
+                    getClass().getResourceAsStream(skin.imagePath)
+                );
+                javafx.scene.image.ImageView imageView = new javafx.scene.image.ImageView(img);
+                imageView.setFitWidth(110);
+                imageView.setFitHeight(22);
+                imageView.setPreserveRatio(false);  // Force exact size
+                paddlePreview = imageView;
+            } catch (Exception e) {
+                // Fallback to rectangle if image not found
+                Rectangle rect = new Rectangle(110, 22);
+                rect.setFill(javafx.scene.paint.Color.web(skin.fill));
+                rect.setStroke(javafx.scene.paint.Color.web(skin.stroke));
+                rect.setStrokeWidth(2.5);
+                rect.setArcWidth(8);
+                rect.setArcHeight(8);
+                paddlePreview = rect;
+            }
+        } else {
+            Rectangle rect = new Rectangle(110, 22);
+            rect.setFill(javafx.scene.paint.Color.web(skin.fill));
+            rect.setStroke(javafx.scene.paint.Color.web(skin.stroke));
+            rect.setStrokeWidth(2.5);
+            rect.setArcWidth(8);
+            rect.setArcHeight(8);
+            paddlePreview = rect;
+        }
+
+        skinBox.getChildren().add(paddlePreview);
+
+        // Add skin name label with bright color
+        Label nameLabel = new Label(skin.name().replace("_", " "));
+        nameLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: #e2e8f0; -fx-font-weight: bold;");
+        skinBox.getChildren().add(nameLabel);
+
+        container.getChildren().add(skinBox);
+
+        // Add lock overlay if not unlocked
+        if (!SkinManager.INSTANCE.isPaddleSkinUnlocked(skin)) {
+            Label lockLabel = new Label("🔒");
+            lockLabel.setStyle("-fx-font-size: 32px;");
+            container.getChildren().add(lockLabel);
+        }
+
+        container.setOnMouseClicked(e -> {
+            selectedPaddle = skin;
+            updatePaddleBorders();
+            updateButtons();
+        });
+
+        return container;
+    }
+
+    private StackPane createBallSkinPreview(SkinManager.BallSkin skin) {
+        StackPane container = new StackPane();
+        container.setPrefSize(140, 130);
+        container.setStyle("-fx-padding: 12; -fx-cursor: hand;" +
+                "-fx-background-color: linear-gradient(to bottom, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));" +
+                "-fx-background-radius: 14;" +
+                "-fx-border-color: #475569;" +
+                "-fx-border-width: 2;" +
+                "-fx-border-radius: 14;");
+
+        VBox skinBox = new VBox(6);
+        skinBox.setAlignment(javafx.geometry.Pos.CENTER);
+
+        // Create ball preview (image for EVENT, circle for others)
+        javafx.scene.Node ballPreview;
+        if (skin.type == SkinManager.SkinType.EVENT && skin.imagePath != null) {
+            try {
+                javafx.scene.image.Image img = new javafx.scene.image.Image(
+                    getClass().getResourceAsStream(skin.imagePath)
+                );
+                javafx.scene.image.ImageView imageView = new javafx.scene.image.ImageView(img);
+                imageView.setFitWidth(50);
+                imageView.setFitHeight(50);
+                imageView.setPreserveRatio(true);  // Keep aspect ratio for round ball
+                imageView.setSmooth(true);  // Smooth rendering
+                ballPreview = imageView;
+            } catch (Exception e) {
+                // Fallback to circle if image not found
+                Circle circle = new Circle(22);
+                circle.setFill(javafx.scene.paint.Color.web(skin.color));
+                circle.setStroke(javafx.scene.paint.Color.BLACK);
+                circle.setStrokeWidth(2.5);
+                ballPreview = circle;
+            }
+        } else {
+            Circle circle = new Circle(22);
+            circle.setFill(javafx.scene.paint.Color.web(skin.color));
+            circle.setStroke(javafx.scene.paint.Color.BLACK);
+            circle.setStrokeWidth(2.5);
+            ballPreview = circle;
+        }
+
+        skinBox.getChildren().add(ballPreview);
+
+        // Add skin name label with bright color
+        Label nameLabel = new Label(skin.name().replace("_", " "));
+        nameLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: #e2e8f0; -fx-font-weight: bold;");
+        skinBox.getChildren().add(nameLabel);
+
+        container.getChildren().add(skinBox);
+
+        // Add lock overlay if not unlocked
+        if (!SkinManager.INSTANCE.isBallSkinUnlocked(skin)) {
+            Label lockLabel = new Label("🔒");
+            lockLabel.setStyle("-fx-font-size: 28px;");
+            container.getChildren().add(lockLabel);
+        }
+
+        container.setOnMouseClicked(e -> {
+            selectedBall = skin;
+            updateBallBorders();
+            updateButtons();
+        });
+
+        return container;
     }
 
     private boolean spend(int cost) {
@@ -270,7 +380,7 @@ public class ShopController {
     private void buyWideItem() {
         if (spend(3)) {
             GameState.INSTANCE.addWideItem(1);
-            showMessage("✅ Purchased Wide Paddle item! Press 1 in ", "#4ade80");
+            showMessage("✅ Purchased Wide Paddle item! Press 1 in game.", "#4ade80");
             refreshUI();
         }
     }
@@ -279,7 +389,7 @@ public class ShopController {
     private void buyLifeItem() {
         if (spend(5)) {
             GameState.INSTANCE.addLifeItem(1);
-            showMessage("✅ Purchased Extra Life item! Press 2 in ", "#4ade80");
+            showMessage("✅ Purchased Extra Life item! Press 2 in game.", "#4ade80");
             refreshUI();
         }
     }
@@ -288,7 +398,7 @@ public class ShopController {
     private void buySlowItem() {
         if (spend(4)) {
             GameState.INSTANCE.addSlowItem(1);
-            showMessage("✅ Purchased Slow Ball item! Press 3 in ", "#4ade80");
+            showMessage("✅ Purchased Slow Ball item! Press 3 in game.", "#4ade80");
             refreshUI();
         }
     }
@@ -353,13 +463,10 @@ public class ShopController {
     private void updatePaddleBorders() {
         for (int i = 0; i < paddleContainers.size(); i++) {
             StackPane container = paddleContainers.get(i);
-            Rectangle rect = (Rectangle) container.getChildren().get(0);
             SkinManager.PaddleSkin skin = SkinManager.PaddleSkin.values()[i];
 
             if (skin == SkinManager.INSTANCE.getPaddleSkin()) {
-                rect.setStroke(javafx.scene.paint.Color.GOLD);
-                rect.setStrokeWidth(5);
-                container.setStyle("-fx-padding: 15; -fx-cursor: hand;" +
+                container.setStyle("-fx-padding: 10; -fx-cursor: hand;" +
                         "-fx-background-color: linear-gradient(to bottom, rgba(251, 191, 36, 0.25), rgba(245, 158, 11, 0.15));" +
                         "-fx-background-radius: 14;" +
                         "-fx-border-color: #fbbf24;" +
@@ -367,18 +474,14 @@ public class ShopController {
                         "-fx-border-radius: 14;" +
                         "-fx-effect: dropshadow(gaussian, rgba(251, 191, 36, 0.7), 18, 0, 0, 0);");
             } else if (skin == selectedPaddle) {
-                rect.setStroke(javafx.scene.paint.Color.LIME);
-                rect.setStrokeWidth(4);
-                container.setStyle("-fx-padding: 15; -fx-cursor: hand;" +
+                container.setStyle("-fx-padding: 10; -fx-cursor: hand;" +
                         "-fx-background-color: linear-gradient(to bottom, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1));" +
                         "-fx-background-radius: 14;" +
                         "-fx-border-color: #22c55e;" +
                         "-fx-border-width: 3;" +
                         "-fx-border-radius: 14;");
             } else {
-                rect.setStroke(javafx.scene.paint.Color.web(skin.stroke));
-                rect.setStrokeWidth(2.5);
-                container.setStyle("-fx-padding: 15; -fx-cursor: hand;" +
+                container.setStyle("-fx-padding: 10; -fx-cursor: hand;" +
                         "-fx-background-color: linear-gradient(to bottom, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));" +
                         "-fx-background-radius: 14;" +
                         "-fx-border-color: #475569;" +
@@ -391,13 +494,10 @@ public class ShopController {
     private void updateBallBorders() {
         for (int i = 0; i < ballContainers.size(); i++) {
             StackPane container = ballContainers.get(i);
-            Circle circle = (Circle) container.getChildren().get(0);
             SkinManager.BallSkin skin = SkinManager.BallSkin.values()[i];
 
             if (skin == SkinManager.INSTANCE.getBallSkin()) {
-                circle.setStroke(javafx.scene.paint.Color.GOLD);
-                circle.setStrokeWidth(5);
-                container.setStyle("-fx-padding: 15; -fx-cursor: hand;" +
+                container.setStyle("-fx-padding: 10; -fx-cursor: hand;" +
                         "-fx-background-color: linear-gradient(to bottom, rgba(251, 191, 36, 0.25), rgba(245, 158, 11, 0.15));" +
                         "-fx-background-radius: 14;" +
                         "-fx-border-color: #fbbf24;" +
@@ -405,18 +505,14 @@ public class ShopController {
                         "-fx-border-radius: 14;" +
                         "-fx-effect: dropshadow(gaussian, rgba(251, 191, 36, 0.7), 18, 0, 0, 0);");
             } else if (skin == selectedBall) {
-                circle.setStroke(javafx.scene.paint.Color.LIME);
-                circle.setStrokeWidth(4);
-                container.setStyle("-fx-padding: 15; -fx-cursor: hand;" +
+                container.setStyle("-fx-padding: 10; -fx-cursor: hand;" +
                         "-fx-background-color: linear-gradient(to bottom, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1));" +
                         "-fx-background-radius: 14;" +
                         "-fx-border-color: #22c55e;" +
                         "-fx-border-width: 3;" +
                         "-fx-border-radius: 14;");
             } else {
-                circle.setStroke(javafx.scene.paint.Color.BLACK);
-                circle.setStrokeWidth(2.5);
-                container.setStyle("-fx-padding: 15; -fx-cursor: hand;" +
+                container.setStyle("-fx-padding: 10; -fx-cursor: hand;" +
                         "-fx-background-color: linear-gradient(to bottom, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));" +
                         "-fx-background-radius: 14;" +
                         "-fx-border-color: #475569;" +
@@ -440,12 +536,13 @@ public class ShopController {
                             "-fx-cursor: hand;" +
                             "-fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.5), 10, 0, 0, 3);");
                 } else {
-                    selectPaddleButton.setText("⭐ Event Required");
-                    selectPaddleButton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;" +
-                            "-fx-background-color: #64748b;" +
+                    selectPaddleButton.setText("⭐ Complete Treasure Hunter Event");
+                    selectPaddleButton.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;" +
+                            "-fx-background-color: linear-gradient(to bottom, #8b5cf6, #7c3aed);" +
                             "-fx-text-fill: white;" +
-                            "-fx-padding: 12 50;" +
-                            "-fx-background-radius: 10;");
+                            "-fx-padding: 12 30;" +
+                            "-fx-background-radius: 10;" +
+                            "-fx-effect: dropshadow(gaussian, rgba(139, 92, 246, 0.4), 8, 0, 0, 2);");
                 }
             } else if (selectedPaddle == SkinManager.INSTANCE.getPaddleSkin()) {
                 selectPaddleButton.setText("✓ SELECTED");
@@ -479,12 +576,13 @@ public class ShopController {
                             "-fx-cursor: hand;" +
                             "-fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.5), 10, 0, 0, 3);");
                 } else {
-                    selectBallButton.setText("⭐ Event Required");
-                    selectBallButton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;" +
-                            "-fx-background-color: #64748b;" +
+                    selectBallButton.setText("⭐ Complete Treasure Hunter Event");
+                    selectBallButton.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;" +
+                            "-fx-background-color: linear-gradient(to bottom, #8b5cf6, #7c3aed);" +
                             "-fx-text-fill: white;" +
-                            "-fx-padding: 12 50;" +
-                            "-fx-background-radius: 10;");
+                            "-fx-padding: 12 30;" +
+                            "-fx-background-radius: 10;" +
+                            "-fx-effect: dropshadow(gaussian, rgba(139, 92, 246, 0.4), 8, 0, 0, 2);");
                 }
             } else if (selectedBall == SkinManager.INSTANCE.getBallSkin()) {
                 selectBallButton.setText("✓ SELECTED");

@@ -9,11 +9,10 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import core.MainApp;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import core.MainApp;
 
 public class SkinController {
 

@@ -16,9 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Enhanced Brick with multi-hit system and crack effects
- */
 public class EnhancedBrick extends StackPane {
 
     private final int maxHits;
@@ -78,9 +75,6 @@ public class EnhancedBrick extends StackPane {
         playSpawnAnimation();
     }
 
-    /**
-     * Hit the brick - returns true if brick is destroyed
-     */
     public boolean hit() {
         currentHits++;
 
@@ -107,9 +101,6 @@ public class EnhancedBrick extends StackPane {
         return currentHits >= maxHits;
     }
 
-    /**
-     * Update brick color based on remaining hits
-     */
     private void updateBrickGradient() {
         double damagePercent = (double) currentHits / maxHits;
 
@@ -135,9 +126,6 @@ public class EnhancedBrick extends StackPane {
         mainRect.setFill(gradient);
     }
 
-    /**
-     * Add a crack line to the brick
-     */
     private void addCrack() {
         double width = getPrefWidth();
         double height = getPrefHeight();
@@ -163,9 +151,6 @@ public class EnhancedBrick extends StackPane {
         ft.play();
     }
 
-    /**
-     * Spawn animation when brick appears
-     */
     private void playSpawnAnimation() {
         setScaleX(0);
         setScaleY(0);
@@ -187,9 +172,6 @@ public class EnhancedBrick extends StackPane {
         pt.play();
     }
 
-    /**
-     * Hit animation - shake and flash
-     */
     private void playHitAnimation() {
         // Flash effect
         Glow glow = new Glow(0.8);
@@ -197,7 +179,8 @@ public class EnhancedBrick extends StackPane {
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, e -> setEffect(glow)),
-                new KeyFrame(Duration.millis(100), e -> setEffect(null)));
+                new KeyFrame(Duration.millis(100), e -> setEffect(null))
+        );
         timeline.play();
 
         // Shake animation
@@ -212,9 +195,6 @@ public class EnhancedBrick extends StackPane {
         shake.play();
     }
 
-    /**
-     * Destroy animation - explode effect
-     */
     private void playDestroyAnimation() {
         // Scale down and fade out
         ScaleTransition st = new ScaleTransition(Duration.millis(200), this);
@@ -241,9 +221,6 @@ public class EnhancedBrick extends StackPane {
         createParticles();
     }
 
-    /**
-     * Create simple particle effect on destroy
-     */
     private void createParticles() {
         if (getParent() == null) return;
 
@@ -278,9 +255,6 @@ public class EnhancedBrick extends StackPane {
         }
     }
 
-    /**
-     * Get the score value of this brick
-     */
     public int getScoreValue() {
         return maxHits * 10;
     }

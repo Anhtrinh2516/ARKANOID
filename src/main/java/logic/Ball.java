@@ -18,10 +18,11 @@ public class Ball {
     private double attachOffsetX = 0;
     private double launchAngle = 90; // Góc phóng (độ), 90 = thẳng đứng lên, 0 = ngang phải, 180 = ngang trái
 
-    // Giới hạn góc để tránh bóng bay ngang
-    private static final double MIN_ANGLE = 30; // Góc phải nhất (30° từ trục Y)
-    private static final double MAX_ANGLE = 150; // Góc trái nhất (150° từ trục Y)
-    private static final double MIN_VERTICAL_SPEED = 1.5; // Tốc độ tối thiểu theo trục Y
+    private static final double MIN_ANGLE = 30;
+    private static final double MAX_ANGLE = 150;
+    private static final double MIN_VERTICAL_SPEED = 1.5;
+    private static final double MAX_SPEED = 8.0;
+    private static final double MIN_SPEED = 2.0;
 
     public Ball(Circle node) {
         this.node = node;
@@ -31,22 +32,19 @@ public class Ball {
         this.isAttached = true;
     }
 
-    /**
-     * Khởi tạo mũi tên - gọi sau khi ball đã được add vào pane
-     */
     public void initializeArrow(Pane pane) {
         this.parentPane = pane;
 
         // Tạo mũi tên chỉ hướng
         arrow = new Polygon();
         arrow.getPoints().addAll(
-                0.0, -25.0, // Đỉnh mũi tên
-                -8.0, -10.0, // Góc trái
-                -3.0, -10.0, // Cạnh trái thân
-                -3.0, 5.0, // Đáy trái
-                3.0, 5.0, // Đáy phải
-                3.0, -10.0, // Cạnh phải thân
-                8.0, -10.0 // Góc phải
+                0.0, -25.0,    // Đỉnh mũi tên
+                -8.0, -10.0,   // Góc trái
+                -3.0, -10.0,   // Cạnh trái thân
+                -3.0, 5.0,     // Đáy trái
+                3.0, 5.0,      // Đáy phải
+                3.0, -10.0,    // Cạnh phải thân
+                8.0, -10.0     // Góc phải
         );
         arrow.setFill(Color.YELLOW);
         arrow.setStroke(Color.ORANGE);
@@ -60,7 +58,7 @@ public class Ball {
         // Thêm arrow vào pane
         pane.getChildren().add(arrow);
 
-        System.out.println("✅ Arrow initialized for ball");
+        System.out.println("Arrow initialized for ball");
     }
 
     public Circle getNode() {
@@ -120,8 +118,7 @@ public class Ball {
             dy = -baseSpeed * Math.sin(angleRad); // Âm vì trục Y hướng xuống
 
             // Đảm bảo dy luôn âm (đi lên) và có tốc độ tối thiểu
-            if (dy > 0)
-                dy = -dy; // Force negative
+            if (dy > 0) dy = -dy; // Force negative
             if (Math.abs(dy) < MIN_VERTICAL_SPEED) {
                 dy = -MIN_VERTICAL_SPEED;
             }
@@ -129,7 +126,7 @@ public class Ball {
             System.out.println("   Ball launched at angle " + launchAngle + "° - dx=" +
                     String.format("%.2f", dx) + ", dy=" + String.format("%.2f", dy));
         } else {
-            System.out.println("⚠️ Ball is already flying!");
+            System.out.println("Ball is already flying!");
         }
     }
 
@@ -150,22 +147,17 @@ public class Ball {
         }
     }
 
-    /**
-     * Điều chỉnh góc phóng bóng khi đang attach
-     * 
-     * @param deltaAngle thay đổi góc (độ), dương = sang phải, âm = sang trái
-     */
     public void adjustLaunchAngle(double deltaAngle) {
-        System.out.println("🔧 adjustLaunchAngle called with delta=" + deltaAngle);
+        System.out.println("adjustLaunchAngle called with delta=" + deltaAngle);
         System.out.println("   isAttached=" + isAttached + ", arrow=" + (arrow != null ? "exists" : "NULL"));
 
         if (!isAttached) {
-            System.out.println("   ❌ Ball is not attached!");
+            System.out.println("   Ball is not attached!");
             return;
         }
 
         if (arrow == null) {
-            System.out.println("   ❌ Arrow is NULL!");
+            System.out.println("   Arrow is NULL!");
             return;
         }
 
@@ -173,30 +165,22 @@ public class Ball {
         launchAngle -= deltaAngle;
 
         // Giới hạn góc từ 30° đến 150°
-        if (launchAngle < MIN_ANGLE)
-            launchAngle = MIN_ANGLE;
-        if (launchAngle > MAX_ANGLE)
-            launchAngle = MAX_ANGLE;
+        if (launchAngle < MIN_ANGLE) launchAngle = MIN_ANGLE;
+        if (launchAngle > MAX_ANGLE) launchAngle = MAX_ANGLE;
 
-        System.out.println("   Old angle: " + String.format("%.0f", oldAngle) + "° → New angle: "
-                + String.format("%.0f", launchAngle) + "°");
+        System.out.println("   Old angle: " + String.format("%.0f", oldAngle) + "° → New angle: " + String.format("%.0f", launchAngle) + "°");
 
         // Update arrow rotation
         updateArrowRotation();
     }
 
-    /**
-     * Đặt góc phóng trực tiếp
-     */
     public void setLaunchAngle(double angle) {
         if (isAttached) {
             launchAngle = angle;
 
             // Giới hạn góc
-            if (launchAngle < MIN_ANGLE)
-                launchAngle = MIN_ANGLE;
-            if (launchAngle > MAX_ANGLE)
-                launchAngle = MAX_ANGLE;
+            if (launchAngle < MIN_ANGLE) launchAngle = MIN_ANGLE;
+            if (launchAngle > MAX_ANGLE) launchAngle = MAX_ANGLE;
 
             updateArrowRotation();
         }
@@ -206,11 +190,6 @@ public class Ball {
         return launchAngle;
     }
 
-    /**
-     * Cập nhật hướng của mũi tên theo góc phóng
-     * Mũi tên mặc định hướng lên (90°)
-     * JavaFX rotation: 0° = phải, 90° = xuống, -90° = lên, 180° = trái
-     */
     private void updateArrowRotation() {
         if (arrow != null && arrow.isVisible()) {
             // launchAngle: 90° = lên, 0° = phải, 180° = trái
@@ -219,8 +198,7 @@ public class Ball {
             double rotation = -(launchAngle - 90);
             arrow.setRotate(rotation);
 
-            System.out.println("   Arrow rotated to " + String.format("%.0f", rotation) + "° (launch angle: "
-                    + String.format("%.0f", launchAngle) + "°)");
+            System.out.println("   Arrow rotated to " + String.format("%.0f", rotation) + "° (launch angle: " + String.format("%.0f", launchAngle) + "°)");
         }
     }
 
@@ -254,13 +232,10 @@ public class Ball {
         }
     }
 
-    /**
-     * Đảm bảo bóng luôn có tốc độ dọc tối thiểu để tránh bay ngang
-     */
     private void ensureMinimumVerticalSpeed() {
         if (Math.abs(dy) < MIN_VERTICAL_SPEED) {
             dy = dy < 0 ? -MIN_VERTICAL_SPEED : MIN_VERTICAL_SPEED;
-            System.out.println("⚠️ Vertical speed adjusted to minimum: " + dy);
+            System.out.println("Vertical speed adjusted to minimum: " + dy);
         }
     }
 
@@ -274,22 +249,15 @@ public class Ball {
     public void bounceX() {
         if (!isAttached) {
             dx = -dx;
-            ensureMinimumVerticalSpeed();
         }
     }
 
     public void bounceY() {
         if (!isAttached) {
             dy = -dy;
-            ensureMinimumVerticalSpeed();
         }
     }
 
-    /**
-     * Bounce với góc dựa trên vị trí va chạm (Arkanoid style)
-     * 
-     * @param hitPosition vị trí va chạm từ 0.0 (trái) đến 1.0 (phải)
-     */
     public void bounceWithAngle(double hitPosition) {
         if (!isAttached) {
             // Tính góc dựa trên vị trí va chạm
@@ -305,15 +273,15 @@ public class Ball {
             // Đảm bảo tốc độ dọc tối thiểu
             ensureMinimumVerticalSpeed();
 
-            System.out.println("🎯 Bounced at position " + String.format("%.2f", hitPosition) +
-                    " → angle " + String.format("%.1f", angle) + "°" +
-                    " → dx=" + String.format("%.2f", dx) +
+            System.out.println("Bounced at position " + String.format("%.2f", hitPosition) +
+                    " -> angle " + String.format("%.1f", angle) + " deg" +
+                    " -> dx=" + String.format("%.2f", dx) +
                     ", dy=" + String.format("%.2f", dy));
         }
     }
 
     public void reset(double paddleX, double paddleWidth, double paddleY) {
-        System.out.println("🔄 Resetting ball to attached state...");
+        System.out.println("Resetting ball to attached state...");
 
         isAttached = true;
         attachOffsetX = 0;
@@ -337,7 +305,7 @@ public class Ball {
             updateArrowRotation();
             System.out.println("   Arrow shown and positioned at (" + ballX + ", " + ballY + ")");
         } else {
-            System.out.println("   ⚠️ Arrow is null!");
+            System.out.println("   Arrow is null!");
         }
 
         System.out.println("   Ball reset to (" +
@@ -374,12 +342,73 @@ public class Ball {
     }
 
     private double clamp(double v, double minVal, double maxVal, double minAbs) {
-        if (v > maxVal)
-            v = maxVal;
-        if (v < minVal)
-            v = minVal;
-        if (Math.abs(v) < minAbs)
-            v = (v < 0 ? -minAbs : minAbs);
+        if (v > maxVal) v = maxVal;
+        if (v < minVal) v = minVal;
+        if (Math.abs(v) < minAbs) v = (v < 0 ? -minAbs : minAbs);
         return v;
+    }
+
+    public void limitSpeed() {
+        if (!isAttached) {
+            double speed = Math.sqrt(dx * dx + dy * dy);
+            if (speed > MAX_SPEED) {
+                double f = MAX_SPEED / speed;
+                dx *= f;
+                dy *= f;
+            } else if (speed < MIN_SPEED) {
+                double f = MIN_SPEED / speed;
+                dx *= f;
+                dy *= f;
+            }
+        }
+    }
+
+    public void moveWithCCD() {
+        if (!isAttached) {
+            double dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 5) {
+                node.setCenterX(node.getCenterX() + dx);
+                node.setCenterY(node.getCenterY() + dy);
+            } else {
+                int steps = (int) Math.ceil(dist / 3);
+                steps = Math.min(steps, 5);
+                double sx = dx / steps;
+                double sy = dy / steps;
+                for (int i = 0; i < steps; i++) {
+                    node.setCenterX(node.getCenterX() + sx);
+                    node.setCenterY(node.getCenterY() + sy);
+                }
+            }
+        }
+    }
+
+    public void normalizeAngle() {
+        if (!isAttached) {
+            double angle = Math.toDegrees(Math.atan2(-dy, dx));
+            if (angle < 0) angle += 360;
+            
+            boolean fix = false;
+            if (angle < MIN_ANGLE && angle > 0) {
+                angle = MIN_ANGLE;
+                fix = true;
+            } else if (angle > (180 - MIN_ANGLE) && angle < 180) {
+                angle = 180 - MIN_ANGLE;
+                fix = true;
+            } else if (angle > 180 && angle < (180 + MIN_ANGLE)) {
+                angle = 180 + MIN_ANGLE;
+                fix = true;
+            } else if (angle > (360 - MIN_ANGLE)) {
+                angle = 360 - MIN_ANGLE;
+                fix = true;
+            }
+            
+            if (fix) {
+                double speed = Math.sqrt(dx * dx + dy * dy);
+                double rad = Math.toRadians(angle);
+                dx = speed * Math.cos(rad);
+                dy = -speed * Math.sin(rad);
+                ensureMinimumVerticalSpeed();
+            }
+        }
     }
 }
