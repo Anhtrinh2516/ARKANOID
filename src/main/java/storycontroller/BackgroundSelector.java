@@ -1,4 +1,4 @@
-package utils;
+package storycontroller;
 
 public class BackgroundSelector {
     private static final String FALLBACK_IMAGE = "/images/bg-retrospace.png";
