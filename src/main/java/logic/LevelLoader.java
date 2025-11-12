@@ -58,6 +58,10 @@ public class LevelLoader {
     }
 
     public static List<Brick> loadLevelFromFile(int levelIndex, double paneWidth) {
+        return loadLevelFromFile(levelIndex, paneWidth, 0);
+    }
+
+    public static List<Brick> loadLevelFromFile(int levelIndex, double paneWidth, int difficultyBonus) {
         recalculateBrickWidth(paneWidth);
         
         String filename = "/levels/level" + levelIndex + ".txt";
@@ -115,6 +119,12 @@ public class LevelLoader {
                         default -> {
                             continue;
                         }
+                    }
+                    
+                    // Gạch cứng hơn theo difficulty cho classic mode
+                    if (!indestructible && difficultyBonus > 0) {
+                        hits += difficultyBonus;
+                        score += difficultyBonus * 50;
                     }
                     
                     // Tạo gạch
