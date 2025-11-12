@@ -13,7 +13,6 @@ import java.util.function.IntConsumer;
 public class GameEngine {
 
     private static final double HUD_HEIGHT = 20.0;
-    private static final int LEVEL_COMPLETE_DELAY = 1000;
     private static final double GAME_AREA_WIDTH = 888.0; 
     private static final double GAME_AREA_HEIGHT = 708.0; 
 
@@ -32,7 +31,6 @@ public class GameEngine {
     private int lives = 3;
     private int level = 1;
     private boolean levelCompleting = false;
-    private long levelCompleteTime = 0;
     private boolean isGameOver = false;
 
     private double originalPaddleWidth = 0;
@@ -40,15 +38,18 @@ public class GameEngine {
     private IntConsumer scoreCb;
     private IntConsumer livesCb;
     private IntConsumer levelCb;
+    private Consumer<Integer> levelCompleteCb;
 
     public GameEngine(AnchorPane pane, Rectangle paddleNode, Circle ballNode,
-                      IntConsumer scoreCb, IntConsumer livesCb, IntConsumer levelCb) {
+                      IntConsumer scoreCb, IntConsumer livesCb, IntConsumer levelCb,
+                      Consumer<Integer> levelCompleteCb) { 
         this.pane = pane;
         this.paddle = new Paddle(paddleNode);
         this.ball = new Ball(ballNode);
         this.scoreCb = scoreCb;
         this.livesCb = livesCb;
         this.levelCb = levelCb;
+        this.levelCompleteCb = levelCompleteCb; 
 
         this.originalPaddleWidth = paddleNode.getWidth();
 
@@ -130,9 +131,6 @@ public class GameEngine {
     }
 
     if (levelCompleting) {
-        if (System.currentTimeMillis() - levelCompleteTime >= LEVEL_COMPLETE_DELAY) {
-            loadLevel(level + 1);
-        }
         return;
     }
 
@@ -188,11 +186,17 @@ public class GameEngine {
     updateActivePowerUps();
 
     if (allBreakableDestroyed()) {
-        levelCompleting = true;
-        levelCompleteTime = System.currentTimeMillis();
-        score += 500;
-        scoreCb.accept(score);
-        GameState.INSTANCE.addCoins(2);
+        if (!levelCompleting) { 
+                levelCompleting = true; 
+                score += 500;
+                scoreCb.accept(score);
+                GameState.INSTANCE.addCoins(2);
+
+                if (levelCompleteCb != null) {
+                    final int completedLevel = this.level;
+                    Platform.runLater(() -> levelCompleteCb.accept(completedLevel));
+                }
+            }
     }
     }
 

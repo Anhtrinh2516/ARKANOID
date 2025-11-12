@@ -6,6 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="d14092cf-fefb-46f5-918a-92817d202965" name="Changes" comment="Them mui ten dieu chinh hương bong">
       <changelist_data name="Trinh Tuan Anh" email="24020032@vnu.edu.vn" automatic="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/levels/level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/levels/level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/SelectEventController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SelectEventController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/SelectModeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/SelectModeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/core/GameController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/GameController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/core/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/GameController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/SelectMode.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/SelectMode.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/GameEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/GameEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logic/LevelLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/logic/LevelLoader.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

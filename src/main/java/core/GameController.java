@@ -4,9 +4,13 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -15,27 +19,42 @@ import logic.*;
 import controller.GameState;
 import controller.GameStateManager;
 import controller.SkinManager;
+import storycontroller.StorySceneController;
 
 import java.util.*;
 
 public class GameController {
 
-    @FXML private AnchorPane anchorPane;
-    @FXML private Rectangle paddle;
-    @FXML private Circle ball;
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private Rectangle paddle;
+    @FXML
+    private Circle ball;
 
-    @FXML private Label scoreLabel;
-    @FXML private Label livesLabel;
-    @FXML private Label levelLabel;
-    @FXML private Label hintLabel;
-    @FXML private Label coinsLabel;
-    @FXML private Label powerUpsLabel;
-    @FXML private Button backButton;
+    @FXML
+    private Label scoreLabel;
+    @FXML
+    private Label livesLabel;
+    @FXML
+    private Label levelLabel;
+    @FXML
+    private Label hintLabel;
+    @FXML
+    private Label coinsLabel;
+    @FXML
+    private Label powerUpsLabel;
+    @FXML
+    private Button backButton;
 
-    @FXML private Button item1Button;
-    @FXML private Button item2Button;
-    @FXML private Button item3Button;
-    @FXML private Button pauseButton;
+    @FXML
+    private Button item1Button;
+    @FXML
+    private Button item2Button;
+    @FXML
+    private Button item3Button;
+    @FXML
+    private Button pauseButton;
 
     private static final double W = 888.0;
     private static final double H = 708.0;
@@ -97,12 +116,11 @@ public class GameController {
     private void applyShop() {
         javafx.application.Platform.runLater(() -> {
             SkinManager.PaddleSkin ps = SkinManager.INSTANCE.getPaddleSkin();
-            
+
             if (ps.type == SkinManager.SkinType.EVENT && ps.imagePath != null) {
                 try {
                     javafx.scene.image.Image img = new javafx.scene.image.Image(
-                        getClass().getResourceAsStream(ps.imagePath)
-                    );
+                            getClass().getResourceAsStream(ps.imagePath));
                     paddle.setFill(new javafx.scene.paint.ImagePattern(img));
                     paddle.setStroke(javafx.scene.paint.Color.TRANSPARENT);
                     paddle.setStrokeWidth(0);
@@ -118,12 +136,11 @@ public class GameController {
             }
 
             SkinManager.BallSkin bs = SkinManager.INSTANCE.getBallSkin();
-            
+
             if (bs.type == SkinManager.SkinType.EVENT && bs.imagePath != null) {
                 try {
                     javafx.scene.image.Image img = new javafx.scene.image.Image(
-                        getClass().getResourceAsStream(bs.imagePath)
-                    );
+                            getClass().getResourceAsStream(bs.imagePath));
                     ball.setFill(new javafx.scene.paint.ImagePattern(img));
                     ball.setStroke(javafx.scene.paint.Color.TRANSPARENT);
                     ball.setStrokeWidth(0);
@@ -243,7 +260,8 @@ public class GameController {
     }
 
     private void useItem(int n) {
-        if (paused) return;
+        if (paused)
+            return;
 
         switch (n) {
             case 1 -> {
@@ -257,12 +275,14 @@ public class GameController {
                     return;
                 }
 
-                if (t1 != null) t1.stop();
+                if (t1 != null)
+                    t1.stop();
 
                 double w = paddle.getWidth();
                 paddle.setWidth(w + 50);
 
-                if (hintLabel != null) hintLabel.setText("Wide Paddle activated!");
+                if (hintLabel != null)
+                    hintLabel.setText("Wide Paddle activated!");
 
                 t1 = new Timeline(new KeyFrame(Duration.seconds(10), e -> {
                     paddle.setWidth(w);
@@ -292,7 +312,7 @@ public class GameController {
 
                 lives++;
                 engine.restoreGameState(score, lives);
-                
+
                 if (livesLabel != null) {
                     livesLabel.setText(String.valueOf(lives));
                 }
@@ -317,14 +337,16 @@ public class GameController {
                     return;
                 }
 
-                if (t3 != null) t3.stop();
+                if (t3 != null)
+                    t3.stop();
 
                 double dx = engine.getBall().getDx();
                 double dy = engine.getBall().getDy();
                 engine.getBall().setDx(dx * 0.6);
                 engine.getBall().setDy(dy * 0.6);
 
-                if (hintLabel != null) hintLabel.setText("Slow Ball activated!");
+                if (hintLabel != null)
+                    hintLabel.setText("Slow Ball activated!");
 
                 t3 = new Timeline(new KeyFrame(Duration.seconds(10), e -> {
                     if (Math.signum(engine.getBall().getDx()) == Math.signum(dx)) {
@@ -369,20 +391,26 @@ public class GameController {
         engine = new GameEngine(anchorPane, paddle, ball,
                 s -> {
                     score = s;
-                    if (scoreLabel != null) scoreLabel.setText(String.valueOf(s));
+                    if (scoreLabel != null)
+                        scoreLabel.setText(String.valueOf(s));
                 },
                 l -> {
                     lives = l;
-                    if (livesLabel != null) livesLabel.setText(String.valueOf(l));
+                    if (livesLabel != null)
+                        livesLabel.setText(String.valueOf(l));
                 },
                 lv -> {
                     lvl = lv;
-                    if (levelLabel != null) levelLabel.setText(String.valueOf(lv));
-                }
-        );
+                    if (levelLabel != null)
+                        levelLabel.setText(String.valueOf(lv));
+                },
+                completedLevel -> {
+                    handleLevelComplete(completedLevel);
+                });
 
         engine.setPowerUpUpdateCallback(txt -> {
-            if (powerUpsLabel != null) powerUpsLabel.setText(txt);
+            if (powerUpsLabel != null)
+                powerUpsLabel.setText(txt);
         });
 
         engine.loadLevel(1);
@@ -390,7 +418,8 @@ public class GameController {
         applyShop();
 
         int bonus = GameState.INSTANCE.getPaddleWidthBonus();
-        if (bonus > 0) paddle.setWidth(100 + bonus);
+        if (bonus > 0)
+            paddle.setWidth(100 + bonus);
 
         updateCoins();
         updateItems();
@@ -398,7 +427,8 @@ public class GameController {
         if (backButton != null) {
             backButton.setOnAction(e -> {
                 saveGame();
-                if (timer != null) timer.stop();
+                if (timer != null)
+                    timer.stop();
                 try {
                     MainApp.showMainMenu();
                 } catch (Exception ex) {
@@ -453,11 +483,9 @@ public class GameController {
                         t.play();
                     }
                 }
-            }
-            else if (e.getCode() == KeyCode.P) {
+            } else if (e.getCode() == KeyCode.P) {
                 togglePause();
-            }
-            else if (e.getCode() == KeyCode.DIGIT1 || e.getCode() == KeyCode.NUMPAD1) {
+            } else if (e.getCode() == KeyCode.DIGIT1 || e.getCode() == KeyCode.NUMPAD1) {
                 useItem(1);
             } else if (e.getCode() == KeyCode.DIGIT2 || e.getCode() == KeyCode.NUMPAD2) {
                 useItem(2);
@@ -515,11 +543,46 @@ public class GameController {
                     lastUpdate = now;
                 }
 
-                if (!paddle.isVisible()) paddle.setVisible(true);
-                if (paddle.getOpacity() < 1.0) paddle.setOpacity(1.0);
+                if (!paddle.isVisible())
+                    paddle.setVisible(true);
+                if (paddle.getOpacity() < 1.0)
+                    paddle.setOpacity(1.0);
             }
         };
         timer.start();
+    }
+
+    private void handleLevelComplete(int completedLevel) {
+        int nextLevel = completedLevel + 1;
+        showStoryScene(completedLevel);
+        startLevel(nextLevel, false);
+    }
+
+    private void showStoryScene(int levelIndex) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/StoryScene.fxml"));
+            AnchorPane storyRoot = loader.load();
+            Object storyControllerObj = loader.getController();
+
+            Stage storyStage = new Stage();
+            storyStage.initModality(Modality.APPLICATION_MODAL);
+            storyStage.initOwner(anchorPane.getScene().getWindow());
+            storyStage.setScene(new Scene(storyRoot, 1148, 708));
+            storyStage.setTitle("Story - Level " + levelIndex);
+            storyStage.setResizable(false);
+
+            if (storyControllerObj instanceof storycontroller.StorySceneController) {
+                ((storycontroller.StorySceneController) storyControllerObj).loadAndStartStory(levelIndex);
+            } else {
+                System.err.println("Không thể tìm thấy StorySceneController hoặc tên class không đúng.");
+            }
+
+            storyStage.showAndWait();
+
+        } catch (Exception e) {
+            System.err.println("GameController: Lỗi khi load StoryScene cho level " + levelIndex);
+            e.printStackTrace();
+        }
     }
 
     private void saveGame() {
@@ -532,8 +595,7 @@ public class GameController {
                     ball.getCenterY(),
                     engine.getBall().getDx(),
                     engine.getBall().getDy(),
-                    paddle.getX()
-            );
+                    paddle.getX());
         } else {
             GameStateManager.INSTANCE.clear();
         }
