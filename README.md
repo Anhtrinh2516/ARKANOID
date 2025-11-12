@@ -112,19 +112,19 @@ The game uses multiple threads to ensure smooth performance:
 ### Screenshots
 
 **Main Menu**  
-![Main Menu](src/screenshots/menu.png)
+![Main Menu](src/screenshots/menu.jpg)
 
 **Gameplay**  
-![Gameplay](src/screenshots/gameplay.png)
+![Gameplay](src/screenshots/gameplay.jpg)
 
 **Power-ups in Action**  
-![Power-ups](src/screenshots/powerups.png)
+![Power-ups](src/screenshots/powerups.jpg)
 
 **Leaderboard**  
-![Leaderboard](src/creenshots/leaderboard.png)
+![Leaderboard](src/creenshots/leaderboard.jpg)
 
 ### Video Demo
-[![Video Demo](src/screenshots/video-thumbnail.png)](src/demo/gameplay.mkv)
+[![Video Demo](src/screenshots/video-thumbnail.jpg)](src/demo/gameplay.mkv)
 
 *Full gameplay video is available in `src/demo/gameplay.mkv`*
 
