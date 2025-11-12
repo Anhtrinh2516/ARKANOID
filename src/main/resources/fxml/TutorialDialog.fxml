@@ -13,10 +13,10 @@
 
 
 <VBox alignment="TOP_CENTER" maxHeight="648.0" maxWidth="900.0" minHeight="648.0" minWidth="900.0"
-      prefHeight="648.0" prefWidth="900.0" spacing="12.0"
-      style="-fx-background-color: linear-gradient(to bottom, rgba(15, 23, 42, 0.98), rgba(10, 14, 39, 0.98)); -fx-background-radius: 20; -fx-border-width: 3; -fx-border-radius: 20; -fx-border-style: solid; -fx-border-image-source: linear-gradient(to right, #00d4ff 0%, #8b5cf6 50%, #ff00ff 100%); -fx-border-image-slice: 1;"
-      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="ui.TutorialDialogController">
+    prefHeight="648.0" prefWidth="900.0" spacing="12.0"
+    style="-fx-background-color: linear-gradient(to bottom, rgba(15, 23, 42, 0.98), rgba(10, 14, 39, 0.98)); -fx-background-radius: 20; -fx-border-width: 3; -fx-border-radius: 20; -fx-border-style: solid; -fx-border-image-source: linear-gradient(to right, #00d4ff 0%, #8b5cf6 50%, #ff00ff 100%); -fx-border-image-slice: 1;"
+    xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="ui.TutorialDialogController">
     <padding>
         <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
     </padding>
@@ -24,7 +24,7 @@
         <DropShadow blurType="GAUSSIAN" height="30.0" radius="14.5" spread="0.1" width="30.0">
             <color>
                 <Color red="0.545098066329956" green="0.3607843220233917" blue="0.9647058844566345"
-                       opacity="0.4000000059604645" />
+                    opacity="0.4000000059604645" />
             </color>
         </DropShadow>
     </effect>
@@ -47,7 +47,7 @@
         </Label>
 
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="530.0" prefHeight="530.0"
-                    style="-fx-background: transparent; -fx-background-color: transparent; -fx-border-color: transparent; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;">
+            style="-fx-background: transparent; -fx-background-color: transparent; -fx-border-color: transparent; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;">
             <content>
                 <VBox spacing="12.0" style="-fx-background-color: transparent;">
                     <padding>
@@ -56,7 +56,7 @@
                     <children>
 
                         <VBox spacing="8.0"
-                              style="-fx-background-color: rgba(30, 41, 59, 0.6); -fx-background-radius: 10; -fx-padding: 12; -fx-border-color: #475569; -fx-border-width: 1.5; -fx-border-radius: 10;">
+                            style="-fx-background-color: rgba(30, 41, 59, 0.6); -fx-background-radius: 10; -fx-padding: 12; -fx-border-color: #475569; -fx-border-width: 1.5; -fx-border-radius: 10;">
                             <children>
                                 <Label text="⌨️ CONTROLS" wrapText="true">
                                     <font>
@@ -69,15 +69,15 @@
                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                     <children>
                                         <Label minWidth="70.0"
-                                               style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
-                                               text="← / A">
+                                            style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
+                                            text="← / A">
                                             <font>
                                                 <Font name="System Bold" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.9843137264251709"
-                                                       green="0.7490196228027344"
-                                                       blue="0.1411764770746231" />
+                                                    green="0.7490196228027344"
+                                                    blue="0.1411764770746231" />
                                             </textFill>
                                         </Label>
                                         <Label text="Move paddle left" wrapText="true">
@@ -86,8 +86,8 @@
                                             </font>
                                             <textFill>
                                                 <Color red="0.800000011920929"
-                                                       green="0.8352941274642944"
-                                                       blue="0.8823529481887817" />
+                                                    green="0.8352941274642944"
+                                                    blue="0.8823529481887817" />
                                             </textFill>
                                         </Label>
                                     </children>
@@ -95,15 +95,15 @@
                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                     <children>
                                         <Label minWidth="70.0"
-                                               style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
-                                               text="→ / D">
+                                            style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
+                                            text="→ / D">
                                             <font>
                                                 <Font name="System Bold" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.9843137264251709"
-                                                       green="0.7490196228027344"
-                                                       blue="0.1411764770746231" />
+                                                    green="0.7490196228027344"
+                                                    blue="0.1411764770746231" />
                                             </textFill>
                                         </Label>
                                         <Label text="Move paddle right" wrapText="true">
@@ -112,8 +112,8 @@
                                             </font>
                                             <textFill>
                                                 <Color red="0.800000011920929"
-                                                       green="0.8352941274642944"
-                                                       blue="0.8823529481887817" />
+                                                    green="0.8352941274642944"
+                                                    blue="0.8823529481887817" />
                                             </textFill>
                                         </Label>
                                     </children>
@@ -121,15 +121,15 @@
                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                     <children>
                                         <Label minWidth="70.0"
-                                               style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
-                                               text="SPACE">
+                                            style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
+                                            text="SPACE">
                                             <font>
                                                 <Font name="System Bold" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.9843137264251709"
-                                                       green="0.7490196228027344"
-                                                       blue="0.1411764770746231" />
+                                                    green="0.7490196228027344"
+                                                    blue="0.1411764770746231" />
                                             </textFill>
                                         </Label>
                                         <Label text="Launch ball" wrapText="true">
@@ -138,25 +138,25 @@
                                             </font>
                                             <textFill>
                                                 <Color red="0.800000011920929"
-                                                       green="0.8352941274642944"
-                                                       blue="0.8823529481887817" />
+                                                    green="0.8352941274642944"
+                                                    blue="0.8823529481887817" />
                                             </textFill>
                                         </Label>
                                     </children>
                                 </HBox>
-
+                                
                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                     <children>
                                         <Label minWidth="70.0"
-                                               style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
-                                               text="P">
+                                            style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
+                                            text="P">
                                             <font>
                                                 <Font name="System Bold" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.9843137264251709"
-                                                       green="0.7490196228027344"
-                                                       blue="0.1411764770746231" />
+                                                    green="0.7490196228027344"
+                                                    blue="0.1411764770746231" />
                                             </textFill>
                                         </Label>
                                         <Label text="Pause" wrapText="true">
@@ -165,8 +165,8 @@
                                             </font>
                                             <textFill>
                                                 <Color red="0.800000011920929"
-                                                       green="0.8352941274642944"
-                                                       blue="0.8823529481887817" />
+                                                    green="0.8352941274642944"
+                                                    blue="0.8823529481887817" />
                                             </textFill>
                                         </Label>
                                     </children>
@@ -175,15 +175,15 @@
                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                     <children>
                                         <Label minWidth="70.0"
-                                               style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
-                                               text="Q">
+                                            style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
+                                            text="Q">
                                             <font>
                                                 <Font name="System Bold" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.9843137264251709"
-                                                       green="0.7490196228027344"
-                                                       blue="0.1411764770746231" />
+                                                    green="0.7490196228027344"
+                                                    blue="0.1411764770746231" />
                                             </textFill>
                                         </Label>
                                         <Label text="Rotate arrow right" wrapText="true">
@@ -192,8 +192,8 @@
                                             </font>
                                             <textFill>
                                                 <Color red="0.800000011920929"
-                                                       green="0.8352941274642944"
-                                                       blue="0.8823529481887817" />
+                                                    green="0.8352941274642944"
+                                                    blue="0.8823529481887817" />
                                             </textFill>
                                         </Label>
                                     </children>
@@ -202,15 +202,15 @@
                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                     <children>
                                         <Label minWidth="70.0"
-                                               style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
-                                               text="E">
+                                            style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
+                                            text="E">
                                             <font>
                                                 <Font name="System Bold" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.9843137264251709"
-                                                       green="0.7490196228027344"
-                                                       blue="0.1411764770746231" />
+                                                    green="0.7490196228027344"
+                                                    blue="0.1411764770746231" />
                                             </textFill>
                                         </Label>
                                         <Label text="Rotate arrow left" wrapText="true">
@@ -219,20 +219,20 @@
                                             </font>
                                             <textFill>
                                                 <Color red="0.800000011920929"
-                                                       green="0.8352941274642944"
-                                                       blue="0.8823529481887817" />
+                                                    green="0.8352941274642944"
+                                                    blue="0.8823529481887817" />
                                             </textFill>
                                         </Label>
                                     </children>
                                 </HBox>
-
+                                
                             </children>
                         </VBox>
 
                         <Region maxHeight="8.0" minHeight="8.0" prefHeight="8.0" />
 
                         <VBox spacing="8.0"
-                              style="-fx-background-color: rgba(30, 41, 59, 0.6); -fx-background-radius: 10; -fx-padding: 12; -fx-border-color: #475569; -fx-border-width: 1.5; -fx-border-radius: 10;">
+                            style="-fx-background-color: rgba(30, 41, 59, 0.6); -fx-background-radius: 10; -fx-padding: 12; -fx-border-color: #475569; -fx-border-width: 1.5; -fx-border-radius: 10;">
                             <children>
                                 <Label text="🎁 CONSUMABLE ITEMS (Buy from Shop)" wrapText="true">
                                     <font>
@@ -245,26 +245,26 @@
                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                     <children>
                                         <Label minWidth="70.0"
-                                               style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
-                                               text="Press 1">
+                                            style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
+                                            text="Press 1">
                                             <font>
                                                 <Font name="System Bold" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.9843137264251709"
-                                                       green="0.7490196228027344"
-                                                       blue="0.1411764770746231" />
+                                                    green="0.7490196228027344"
+                                                    blue="0.1411764770746231" />
                                             </textFill>
                                         </Label>
                                         <Label text="🛸 Wide Paddle - Expand paddle for 10s"
-                                               wrapText="true">
+                                            wrapText="true">
                                             <font>
                                                 <Font name="System" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.800000011920929"
-                                                       green="0.8352941274642944"
-                                                       blue="0.8823529481887817" />
+                                                    green="0.8352941274642944"
+                                                    blue="0.8823529481887817" />
                                             </textFill>
                                         </Label>
                                     </children>
@@ -272,26 +272,26 @@
                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                     <children>
                                         <Label minWidth="70.0"
-                                               style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
-                                               text="Press 2">
+                                            style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
+                                            text="Press 2">
                                             <font>
                                                 <Font name="System Bold" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.9843137264251709"
-                                                       green="0.7490196228027344"
-                                                       blue="0.1411764770746231" />
+                                                    green="0.7490196228027344"
+                                                    blue="0.1411764770746231" />
                                             </textFill>
                                         </Label>
                                         <Label text="💖 Extra Life - Gain +1 life instantly"
-                                               wrapText="true">
+                                            wrapText="true">
                                             <font>
                                                 <Font name="System" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.800000011920929"
-                                                       green="0.8352941274642944"
-                                                       blue="0.8823529481887817" />
+                                                    green="0.8352941274642944"
+                                                    blue="0.8823529481887817" />
                                             </textFill>
                                         </Label>
                                     </children>
@@ -299,26 +299,26 @@
                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                     <children>
                                         <Label minWidth="70.0"
-                                               style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
-                                               text="Press 3">
+                                            style="-fx-background-color: rgba(251, 191, 36, 0.25); -fx-padding: 5 10; -fx-background-radius: 5; -fx-border-color: #fbbf24; -fx-border-width: 1.5; -fx-border-radius: 5;"
+                                            text="Press 3">
                                             <font>
                                                 <Font name="System Bold" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.9843137264251709"
-                                                       green="0.7490196228027344"
-                                                       blue="0.1411764770746231" />
+                                                    green="0.7490196228027344"
+                                                    blue="0.1411764770746231" />
                                             </textFill>
                                         </Label>
                                         <Label text="🐌 Slow Ball - Slow ball speed for 10s"
-                                               wrapText="true">
+                                            wrapText="true">
                                             <font>
                                                 <Font name="System" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.800000011920929"
-                                                       green="0.8352941274642944"
-                                                       blue="0.8823529481887817" />
+                                                    green="0.8352941274642944"
+                                                    blue="0.8823529481887817" />
                                             </textFill>
                                         </Label>
                                     </children>
@@ -329,7 +329,7 @@
                         <Region maxHeight="8.0" minHeight="8.0" prefHeight="8.0" />
 
                         <VBox spacing="8.0"
-                              style="-fx-background-color: rgba(30, 41, 59, 0.6); -fx-background-radius: 10; -fx-padding: 12; -fx-border-color: #475569; -fx-border-width: 1.5; -fx-border-radius: 10;">
+                            style="-fx-background-color: rgba(30, 41, 59, 0.6); -fx-background-radius: 10; -fx-padding: 12; -fx-border-color: #475569; -fx-border-width: 1.5; -fx-border-radius: 10;">
                             <children>
                                 <Label text="⚡ POWER-UPS (Drop from bricks)" wrapText="true">
                                     <font>
@@ -352,8 +352,8 @@
                                             </font>
                                             <textFill>
                                                 <Color red="0.800000011920929"
-                                                       green="0.8352941274642944"
-                                                       blue="0.8823529481887817" />
+                                                    green="0.8352941274642944"
+                                                    blue="0.8823529481887817" />
                                             </textFill>
                                         </Label>
                                     </children>
@@ -371,8 +371,8 @@
                                             </font>
                                             <textFill>
                                                 <Color red="0.800000011920929"
-                                                       green="0.8352941274642944"
-                                                       blue="0.8823529481887817" />
+                                                    green="0.8352941274642944"
+                                                    blue="0.8823529481887817" />
                                             </textFill>
                                         </Label>
                                     </children>
@@ -390,8 +390,8 @@
                                             </font>
                                             <textFill>
                                                 <Color red="0.800000011920929"
-                                                       green="0.8352941274642944"
-                                                       blue="0.8823529481887817" />
+                                                    green="0.8352941274642944"
+                                                    blue="0.8823529481887817" />
                                             </textFill>
                                         </Label>
                                     </children>
@@ -409,8 +409,8 @@
                                             </font>
                                             <textFill>
                                                 <Color red="0.800000011920929"
-                                                       green="0.8352941274642944"
-                                                       blue="0.8823529481887817" />
+                                                    green="0.8352941274642944"
+                                                    blue="0.8823529481887817" />
                                             </textFill>
                                         </Label>
                                     </children>
@@ -421,7 +421,7 @@
                         <Region maxHeight="8.0" minHeight="8.0" prefHeight="8.0" />
 
                         <VBox spacing="8.0"
-                              style="-fx-background-color: rgba(30, 41, 59, 0.6); -fx-background-radius: 10; -fx-padding: 12; -fx-border-color: #475569; -fx-border-width: 1.5; -fx-border-radius: 10;">
+                            style="-fx-background-color: rgba(30, 41, 59, 0.6); -fx-background-radius: 10; -fx-padding: 12; -fx-border-color: #475569; -fx-border-width: 1.5; -fx-border-radius: 10;">
                             <children>
                                 <Label text="💡 TIPS" wrapText="true">
                                     <font>
@@ -434,15 +434,15 @@
                                 <HBox alignment="CENTER_LEFT">
                                     <children>
                                         <Label maxWidth="800.0"
-                                               text="• Break bricks to earn coins and power-ups"
-                                               wrapText="true">
+                                            text="• Break bricks to earn coins and power-ups"
+                                            wrapText="true">
                                             <font>
                                                 <Font name="System" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.5803921818733215"
-                                                       green="0.6392157077789307"
-                                                       blue="0.7215686440467834" />
+                                                    green="0.6392157077789307"
+                                                    blue="0.7215686440467834" />
                                             </textFill>
                                         </Label>
                                     </children>
@@ -450,15 +450,15 @@
                                 <HBox alignment="CENTER_LEFT">
                                     <children>
                                         <Label maxWidth="800.0"
-                                               text="• Buy items from the shop to help you in tough levels"
-                                               wrapText="true">
+                                            text="• Buy items from the shop to help you in tough levels"
+                                            wrapText="true">
                                             <font>
                                                 <Font name="System" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.5803921818733215"
-                                                       green="0.6392157077789307"
-                                                       blue="0.7215686440467834" />
+                                                    green="0.6392157077789307"
+                                                    blue="0.7215686440467834" />
                                             </textFill>
                                         </Label>
                                     </children>
@@ -466,15 +466,15 @@
                                 <HBox alignment="CENTER_LEFT">
                                     <children>
                                         <Label maxWidth="800.0"
-                                               text="• Use items strategically - they don't carry over between deaths!"
-                                               wrapText="true">
+                                            text="• Use items strategically - they don't carry over between deaths!"
+                                            wrapText="true">
                                             <font>
                                                 <Font name="System" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.5803921818733215"
-                                                       green="0.6392157077789307"
-                                                       blue="0.7215686440467834" />
+                                                    green="0.6392157077789307"
+                                                    blue="0.7215686440467834" />
                                             </textFill>
                                         </Label>
                                     </children>
@@ -482,15 +482,15 @@
                                 <HBox alignment="CENTER_LEFT">
                                     <children>
                                         <Label maxWidth="800.0"
-                                               text="• Permanent upgrades from the shop last forever"
-                                               wrapText="true">
+                                            text="• Permanent upgrades from the shop last forever"
+                                            wrapText="true">
                                             <font>
                                                 <Font name="System" size="11.0" />
                                             </font>
                                             <textFill>
                                                 <Color red="0.5803921818733215"
-                                                       green="0.6392157077789307"
-                                                       blue="0.7215686440467834" />
+                                                    green="0.6392157077789307"
+                                                    blue="0.7215686440467834" />
                                             </textFill>
                                         </Label>
                                     </children>
@@ -503,8 +503,8 @@
         </ScrollPane>
 
         <Button fx:id="closeButton" onAction="#handleClose" prefWidth="180.0"
-                style="-fx-background-color: linear-gradient(to bottom, #22c55e, #16a34a); -fx-text-fill: white; -fx-padding: 10 40; -fx-background-radius: 10; -fx-cursor: hand;"
-                text="GOT IT!">
+            style="-fx-background-color: linear-gradient(to bottom, #22c55e, #16a34a); -fx-text-fill: white; -fx-padding: 10 40; -fx-background-radius: 10; -fx-cursor: hand;"
+            text="GOT IT!">
             <font>
                 <Font name="System Bold" size="16.0" />
             </font>
@@ -512,7 +512,7 @@
                 <DropShadow radius="12.0">
                     <color>
                         <Color red="0.13333334028720856" green="0.772549033164978"
-                               blue="0.3686274588108063" opacity="0.6000000238418579" />
+                            blue="0.3686274588108063" opacity="0.6000000238418579" />
                     </color>
                 </DropShadow>
             </effect>
