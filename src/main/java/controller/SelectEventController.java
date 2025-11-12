@@ -16,6 +16,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import core.MainApp;
+import ui.ComingSoonDialog;
 
 public class SelectEventController {
 
@@ -118,31 +119,36 @@ public class SelectEventController {
         try {
             switch (num) {
                 case 1 -> {
-                    // 🌌 Universe Event
-                    System.out.println("🌌 Opening Universe event...");
+                    // Universe Event
+                    System.out.println("Opening Universe event...");
                     MainApp.showUniverse(1); // Start from level 1
                 }
                 case 2 -> {
-                    // ✨ Treasure Hunter Event
-                    System.out.println("🏴‍☠️ Opening Treasure Hunter event...");
+                    // Treasure Hunter Event
+                    System.out.println("Opening Treasure Hunter event...");
                     MainApp.showTreasureHunter(1); // Start from level 1
                 }
                 case 3 -> {
-                    // 🏰 Castle Attack Event
-                    System.out.println("🏰 Opening Castle Attack event...");
+                    // Castle Attack Event
+                    System.out.println("Opening Castle Attack event...");
                     MainApp.showCastle(1); // Start from level 1
                 }
                 case 4 -> {
-                    // ⚽ Penaldo Event
-                    System.out.println("⚽ Opening Penaldo event...");
+                    // Penaldo Event
+                    System.out.println("Opening Penaldo event...");
                     MainApp.showPenaldo(1); // Start from level 1
                 }
                 case 5 -> {
-                    // 🎰 Casino - Coming soon
-                    System.out.println("🎰 Casino event - Coming soon!");
+                    // Casino - Coming soon
+                    System.out.println("Casino event - Coming soon!");
+                    Stage stage = (Stage) backButton.getScene().getWindow();
+                    ComingSoonDialog.show(stage);
                 }
                 default -> {
+                    // Star Wars
                     System.out.println("Event coming soon!");
+                    Stage stage = (Stage) backButton.getScene().getWindow();
+                    ComingSoonDialog.show(stage);
                 }
             }
         } catch (Exception e) {
@@ -158,7 +164,6 @@ public class SelectEventController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SelectMode.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) backButton.getScene().getWindow();
-            // Preserve the current window size by reusing the existing Scene root if possible.
             if (stage.getScene() != null) {
                 stage.getScene().setRoot(root);
             } else {
